@@ -3326,6 +3326,262 @@ document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target&&e.
 ["podcred-share-a-credit","podcred-request-a-credit"].forEach(function(id){WHO[id]=null;VOK.push(id)});
 var _v6Panel=panel;
 panel=function(){_v6Panel();var p=document.getElementById("ptp");if(!p)return;p.insertAdjacentHTML("beforeend",'<div class="bar"><a class="btn o sm" '+A("pc6ShareStart","longtable")+'>Share a credit</a><a class="btn o sm" '+A("pc6ReqStart","longtable")+'>Request a credit</a><a class="btn o sm" '+G("show-admin-home")+'>Admin panel</a></div>')};
+/* KAR-139 additions start */
+/* ================================================================
+   KAR-139, booking plus release as one flow (prototype pass).
+   Governed by docs/KAR-139-BOOKING-RELEASE-DESIGN.md. Everything below
+   is new: section 43 in the directory, its own screens, its own state
+   (S.br, S.brTpl, S.brBook). No existing screen is changed.
+   ================================================================ */
+(function(){var st=document.createElement("style");st.id="kar139";st.textContent=
+ ".brk{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin:0 0 6px}"+
+ ".brrel{border:1px solid var(--line);border-radius:8px;padding:12px 16px;background:var(--navy4);font-size:14px;line-height:1.65;color:#2a2a2a}"+
+ ".brrel p{margin:0 0 8px}.brrel p:last-child{margin:0}"+
+ ".brai{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 4px}"+
+ ".brai a{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line2);border-radius:10px;padding:12px 14px;background:#fff;color:var(--ink);font-weight:600;font-size:14px;line-height:1.35;cursor:pointer;text-decoration:none}"+
+ ".brai a .o{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink3);margin-top:1px;display:flex;align-items:center;justify-content:center;color:#fff}"+
+ ".brai a.on{border-color:var(--navy);background:var(--navy4);color:var(--navy)}.brai a.on .o{background:var(--navy);border-color:var(--navy)}"+
+ ".brai.err a{border-color:var(--red)}"+
+ ".brerr{color:var(--red);font-size:13px;margin:6px 0 0}"+
+ ".brbox{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 14px;background:#fff}"+
+ ".brbox h2{font-size:16px;color:var(--navy);margin:0 0 4px}.brbox p{margin:0 0 10px;font-size:14px;color:var(--ink2)}"+
+ ".brtime{display:flex;gap:12px;align-items:center;border-radius:10px;background:var(--navy4);padding:12px 14px;margin:0 0 14px}"+
+ ".brtime b{display:block;font-size:17px;color:var(--ink)}.brtime .small{display:block}"+
+ ".brthr{list-style:none;margin:0;padding:0}.brthr li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}.brthr li:first-child{border-top:0}"+
+ ".brthr .w{flex:none;width:96px;color:var(--ink3);font-size:13px}"+
+ ".brpick{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line2);border-radius:10px;padding:12px 14px;margin:0 0 8px;cursor:pointer;background:#fff;text-decoration:none;color:var(--ink)}"+
+ ".brpick.on{border-color:var(--navy);background:var(--navy4)}.brpick .t{font-weight:600}"+
+ ".brsug{border:1.5px dashed var(--navy);border-radius:10px;padding:14px 16px;background:var(--navy4);margin:0 0 14px}"+
+ "@media(max-width:560px){.brai{grid-template-columns:1fr}.brthr .w{width:72px}}";
+ document.head.appendChild(st)})();
+
+/* ---- data ---- */
+var BR_SHOW="longtable";
+var BR_ZONE={"Chicago, Illinois":["Chicago",0],"Houston, Texas":["Houston",0],"Seattle, Washington":["Seattle",-2],"New Orleans, Louisiana":["New Orleans",0],"Boston, Massachusetts":["Boston",1]};
+var BR_DEFAULT=[
+ "I agree to be recorded for this show.",
+ "The show may publish the episode, cut it for length, and share clips of it to tell people about it.",
+ "I may share the episode and its clips wherever I like.",
+ "Nobody is paid for this appearance unless we both wrote it down here.",
+ "This covers this one appearance and nothing else."];
+var BR_AI_TEXT="The Long Table may use an AI copy of my voice, made from this recording, in this episode and in its promotion.";
+var BR_EP={n:215,t:"Iris Novak on what we fed people who could not come home",d:"Nov 24, 2026",len:"57 min"};
+/* bookings the show already has, for the list. The live one, Iris, is S.br. */
+var BR_SAMPLES={
+ priya:{g:"priya",state:"confirmed",when:"Wed, Nov 18",ai:"yes",signed:"Nov 9, 2026",ver:1,origin:"From her pitch"},
+ grace:{g:"grace",state:"credited",when:"Tue, Oct 6",ai:"no",signed:"Sep 28, 2026",ver:1,origin:"You invited her",ep:"Episode 210"},
+ leo:{g:"leo",state:"requested",when:"Mon, Nov 30",ai:null,origin:"From his pitch"}};
+
+function brTplInit(){if(!S.brTpl)S.brTpl={cur:1,versions:[{v:1,own:0,text:BR_DEFAULT.slice(),date:"Sep 2, 2026"}],draft:null,mode:"default"};return S.brTpl}
+function brTplCur(){var t=brTplInit();return t.versions.filter(function(x){return x.v===t.cur})[0]||t.versions[0]}
+function brNew(g,name,email,origin){var p=P[g];return {g:g||"",name:name||(p?p.n:""),email:email||"",origin:origin||"show_invite",state:"requested",when:"Thu, Nov 19",ai:null,typed:"",agree:false,signedAt:"",ver:0,verText:null,note:"We would love to hear about the meals you planned for people who could not come home for dinner. Maya",
+ thread:[{w:"Nov 9",t:"The Long Table proposed Thu, Nov 19 at 2:00 PM Chicago time."}],ep:null,cancel:"",withdrawn:"",aiChanged:"",join:"open",err:{}}}
+function brS(){if(!S.br)S.br=brNew("iris","Iris Novak","iris.novak@example.com","show_invite");brTplInit();return S.br}
+function brName(b){return b.name||(P[b.g]?P[b.g].n:"Your guest")}
+function brFirst(b){return brName(b).split(" ")[0]}
+function brZone(b){var p=P[b.g];return BR_ZONE[p&&p.loc]||["your city",0]}
+function brHour(off){var h=14+off,h2=h+1;function f(x){var ap=x>=12?"PM":"AM";var y=x%12;if(y===0)y=12;return y+":00 "+ap}return f(h)+" to "+f(h2)}
+function brAv(b,s){if(b.g&&P[b.g])return av(b.g,s,0);return '<div class="av" role="img" aria-label="'+esc(brName(b))+'" style="width:'+s+'px;height:'+s+'px;font-size:'+Math.round(s*.36)+'px;background:linear-gradient(135deg,#182852,#5a6a94)">'+esc(ini(brName(b)).toUpperCase())+'</div>'}
+function brReleaseText(b){return b&&b.verText?b.verText:brTplCur().text}
+function brRelease(b){return '<div class="brrel">'+brReleaseText(b).map(function(x){return '<p>'+esc(x)+'</p>'}).join("")+'</div>'}
+function brStateWords(b){return {requested:"Waiting on "+brFirst(b),accepted:"Time agreed, release not signed yet",confirmed:"Confirmed",credited:"Episode set, credit written",declined:"Declined",cancelled:"Cancelled",lapsed:"Lapsed, no episode"}[b.state]||b.state}
+function brStateBadge(b){var k={requested:"a",accepted:"a",confirmed:"",credited:"g",declined:"n",cancelled:"n",lapsed:"n"}[b.state];return vb(brStateWords(b),k)}
+function brRelWords(b){if(b.withdrawn)return "Withdrawn "+b.withdrawn;return b.signedAt?"Signed "+b.signedAt.split(" at ")[0]:"Not signed yet"}
+function brAiWords(b){if(!b.signedAt&&!b.ai)return "Not answered yet";return b.ai==="yes"?"Yes":"No"}
+
+/* the one-page guest shell, like the PodCred share link landing: no account, no nav */
+function brShell(inner){return auth(inner,{w:"w",below:'<span class="small muted">This page is private to you and The Long Table.</span>'})}
+function brHead(b,kicker,h){var s=SH[BR_SHOW];return '<div style="display:flex;gap:12px;align-items:center;margin:0 0 14px">'+art(BR_SHOW,56,0)+av(s.host,56,0)+'<div style="min-width:0"><div class="brk">'+kicker+'</div><div class="small muted">'+P[s.host].n+', the host of '+s.t+'</div></div></div><h1>'+h+'</h1>'}
+function brTime(b,lead){var z=brZone(b),same=z[1]===0;return '<div class="brtime">'+ic("cal",22)+'<div><span class="small muted">'+(lead||"The recording")+'</span><b>'+b.when+', '+brHour(z[1])+'</b><span class="small muted">Your time in '+z[0]+(same?", the same as the show in Chicago":". It is "+brHour(0)+" for the show in Chicago")+' · 60 minutes · remote</span></div></div>'}
+
+/* ---- the guest side, no account ---- */
+function brAiBlock(b){var e=b.err||{};function o(k,l){return '<a class="'+(b.ai===k?"on":"")+'" '+A("brAi",k)+' role="radio" aria-checked="'+(b.ai===k)+'"><span class="o">'+(b.ai===k?ic("check",12):"")+'</span><span>'+l+'</span></a>'}
+ return '<div class="brbox"><div class="brk">A separate question</div><h2>Your voice, and AI</h2><p>Some shows use AI to read an ad or fix a stumbled word in a guest\'s voice. Whether The Long Table may do that with yours is your call, and only yours. It is not part of the release above.</p><p class="small" style="color:var(--ink)">'+esc(BR_AI_TEXT)+'</p><div class="brai'+(e.ai?" err":"")+'" role="radiogroup" aria-label="AI copy of your voice">'+o("yes","Yes, the show may use an AI copy of my voice")+o("no","No")+'</div>'+(e.ai?'<div class="brerr">Choose Yes or No. Either answer is fine, and No never holds up your booking.</div>':'<div class="small muted">No is a complete answer. Your booking goes ahead either way, and you can change a Yes to a No later.</div>')+'</div>'}
+function brSignBlock(b){var e=b.err||{};return '<div class="brbox"><div class="brk">Sign</div><h2>Sign with your name</h2><p>Type your full name and tick the box. That is your signature. No password, no account.</p>'+
+ fld("Your full name",'<input class="inp" id="brName" value="'+esc(b.typed||"")+'" placeholder="'+esc(brName(b))+'" autocomplete="name" aria-label="Your full name">',{err:e.name?"Type your full name to sign.":""})+
+ '<label class="ck"><input type="checkbox" id="brAgree"'+(b.agree?" checked":"")+'><span>I agree to this release, and I confirm I am 18 or older.'+(e.agree?'<span class="brerr" style="display:block">Tick the box to sign.</span>':"")+'</span></label></div>'}
+R["br-guest-booking-page"]=function(){var b=brS();PAGE_TITLE="The Long Table would love to have you | PodSubs";
+ if(b.state==="declined")return R["br-guest-declined"]();
+ if(b.state==="confirmed"||b.state==="credited")return R["br-guest-signed"]();
+ if(b.state==="cancelled")return brShell(brHead(b,"Booking","This recording is off")+'<p class="lead">The Long Table cancelled it. Their reason: '+esc(b.cancel||"Our schedule changed.")+'</p><p class="small muted">Your signed release stays on record, marked for a booking that was cancelled. It grants nothing.</p>');
+ var acc=b.state==="accepted";
+ var top=acc?bn("ok","You said yes to this time"+(b.thread[b.thread.length-1]?" on "+b.thread[b.thread.length-1].w:"")+". One step left: the release."):"";
+ return brShell(brHead(b,acc?"Your booking":"An invitation for you",acc?"Sign your release for The Long Table":"The Long Table would love to have you on the show")+
+  (acc?"":'<p class="lead">'+P.maya.n+' is asking you to be a guest. Read it all here, no account needed. Then say yes, suggest another time, or say no.</p>')+top+
+  (b.proposed&&!acc?bn("","You suggested "+esc(b.proposed)+". The Long Table has not answered yet. You can still say yes to their time below."):"")+
+  brTime(b,acc?"The time you agreed":"The proposed recording")+
+  (b.note&&!acc?'<div class="brbox" style="background:var(--navy4)"><div class="brk">A note from Maya</div><p style="margin:0;color:var(--ink)">'+esc(b.note)+'</p></div>':"")+
+  '<div class="brk" style="margin-top:4px">The release</div><p class="small muted" style="margin:0 0 8px">One page. Saying yes to the time and signing this go together.</p>'+brRelease(b)+'<div style="height:14px"></div>'+
+  brAiBlock(b)+brSignBlock(b)+
+  btn(ic("check",16)+(acc?"Sign":"Accept and sign"),A("brSign"),"w lg")+
+  (acc?"":'<div class="bar" style="margin-top:12px;justify-content:center">'+btn("Suggest another time",G("br-guest-propose-time"),"o")+btn("Say no",G("br-guest-declined","decline"),"gr")+'</div><div style="text-align:center;margin-top:12px"><a class="lnk small" '+A("brAcceptOnly")+'>Say yes to the time now, and sign later</a></div>')+
+  '<div class="small muted" style="text-align:center;margin-top:16px;line-height:1.6">This link was sent to '+esc(brName(b))+'. It is just for you and this one booking, and it works until Nov 23. <a class="lnk" '+G("br-guest-declined","notme")+'>This is not me</a></div>')};
+R["br-guest-sign-later"]=function(){var b=brS();if(b.state!=="accepted")return R["br-guest-booking-page"]();
+ PAGE_TITLE="You said yes | PodSubs";
+ return brShell(brHead(b,"Your booking","You are on, "+brFirst(b))+'<p class="lead">You said yes to the time. The Long Table knows. Your release is waiting whenever you are ready. Come back with the same link.</p>'+brTime(b,"The time you agreed")+
+  bn("","The booking is confirmed once you sign. Nothing is published, and nothing is promised, before that.")+
+  btn("Sign the release now",G("br-guest-booking-page"),"w lg")+'<div style="text-align:center;margin-top:12px" class="small muted">Your link works until Nov 23.</div>')};
+R["br-guest-signed"]=function(){var b=brS();if(!b.signedAt||b.state==="accepted"||b.state==="requested")return R["br-guest-booking-page"]();
+ PAGE_TITLE="Signed, thank you | PodSubs";
+ var offer=b.join==="open"?'<div class="brbox" style="background:var(--navy4)"><h2>Keep your bookings and your credit in one place</h2><p>When the episode is out, it becomes a credit on your profile, '+brFirst(b)+'. Join PodSubs with this email and it is all there, together.</p><div class="bar">'+btn("Join PodSubs",A("brJoinYes",null,"guest-signup-start"))+btn("Not now",A("brJoinNo"),"gr")+'</div></div>':
+  b.join==="dismissed"?'<div class="small muted" style="margin:0 0 12px">No problem. Nothing changes. If you ever join with this email, this booking comes with you.</div>':"";
+ return brShell(brHead(b,"Signed","Thank you, "+brFirst(b)+". You are booked.")+
+  '<p class="lead">The Long Table has your yes and your signed release. A copy is on its way to '+esc(b.email||"your email")+', with a link to download it any time.</p>'+brTime(b,"Your recording")+
+  '<div class="brbox"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="vb g">'+ic("check",13)+'Release signed '+esc(b.signedAt)+'</span><span class="vb n">AI voice: '+brAiWords(b)+'</span></div><div class="bar" style="margin-top:12px">'+btn("See your signed release",G("br-release-record","guest"),"o sm")+btn(ic("down",14)+"Download",A("tg"),"o sm")+'</div></div>'+
+  offer+'<div class="small muted" style="line-height:1.6">Changed your mind about the AI voice question? You can turn a Yes into a No from your signed release, at any time.</div>')};
+R["br-guest-propose-time"]=function(){var b=brS();PAGE_TITLE="Suggest another time | PodSubs";
+ if(b.proposed&&b.state==="requested")return brShell(brHead(b,"Another time","Sent. Thank you, "+brFirst(b)+".")+'<p class="lead">You suggested '+esc(b.proposed)+', your time in '+brZone(b)[0]+'. The Long Table will answer by email. This link still works for everything else.</p>'+btn("Back to the invitation",G("br-guest-booking-page"),"o w lg"));
+ return brShell(back("Back to the invitation","br-guest-booking-page")+brHead(b,"Another time","When works for you?")+'<p class="lead">Pick a time in your own time zone. The Long Table sees it and answers. The time they asked for stays held until then.</p>'+
+  fld("Day",sel(["Fri, Nov 20","Mon, Nov 23","Tue, Nov 24"],"Mon, Nov 23"))+fld("Time, "+brZone(b)[0]+" time",sel(["10:00 AM","1:00 PM","3:00 PM"],"1:00 PM"))+fld("A note for Maya, if you like",ta("","Thursday is my clinic day. Monday afternoon is easy.",70))+
+  btn("Send this time",A("brPropose"),"w lg"))};
+R["br-guest-declined"]=function(a){var b=brS();var notme=a==="notme"||b.notme;PAGE_TITLE=(notme?"Thank you for telling us":"You said no")+" | PodSubs";
+ if(b.state!=="declined")return brShell(back("Back to the invitation","br-guest-booking-page")+brHead(b,notme?"Wrong person":"Say no",notme?"Not you? Thank you for telling us.":"Say no to this booking")+
+  '<p class="lead">'+(notme?"We will tell The Long Table this email reached the wrong person. You do not need an account, and you do not need to explain.":"That is completely fine. The Long Table will know. A note is optional.")+'</p>'+(notme?"":fld("A note for Maya, if you like",ta("","",70)))+
+  btn(notme?"Tell the show":"Say no",A("brDecline",notme?"notme":"decline"),"w lg"));
+ return brShell(brHead(b,notme?"Wrong person":"Declined",notme?"Thank you. The show knows.":"You said no. That is okay.")+'<p class="lead">'+(notme?"The Long Table has been told this email reached the wrong person. This link no longer works.":"The Long Table has been told. Nothing else happens, and nothing about you was saved beyond this answer.")+'</p>'+(notme?"":'<a class="lnk small" '+G("guests-directory-public")+'>See what PodSubs is</a>'))};
+
+/* ---- the release record, the same page for both sides ---- */
+R["br-release-record"]=function(a){var b=brS();var show=a==="show";if(!b.signedAt)return show?R["br-show-booking-detail"]("live"):R["br-guest-booking-page"]();
+ PAGE_TITLE="Signed release | PodSubs";
+ var t=brTplCur(),verLine=(b.verOwn?"The Long Table's own release":"The PodSubs default release")+", version "+b.ver;
+ var status=b.state==="cancelled"?vb("For a booking that was cancelled. It grants nothing.","n"):b.withdrawn?vb("Withdrawn "+b.withdrawn,"n"):vb("In effect","g");
+ var rows=[["Show","The Long Table"],["Appearance",esc(brName(b))+" · "+b.when+(b.ep?" · Episode "+BR_EP.n:"")],["Release",verLine],["Signed by",esc(b.typed)+", typed by hand"],["Signed",esc(b.signedAt)],["I agree","Ticked, with 18 or older confirmed"],["AI voice","<b>"+brAiWords(b)+"</b>"+(b.aiChanged?" · changed to No "+esc(b.aiChanged):"")],["Status",status]];
+ var detail='<div class="brk">The release, as signed</div>'+brRelease(b)+'<div style="height:12px"></div><div class="brk">The AI voice question, as shown</div><div class="brrel"><p>'+esc(BR_AI_TEXT)+'</p><p><b>Answer: '+brAiWords(b)+'</b></p></div>'+
+  '<div class="small muted" style="margin-top:12px;line-height:1.6">Only '+(show?esc(brName(b)):"you")+' and The Long Table can see this record. We keep the moment it was signed and a fingerprint of this page, so any later change to it would show.</div><div class="bar" style="margin-top:12px">'+btn(ic("down",16)+"Download",A("tg"),"o sm")+'</div>';
+ var body=card(ch("Signed release","What "+brFirst(b)+" signed, exactly as shown to them")+'<div class="cp" style="padding-top:2px">'+kv(rows)+'</div><div class="cp" style="padding-top:0">'+detail+'</div>');
+ var inner='<div class="brbox">'+kv(rows)+'</div>'+detail+'<div style="height:16px"></div>';
+ if(show)return sadm(back("Back to the booking","br-show-booking-detail")+body,"show-booking-calendar-team-view");
+ var w=b.state==="cancelled"?"":('<div>'+(b.ai==="yes"?'<div class="brbox"><h2>Change your AI voice answer to No</h2><p>From the moment you change it, The Long Table may not use an AI copy of your voice. Your booking and your credit stay as they are.</p>'+btn("Change my answer to No",A("brAiNo"),"o sm")+'</div>':"")+
+  (b.withdrawn?bn("",b.state==="credited"?"You withdrew this release. The Long Table has been told. PodSubs does not host the episode, so we cannot take it down. Your withdrawal stays on this record.":"You withdrew this release. The Long Table has been told, and the booking is waiting for a new signature."):
+  '<div class="brbox" style="margin:0"><h2>Withdraw this release</h2><p>'+(b.state==="credited"?"The episode is already out. If you withdraw, we record it here and tell The Long Table at once. PodSubs does not host the episode, so we cannot take it down.":"Before the recording, withdrawing puts the booking back to waiting for your signature. The Long Table is told at once.")+'</p>'+btn("Withdraw",A("brWithdraw"),"redo sm")+'</div>'));
+ return brShell(brHead(b,"Your signed release","Your release for The Long Table")+inner+w)};
+
+/* ---- the show side ---- */
+function brShowCard(){return '<div class="cp" style="display:flex;gap:10px;align-items:center">'+art(BR_SHOW,44)+'<div><div class="b">Bookings for The Long Table</div><div class="small muted">Every booking carries a one-page release. There is no booking without one.</div></div></div>'}
+R["br-show-bookings-list"]=function(){var b=brS();PAGE_TITLE="Bookings | The Long Table | PodSubs";
+ var live=[brAv(b,40),'<a '+G("br-show-booking-detail","live")+'><b>'+esc(brName(b))+'</b></a><div class="small muted">You invited '+(P[b.g]?"her":"them")+' · not on PodSubs yet</div>',b.when,brStateBadge(b),'<span class="small">'+brRelWords(b)+'</span>'];
+ var rows=[live].concat(["leo","priya","grace"].map(function(k){var x=BR_SAMPLES[k];var o=brSampleObj(k);return [av(k,40,0),'<a '+G("br-show-booking-detail",k)+'><b>'+P[k].n+'</b></a><div class="small muted">'+x.origin+'</div>',x.when,brStateBadge(o),'<span class="small">'+brRelWords(o)+'</span>']}));
+ return sadm(card(ch("Bookings","Newest action first",btn(ic("plus",16)+"Invite a guest",G("br-invite-a-guest"),"sm"))+brShowCard()+'<div class="cp" style="padding-top:0">'+chips(["All","Waiting on the guest","Confirmed","Episode set"],0)+'</div>'+table(["","Guest","Recording","State","Release"],rows))+
+  card('<div class="cp small muted">Release words, versions, and what your guests sign: <a '+G("br-release-template")+'>Your release</a></div>'),"show-booking-calendar-team-view")};
+function brSampleObj(k){var x=BR_SAMPLES[k];return {g:k,name:P[k].n,state:x.state,when:x.when,ai:x.ai,signedAt:x.signed?x.signed+" at 6:10 PM":"",ver:x.ver||0,thread:[],ep:x.ep}}
+R["br-invite-a-guest"]=function(a){var g=P[a]?a:"";S.brPick=g;PAGE_TITLE="Invite a guest | PodSubs";
+ var from=a==="leo"?"From Leo's pitch on your shortlist":a==="priya"?"From Priya's profile":"From your bookings";
+ var who=g?'<div class="exp" style="border:0;padding:0 0 12px">'+av(g,48,0)+'<div><div class="t">'+P[g].n+'</div><div class="s">'+P[g].h+' · on PodSubs</div></div></div><div class="small muted" style="margin:-4px 0 12px">'+P[g].n.split(" ")[0]+' gets this in their PodSubs bookings and by email.</div>':
+  fld("Guest's name",inp("Iris Novak"),{req:1})+fld("Guest's email",inp("iris.novak@example.com","","email"),{req:1,h:"Used for this booking only. Never added to a list."})+
+  '<div class="brbox"><div class="brk">Which profile do you mean?</div><div class="exp" style="border:0;padding:0">'+av("iris",40,0)+'<div><div class="t">Iris Novak</div><div class="s">'+P.iris.h+' · not on PodSubs yet</div></div></div><p class="small" style="margin:8px 0 0">Booking Iris records that you mean this profile. It does not claim it for her. That stays hers to do.</p></div>';
+ return sadm(back("Back to bookings","br-show-bookings-list")+card(ch("Invite a guest",from)+'<div class="cp">'+who+
+  fld("Day",sel(["Thu, Nov 19","Fri, Nov 20","Mon, Nov 23"],"Thu, Nov 19"))+fld("Time, Chicago",sel(["11:00 AM","2:00 PM","4:00 PM"],"2:00 PM"))+fld("Recording link",inp("studio.thelongtable.fm/live"),{h:"Optional. Sent once the booking is confirmed."})+
+  fld("A note to "+(g?P[g].n.split(" ")[0]:"your guest"),ta("We would love to hear about the meals you planned for people who could not come home for dinner. Maya","",70))+
+  bn("","Your guest gets one email with one link. It shows the time in their own time zone, your note, and your release. They can read everything and sign without an account.")+
+  '<div class="bar">'+btn("Send the invitation",A("brSend",g||"iris"))+btn("See the email first",G("br-invite-email"),"o")+'</div></div>'),"show-booking-calendar-team-view")};
+R["br-invite-email"]=function(){var b=brS();var z=brZone(b);PAGE_TITLE="The invitation email | PodSubs";
+ return sadm(back("Back","br-invite-a-guest")+card(ch("The email "+brFirst(b)+" gets","One email, one link. It never quotes the release, so they always read the version current when they open it.")+
+  '<div class="cp"><div class="brbox"><div class="small muted">From PodSubs, for The Long Table · To '+esc(b.email||"your guest")+'</div><h2 style="margin-top:8px">Maya Okafor would love to have you on The Long Table</h2><p style="color:var(--ink)">Hi '+brFirst(b)+',</p><p style="color:var(--ink)">Maya would like to record a conversation with you on '+b.when+' at '+brHour(z[1]).split(" to ")[0]+', your time in '+z[0]+'. It takes about an hour, and it is remote.</p><p style="color:var(--ink)">Everything is on one page: the time, a note from Maya, and a one-page release. You can say yes, suggest another time, or say no. No account needed.</p>'+btn("See the invitation",G("br-guest-booking-page"),"sm")+'<p class="small muted" style="margin-top:10px">This link is just for you and works until Nov 23. If this is not you, open it and tell us.</p></div></div>'),"show-booking-calendar-team-view")};
+R["br-show-booking-detail"]=function(a){var live=!a||a==="live"||!BR_SAMPLES[a];var b=live?brS():brSampleObj(a);PAGE_TITLE=brName(b)+" on The Long Table | PodSubs";
+ var head=card('<div class="bk" style="border:0;border-radius:0"><div class="bh" style="padding:14px 20px">'+ic("cal",20)+'<b>'+esc(brName(b))+' on The Long Table</b><span class="sp"></span>'+brStateBadge(b)+'</div></div><div class="cp2"><div class="exp" style="border:0;padding-top:0">'+art(BR_SHOW,56)+brAv(b,56)+'<div><div class="t" style="font-size:17px">'+esc(brName(b))+'</div><div class="s">'+(P[b.g]?esc(P[b.g].h):"")+(live&&b.g==="iris"?" · not on PodSubs yet":"")+'</div></div></div>'+
+  '<div class="tz"><div><span class="small muted">Chicago, the show</span><b>'+brHour(0)+'</b>'+b.when+'</div><div><span class="small muted">'+brZone(b)[0]+', the guest</span><b>'+brHour(brZone(b)[1])+'</b>'+b.when+'</div></div></div>');
+ var facts=card(ch("This booking")+'<div class="cp small" style="padding-top:2px">'+kv([["Release",brRelWords(b)+(b.signedAt?" · version "+b.ver:"")],["AI voice",brAiWords(b)],["Recording link",b.state==="confirmed"||b.state==="credited"?"studio.thelongtable.fm/live":"Sent once confirmed"],["Episode",b.state==="credited"?(b.ep||"Episode "+BR_EP.n):"Not set yet"]])+'</div>'+(b.signedAt?cf("Open the signed release",live?G("br-release-record","show"):""):""));
+ var act="";
+ if(live){
+  if(b.state==="requested"){var last=b.thread[b.thread.length-1]||{};var fromGuest=/suggested/.test(last.t||"");
+   act=card('<div class="cp2">'+(fromGuest?bn("",brFirst(b)+" suggested another time. Your time stays held until you answer.")+'<div class="bar">'+btn("Accept "+brFirst(b)+"'s time",A("brShowAccept"))+btn("Cancel with a reason",G("br-show-cancel"),"gr")+'</div>':
+    bn("","Waiting on "+brFirst(b)+". The link works until Nov 23, and one reminder goes on day 5. Nothing else is sent.")+'<div class="bar">'+btn("See what "+brFirst(b)+" sees",G("br-guest-booking-page"),"o sm")+btn("See the email",G("br-invite-email"),"o sm")+btn("Revoke the link",A("tg"),"gr sm")+btn("Cancel with a reason",G("br-show-cancel"),"gr sm")+'</div>')+'</div>')}
+  else if(b.state==="accepted")act=card('<div class="cp2">'+bn("",brFirst(b)+" said yes to the time. The booking is confirmed once the release is signed.")+'<div class="bar">'+btn("See what "+brFirst(b)+" sees",G("br-guest-booking-page"),"o sm")+btn("Cancel with a reason",G("br-show-cancel"),"gr sm")+'</div></div>');
+  else if(b.state==="confirmed")act=card('<div class="cp2">'+bn("ok","Confirmed. "+brFirst(b)+" signed the release "+b.signedAt.split(" at ")[0]+". AI voice: "+brAiWords(b)+".")+'<p class="small muted" style="margin:0 0 12px">When the episode is in your feed, set it here. That writes '+brFirst(b)+'\'s guest credit.</p><div class="bar">'+btn("Set the episode",G("br-set-the-episode"))+btn("Cancel with a reason",G("br-show-cancel"),"gr")+'</div></div>');
+  else if(b.state==="credited")act=card('<div class="cp2">'+bn("ok","Episode "+BR_EP.n+" is set. "+brFirst(b)+"'s guest credit is written.")+btn("See the credit",G("br-credit-landed"),"o sm")+'</div>');
+  else if(b.state==="cancelled")act=card('<div class="cp2">'+bn("","You cancelled this booking. Your reason, which "+brFirst(b)+" sees too: "+esc(b.cancel))+(b.signedAt?'<p class="small muted" style="margin:0">The signed release stays on record, marked for a booking that was cancelled. It grants nothing.</p>':"")+'</div>');
+  else if(b.state==="declined")act=card('<div class="cp2">'+bn("",b.notme?"This email reached the wrong person. They told us, and the link is closed. Check the address and invite again.":brFirst(b)+" said no to this booking.")+btn("Invite a guest",G("br-invite-a-guest"),"o sm")+'</div>');
+ }else act=card('<div class="cp small muted">A booking you already have, shown for the list.</div>');
+ var thr=b.thread&&b.thread.length?card(ch("What has happened")+'<div class="cp" style="padding-top:0"><ul class="brthr">'+b.thread.map(function(x){return '<li><span class="w">'+x.w+'</span><span>'+esc(x.t)+'</span></li>'}).join("")+'</ul></div>'):"";
+ return sadm(back("Back to bookings","br-show-bookings-list")+head+act+facts+thr+(live?card('<div class="cp bar">'+btn("Reset this booking for the demo",A("brReset"),"gr sm")+'</div>'):""),"show-booking-calendar-team-view")};
+R["br-show-cancel"]=function(){var b=brS();PAGE_TITLE="Cancel a booking | PodSubs";
+ return sadm(back("Back to the booking","br-show-booking-detail")+card(ch("Cancel "+brFirst(b)+"'s booking","A reason is always needed. "+brFirst(b)+" sees it too.")+'<div class="cp">'+fld("Your reason",sel(["","Our schedule changed","The episode plan changed","Something else"],""),{req:1})+fld("A few words, if you like",ta("","",60))+
+  (b.signedAt?bn("",brFirst(b)+" has signed. The signature stays on record, marked for a booking that was cancelled. It grants you nothing."):"")+'<div class="bar">'+btn("Cancel the booking",A("brCancel"),"redo")+btn("Keep it",G("br-show-booking-detail"),"gr")+'</div></div>'),"show-booking-calendar-team-view")};
+R["br-set-the-episode"]=function(){var b=brS();PAGE_TITLE="Set the episode | PodSubs";
+ if(b.state!=="confirmed"&&b.state!=="credited")return sadm(back("Back to the booking","br-show-booking-detail")+card('<div class="cp2">'+bn("","You can set the episode once "+brFirst(b)+" has signed the release. A booking is never credited without a signature.")+btn("Back to the booking",G("br-show-booking-detail"),"o sm")+'</div>'),"show-booking-calendar-team-view");
+ var pick=S.brEp||"";var eps=feedList(BR_SHOW).slice(0,3);
+ return sadm(back("Back to the booking","br-show-booking-detail")+card(ch("Which episode is "+brFirst(b)+" in?","Recorded "+b.when+". Pick the episode from your feed.")+'<div class="cp">'+
+  '<div class="brsug"><div class="brk">Suggested</div><div style="display:flex;gap:12px;align-items:center">'+art(BR_SHOW,48,0)+'<div style="flex:1;min-width:0"><b>Episode '+BR_EP.n+', '+esc(BR_EP.t)+'</b><div class="small muted">Published '+BR_EP.d+', after the recording, and it names '+brFirst(b)+' in the title</div></div></div><p class="small" style="margin:10px 0 0">A suggestion is only a suggestion. Nothing is set until you choose.</p></div>'+
+  [{n:BR_EP.n,t:BR_EP.t,d:BR_EP.d}].concat(eps).map(function(e){return '<a class="brpick'+(pick===String(e.n)?" on":"")+'" '+A("brPickEp",e.n)+'><span class="vb n">'+e.n+'</span><span style="flex:1;min-width:0"><span class="t">'+esc(e.t)+'</span><span class="small muted" style="display:block">'+e.d+(e.n!==BR_EP.n?" · before the recording":"")+'</span></span>'+(pick===String(e.n)?ic("check",18):"")+'</a>'}).join("")+
+  '<div style="height:6px"></div>'+(pick&&pick!==String(BR_EP.n)?bn("wn","That episode came out before the recording. Are you sure it is the right one?"):"")+
+  '<div class="bar">'+btn("Set the episode and write the credit",A("brSetEp"))+btn("Not yet",G("br-show-booking-detail"),"gr")+'</div></div>'),"show-booking-calendar-team-view")};
+R["br-credit-landed"]=function(){var b=brS();PAGE_TITLE="A credit for "+brName(b)+" | PodSubs";
+ if(b.state!=="credited")return R["br-set-the-episode"]();
+ var credit=row({av:brAv(b,48),t:esc(brName(b)),go:b.g?G(b.g==="iris"?"profile-unclaimed-guest":profFor(b.g),b.g):"",s:"Guest · The Long Table · Episode "+BR_EP.n,b:'<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">'+vb("Pending","a")+vb("Confirmed by the show")+'<span class="vb n">'+ic("clock",13)+'Waiting on '+esc(brFirst(b))+'</span></div>'});
+ return sadm(back("Back to the booking","br-show-booking-detail")+card(ch("The booking became a credit","Episode "+BR_EP.n+", published "+BR_EP.d)+'<div class="rows">'+credit+'</div><div class="cp2" style="padding-top:4px">'+
+  '<p style="margin:0 0 10px">Setting the episode was your confirmation. '+brFirst(b)+'\'s signed release is theirs, and it counts the moment they join PodSubs or claim their profile. Until then the credit sits on their profile as pending. It is never shown as verified.</p>'+
+  '<p class="small muted" style="margin:0 0 12px">'+brFirst(b)+' gets one email: the episode is out, and the credit is waiting for them.</p><div class="bar">'+btn("See "+brFirst(b)+"'s profile",G(b.g==="iris"?"profile-unclaimed-guest":profFor(b.g),b.g),"o sm")+btn("Pending verifications",G("podcred-pending-verifications-board"),"o sm")+btn("Back to bookings",G("br-show-bookings-list"),"gr sm")+'</div></div>'),"show-booking-calendar-team-view")};
+R["br-release-template"]=function(){var t=brTplInit();PAGE_TITLE="Your release | The Long Table | PodSubs";var cur=brTplCur();var ed=t.mode==="own";var ownOn=ed||!!cur.own;
+ var vers=t.versions.slice().reverse().map(function(v){return [ 'Version '+v.v+(v.v===t.cur?' '+vb("In use","g"):""), v.own?"Your own words":"The PodSubs default", v.date, '<span class="small muted">Kept for every guest who signed it</span>']});
+ return sadm(back("Back to bookings","br-show-bookings-list")+card(ch("Your release","Every guest signs this before a booking is confirmed")+'<div class="cp">'+
+  rd("brt","Use the PodSubs default",!ownOn,"Short, plain, and the same for every show.").replace('<label class="ck">','<label class="ck" '+A("brTplMode","default")+'>')+
+  rd("brt","Write your own",ownOn,"Your words, in place of ours. Saving makes a new version.").replace('<label class="ck">','<label class="ck" '+A("brTplMode","own")+'>')+
+  '<div style="height:10px"></div>'+(ed?fld("Your release",'<textarea class="inp" id="brTplText" style="min-height:170px">'+esc((t.draft||cur.text).join("\n\n"))+'</textarea>',{h:"One page. Plain sentences. Your guests read every word."})+'<div class="bar">'+btn("Save as version "+(t.versions.length+1),A("brTplSave"))+'</div>':'<div class="brk">What your guests read now, version '+cur.v+'</div><div class="brrel">'+cur.text.map(function(x){return '<p>'+esc(x)+'</p>'}).join("")+'</div>')+
+  '<div style="height:12px"></div>'+bn("","The AI voice question is always asked on its own, under the release, and it is never part of it. You cannot change that here.")+
+  '<p class="small muted" style="margin:10px 0 0">A saved change never touches a release someone already signed. They keep the exact version they read.</p></div>')+
+  card(ch("Versions")+table(["Version","Words","Saved",""],vers)),"show-booking-calendar-team-view")};
+
+/* ---- the three ways a booking starts ---- */
+R["br-entry-shortlisted-pitch"]=function(){PAGE_TITLE="Shortlist | PodSubs";
+ return sadm(card(ch("Your shortlist","Pitches you are holding")+'<div class="rows">'+row({av:av("leo",48),t:P.leo.n,go:G(profFor("leo"),"leo"),s:"The roux that took forty years · held until Jan 15",x:btn("Book this guest",G("br-invite-a-guest","leo"),"sm")})+'</div><div class="cp small muted">Booking sends one invitation with your release. Leo signs as part of saying yes.</div>'),"pitch-inbox-for-a-show")};
+R["br-entry-guest-profile"]=function(){BRPROF=1;return profile("priya",{guestView:1})};
+var BRPROF=0;
+function brAfter(){if(!BRPROF)return;BRPROF=0;var el=document.getElementById("app");if(!el)return;var col=el.querySelector("main.main .l2 > div, main.main .l2l > div");if(!col)return;var first=col.querySelector(":scope > .card");
+ var h=card('<div class="cp2"><div class="brk">You are a seat holder on The Long Table</div><h2 style="font-size:18px;margin:0 0 6px">Book Priya Nair</h2><p class="small muted" style="margin:0 0 12px">One invitation with your time and your release. Priya says yes and signs in one step.</p>'+btn(ic("cal",16)+"Book",G("br-invite-a-guest","priya"))+'</div>');
+ if(first)first.insertAdjacentHTML("afterend",h);else col.insertAdjacentHTML("afterbegin",h)}
+
+/* ---- actions ---- */
+function brDoSign(b){var t=brTplCur();b.signedAt="Nov 10, 2026 at 7:42 PM, "+brZone(b)[0]+" time";b.ver=t.v;b.verOwn=t.own;b.verText=t.text.slice();b.state="confirmed";b.withdrawn="";b.err={};b.thread.push({w:"Nov 10",t:brFirst(b)+" signed the release, version "+t.v+". AI voice: "+(b.ai==="yes"?"Yes":"No")+". Booking confirmed."})}
+ACT.brAi=function(a){var b=brS();var n=document.getElementById("brName"),c=document.getElementById("brAgree");if(n)b.typed=n.value;if(c)b.agree=c.checked;b.ai=a==="yes"?"yes":"no";if(b.err)b.err.ai=0;NOSCROLL=1;return 1};
+ACT.brSign=function(){var b=brS();var n=document.getElementById("brName"),c=document.getElementById("brAgree");b.typed=n?n.value.trim():b.typed;b.agree=c?c.checked:b.agree;
+ b.err={ai:!b.ai,name:!b.typed,agree:!b.agree};if(b.err.ai||b.err.name||b.err.agree){NOSCROLL=1;toast(!b.ai?"Choose Yes or No on the AI voice question":!b.typed?"Type your full name to sign":"Tick the box to sign");return 1}
+ if(b.state==="requested")b.thread.push({w:"Nov 10",t:brFirst(b)+" said yes to the time."});brDoSign(b);S.toast="Signed. A copy is on its way to your email";return {go:"br-guest-signed"}};
+ACT.brAcceptOnly=function(){var b=brS();var n=document.getElementById("brName");if(n)b.typed=n.value;if(b.state==="requested"){b.state="accepted";b.thread.push({w:"Nov 10",t:brFirst(b)+" said yes to the time. The release is not signed yet."})}return {go:"br-guest-sign-later"}};
+ACT.brPropose=function(){var b=brS();b.thread.push({w:"Nov 10",t:brFirst(b)+" suggested Mon, Nov 23 at 1:00 PM "+brZone(b)[0]+" time instead. Your time stays held until you answer."});b.proposed="Mon, Nov 23 at 1:00 PM";S.toast="Sent. The Long Table will answer you by email";return {go:"br-guest-propose-time"}};
+ACT.brDecline=function(a){var b=brS();b.state="declined";b.notme=a==="notme";b.thread.push({w:"Nov 10",t:b.notme?"The person at this email said it is not them. The link is closed.":brFirst(b)+" said no."});return {go:"br-guest-declined",arg:a}};
+ACT.brShowAccept=function(){var b=brS();b.when="Mon, Nov 23";b.state="accepted";b.thread.push({w:"Nov 11",t:"You accepted Mon, Nov 23. "+brFirst(b)+" signs next."});S.toast="Time agreed. "+brFirst(b)+" gets the release to sign";return 1};
+ACT.brJoinNo=function(){brS().join="dismissed";NOSCROLL=1;return 1};
+ACT.brJoinYes=function(){brS().join="joined"};
+ACT.brSend=function(a){var g=P[a]?a:"iris";S.br=brNew(g,P[g].n,g==="iris"?"iris.novak@example.com":"",a==="leo"?"pitch":a==="priya"?"profile_request":"show_invite");S.brEp="";S.toast="Invitation sent. "+P[g].n.split(" ")[0]+" gets one email with one link";return {go:"br-show-booking-detail",arg:"live"}};
+ACT.brCancel=function(){var b=brS();var s=document.querySelector(".card select.inp");var r=s?s.value:"";if(!r){NOSCROLL=1;toast("Pick a reason. "+brFirst(b)+" sees it too");return 1}b.state="cancelled";b.cancel=r;b.thread.push({w:"Nov 12",t:"You cancelled. Reason: "+r+"."});S.toast="Cancelled. "+brFirst(b)+" sees your reason";return {go:"br-show-booking-detail",arg:"live"}};
+ACT.brPickEp=function(a){S.brEp=String(a);NOSCROLL=1;return 1};
+ACT.brSetEp=function(){var b=brS();if(!S.brEp){NOSCROLL=1;toast("Pick the episode first");return 1}if(b.state!=="confirmed")return {go:"br-show-booking-detail"};
+ b.state="credited";b.ep="Episode "+S.brEp;b.thread.push({w:"Nov 24",t:"You set Episode "+S.brEp+". "+brFirst(b)+"'s guest credit is written, confirmed by you, waiting on "+brFirst(b)+"."});S.toast="Episode set. The credit is written";return {go:"br-credit-landed"}};
+ACT.brAiNo=function(){var b=brS();b.ai="no";b.aiChanged="Nov 12, 2026";b.thread.push({w:"Nov 12",t:brFirst(b)+" changed the AI voice answer to No. The booking is unchanged."});S.toast="Changed to No. The Long Table has been told";NOSCROLL=1;return 1};
+ACT.brWithdraw=function(){var b=brS();b.withdrawn="Nov 12, 2026";if(b.state==="confirmed")b.state="accepted";b.thread.push({w:"Nov 12",t:brFirst(b)+" withdrew the release. You were told at once."});S.toast="Withdrawn. The Long Table has been told";NOSCROLL=1;return 1};
+ACT.brReset=function(){S.br=null;S.brEp="";brS();S.toast="Booking reset to a fresh invitation";NOSCROLL=1;return 1};
+ACT.brTplMode=function(a){var t=brTplInit();t.mode=a==="own"?"own":"view";if(a!=="own"&&brTplCur().own){t.versions.push({v:t.versions.length+1,own:0,text:BR_DEFAULT.slice(),date:"Nov 12, 2026"});t.cur=t.versions.length;S.toast="Back on the PodSubs default, as version "+t.cur}NOSCROLL=1;return 1};
+ACT.brTplSave=function(){var t=brTplInit();var x=document.getElementById("brTplText");var text=(x?x.value:"").split(/\n\s*\n/).map(function(s){return s.trim()}).filter(Boolean);if(!text.length){NOSCROLL=1;toast("Write at least one sentence");return 1}
+ t.versions.push({v:t.versions.length+1,own:1,text:text,date:"Nov 12, 2026"});t.cur=t.versions.length;t.draft=null;t.mode="view";S.toast="Saved as version "+t.cur+". Past signatures keep theirs";NOSCROLL=1;return 1};
+document.addEventListener("input",function(e){var t=e.target;if(t&&t.id==="brName"&&S.br){S.br.typed=t.value;save()}if(t&&t.id==="brTplText"&&S.brTpl){S.brTpl.draft=t.value.split(/\n\s*\n/)}});
+document.addEventListener("change",function(e){var t=e.target;if(t&&t.id==="brAgree"&&S.br){S.br.agree=t.checked;save()}});
+var _brRender=render;
+render=function(id){_brRender(id);try{brAfter()}catch(e){console.error("kar139",e)}};
+
+/* ---- the directory: section 43, and who views each screen ---- */
+var BR_SCREENS=[
+ ["br-show-bookings-list","Bookings, with Invite a guest","The show's bookings by state, newest action first, and the first way in: Invite a guest","host"],
+ ["br-entry-shortlisted-pitch","Book this guest, from a shortlisted pitch","The second way in: a pitch on the shortlist becomes an invitation","host"],
+ ["br-entry-guest-profile","Book, from a guest profile","The third way in: a seat holder books from the guest's profile","host"],
+ ["br-invite-a-guest","Invite a guest","Name or member, time, note. A typed guest is matched to the profile the show means, never claimed","host"],
+ ["br-invite-email","The invitation email","One email, one link, the time in the guest's own zone. The release is never quoted","host"],
+ ["br-guest-booking-page","Booking page, no account","Everything readable with no account: the time, the release, the separate AI voice question, Accept and sign","visitor"],
+ ["br-guest-sign-later","Accepted, sign when ready","Yes to the time now, the release later. Not confirmed until signed","visitor"],
+ ["br-guest-signed","Signed, the receipt","The signed record, a download, and one offer to join that changes nothing if declined","visitor"],
+ ["br-guest-propose-time","Suggest another time","The guest's time in their own zone. The show's time stays held","visitor"],
+ ["br-guest-declined","Say no, or this is not me","A plain no, or a wrong person report with no account and no reason needed","visitor"],
+ ["br-release-record","Signed release record","The exact text and version, the name, the time, the AI voice answer. Same page for both sides, withdrawals here","visitor"],
+ ["br-show-booking-detail","Booking detail, the show","Both time zones, the state, the release in words, the AI voice answer, what happened","host"],
+ ["br-show-cancel","Cancel with a reason","A reason always, both sides see it. A signature stays on record and grants nothing","host"],
+ ["br-set-the-episode","Set the episode","A suggestion from the feed, never applied without the show choosing it","host"],
+ ["br-credit-landed","The booking became a credit","A pending PodCred credit: confirmed by the show, waiting on the guest, never shown as verified","host"],
+ ["br-release-template","Your release","The PodSubs default or the show's own words. Saving makes a version. Signed releases keep theirs","host"]];
+BR_SCREENS.forEach(function(x,i){META[x[0]]={n:1206+i,title:x[1],purpose:x[2],tag:"new"};WHO[x[0]]=x[3];if(x[3]==="visitor")VOK.push(x[0])});
+SECS.push({n:43,name:"Booking and release",ids:BR_SCREENS.map(function(x){return x[0]})});
+var _brPanel=panel;
+panel=function(){_brPanel();var p=document.getElementById("ptp");if(!p)return;p.insertAdjacentHTML("beforeend",'<div class="bar"><a class="btn o sm" '+G("br-show-bookings-list")+'>Booking and release</a><a class="btn o sm" '+G("br-guest-booking-page")+'>Guest invitation</a></div>')};
+
+/* KAR-139 additions end */
 document.getElementById("fav").href=LOGOM;
 boot();
 </script>
