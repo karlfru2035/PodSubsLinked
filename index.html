@@ -1401,6 +1401,44 @@ body.v11 #app .v13-role h3{margin:0 0 4px}
 body.v11 #app .v13-rec .lp-bar{display:none!important}
 body.v11 #app .v13-sq{display:block;width:44px;height:44px;border-radius:12px;background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#e9e9e9}
 @media(max-width:760px){body.v11 #app .v13-sq{width:36px;height:36px}}
+
+/* ================================================================
+   V13 addendum, episode visuals (Karl 2026-11-16). One size for all
+   episode media, 360 by 203; the listening card for audio only; the
+   episode page's first view. Not scoped to body.v11: episodes on the
+   older V9 lists get the same media.
+   ================================================================ */
+#app .v13e-card{display:flex;align-items:center;gap:20px;width:100%;max-width:360px;aspect-ratio:16/9;background:#f4f4f4;border-radius:12px;padding:16px;box-sizing:border-box;cursor:pointer;color:#111;text-decoration:none}
+#app .v13e-card:hover .v13e-play{background:#000}
+#app .v13e-card:focus-visible{outline:2px solid #111;outline-offset:2px}
+#app .v13e-art{display:block;height:100%;aspect-ratio:1/1;flex:none;border-radius:12px;background-color:#e9e9e9;background-size:contain;background-repeat:no-repeat;background-position:center;overflow:hidden}
+#app .v13e-gen .art{width:100%!important;height:100%!important;border-radius:12px}
+#app .v13e-side{display:flex;flex-direction:column;gap:8px;align-items:flex-start;min-width:0}
+#app .v13e-lab{font-size:13px;color:#6b6b6b;display:flex;gap:6px;align-items:center}
+#app .v13e-play{width:48px;height:48px;border-radius:50%;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center}
+#app .v13e-len{font-size:13px;color:#6b6b6b}
+#app .v13e-none{cursor:default}
+#app .v13e-who{flex:none;line-height:0}
+#app .v13e-who .av{border-radius:50%}
+/* one size everywhere an episode's media shows */
+#app .v-vid{width:100%;max-width:360px}
+#app .v-epv{grid-template-columns:360px minmax(0,1fr)}
+#app .v-epv .v-foot .v-circ.play{display:none}
+#app .v-gcard{max-width:360px}
+#app .v-gcard .v-gel:first-child>.v-vid,#app .v-gcard .v-gel:first-child>.v13e-card{max-width:none}
+#app .v-rank{grid-template-columns:repeat(auto-fill,minmax(260px,360px))}
+#app .v13e-slot{flex:none;width:360px;max-width:100%}
+#app .ep:has(.v13e-slot){align-items:flex-start;gap:16px}
+/* the episode page: media beside the title in the first view */
+#app .v13e-ephead{display:grid;grid-template-columns:360px minmax(0,1fr);gap:32px;align-items:center;padding:16px 0}
+#app .v13e-ephead>div{padding:0!important}
+#app .v13e-ephead h1{margin-top:4px}
+@media(max-width:760px){
+ #app .v-epv{grid-template-columns:minmax(0,1fr)}
+ #app .v13e-ephead{grid-template-columns:minmax(0,1fr);gap:16px}
+ #app .ep:has(.v13e-slot){flex-wrap:wrap}
+ #app .v13e-slot{width:100%}
+}
 </style></head><body>
 <div id="app"></div>
 <button class="pt-btn" onclick="document.getElementById('ptp').classList.toggle('op')">Prototype</button>
@@ -5718,6 +5756,49 @@ var V13SCREENS=[["pro-guest-working","Guest profile, the working surface","Book 
 V13SCREENS.forEach(function(x,i){META[x[0]]={n:1271+i,title:x[1],purpose:x[2],tag:"new"};WHO[x[0]]=x[3]});
 SECS.push({n:45,name:"Review corrections (V13)",ids:V13SCREENS.map(function(x){return x[0]})});
 /* V13 review corrections end */
+/* V13 addendum start */
+/* ================================================================
+   V13 addendum, episode visuals and first views (Karl, 2026-11-16).
+   1. An episode never renders blank. Video leads with its poster frame
+      before play. Audio only shows a listening card: the episode's
+      artwork (the show's artwork stands in, since no episode here has
+      its own) shown whole, with a clear play control; the whole card
+      plays it. No empty video-shaped box anywhere.
+   2. One size for episode media on every surface: 360 by 203, 16:9,
+      12px radius, artwork whole. Narrower containers (a phone, a
+      ranked card) take the media to their own width.
+   3. The episode page's first view: the media beside the title, the
+      details, and the platform buttons.
+   Show pages are not restructured (Karl approved them); their episode
+   lists pick up the same media.
+   ================================================================ */
+function v13eIdx(key){if(typeof key==="number")return key;return /^\d+$/.test(String(key))?+key:null}
+function v13eShow(key){var i=v13eIdx(key);if(i!=null&&EP[i])return EP[i].s;var s=String(key).split(":")[0];return SH[s]?s:"longtable"}
+/* the listening card: artwork whole, a play control, the length; the whole card plays */
+function v13eListen(key,o){o=o||{};var i=v13eIdx(key),e=i!=null?EP[i]:null,k=v13eShow(key);var t=e?e.t:SH[k].t,len=e?e.len:(o.len||"");
+ var pic=PH["show-"+k]?'<span class="v13e-art'+ph("show-"+k)+'" role="img" aria-label="'+esc(SH[k].t)+' artwork"></span>':'<span class="v13e-art v13e-gen">'+art(k,160,0)+'</span>';
+ return '<div class="v13e-card" role="button" tabindex="0" '+A("play",i!=null?i:0)+' aria-label="Listen to '+esc(t)+'">'+pic+'<span class="v13e-side"><span class="v13e-lab">'+ic("head",14)+' Listen</span><span class="v13e-play" aria-hidden="true">'+ic("play",20)+'</span>'+(len?'<span class="v13e-len">'+len+'</span>':"")+'</span></div>'}
+v2audioTile=function(i){return v13eListen(i)};
+/* search rows: an episode result is the same episode card as everywhere else */
+vEpRow=function(i,e){var x=EP[i]||e;return v2epCard(x.s,{n:x.n,t:x.t,d:x.d,len:x.len})};
+/* the older episode rows (queue, recently played, saved, digest, media kit): the media leads in place of the small play button */
+var _v13eEpRow=epRow;
+epRow=function(i,o){var e=EP[i];var h=_v13eEpRow(i,o);if(!e)return h;var tile=v2vidShow(e.s)?v2vid(e.s,i,{sm:1,len:e.len}):v13eListen(i);
+ return h.replace(/<button class="play"[^>]*>[\s\S]*?<\/button>/,'<div class="v13e-slot">'+tile+'</div>')};
+/* after each render: the remaining audio strips and empty boxes become pictures, and the episode page's first view is set */
+function v13eFix(a){
+ a.querySelectorAll(".v-audio").forEach(function(el){var b=el.querySelector('[data-act="play"]');var arg=b?b.getAttribute("data-arg"):null;var w=document.createElement("div");w.innerHTML=v13eListen(arg!=null?arg:0);var c=w.firstChild;if(el.getAttribute("style"))c.setAttribute("style",el.getAttribute("style"));el.parentNode.replaceChild(c,el)});
+ a.querySelectorAll(".v-afall").forEach(function(el){var g=el.closest(".v-gcard");var who=g?g.querySelector(".v-gname .av"):null;var w=document.createElement("div");
+  w.innerHTML='<div class="v13e-card v13e-none">'+(who?'<span class="v13e-who"></span>':"")+'<span class="v13e-side"><span class="v13e-lab">'+ic("head",14)+' No recorded appearance yet</span><span class="small muted">Appearances show here once a show confirms one.</span></span></div>';
+  var c=w.firstChild;if(who){var cl=who.cloneNode(true);cl.removeAttribute("data-go");cl.removeAttribute("data-arg");cl.style.width="96px";cl.style.height="96px";c.querySelector(".v13e-who").appendChild(cl)}
+  if(el.getAttribute("style"))c.setAttribute("style",el.getAttribute("style"));el.parentNode.replaceChild(c,el)});
+ /* the episode page: media and title side by side in the first view */
+ var h1=a.querySelector(".v-card h1");if(h1&&/^episode-/.test(CUR)&&!a.querySelector(".v13e-ephead")){var textDiv=h1.parentNode,card=textDiv.parentNode,mediaDiv=textDiv.previousElementSibling;
+  if(mediaDiv&&card&&mediaDiv.querySelector(".v-vid,.v13e-card")){var wrap=document.createElement("div");wrap.className="v13e-ephead";card.insertBefore(wrap,mediaDiv);wrap.appendChild(mediaDiv);wrap.appendChild(textDiv)}}
+}
+var _v13eRender=render;
+render=function(id){_v13eRender(id);try{v13eFix(document.getElementById("app"))}catch(e){console.error("v13e",e)}};
+/* V13 addendum end */
 
 
 document.getElementById("fav").href=LOGOM;
