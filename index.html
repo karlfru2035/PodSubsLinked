@@ -1695,6 +1695,34 @@ body.v11 #app .v16-top .v15-first .v15-search .btn svg{color:#fff}
  body.v11 #app .v16-stats .v15-stat b{font-size:26px!important}
  body.v11 #app .v16-stats .v15-stat span{font-size:16px!important}
 }
+
+/* ================================================================
+   V17 PodCred marks (Karl 2026-11-16). Filled means the show or a
+   confirmation stands behind the credit, dashed yellow means waiting,
+   plain grey means the feed stated it.
+   ================================================================ */
+/* Added by the show's owner: a solid brand navy badge, white text */
+#app a.tier.to,body.v11 #app a.tier.to{background:#182852!important;color:#fff!important;border:1px solid #182852!important}
+#app a.tier.to svg,body.v11 #app a.tier.to svg{color:#fff!important;stroke:#fff}
+/* Feed-stated: plain grey on every screen (the V11 screens already draw it so) */
+body:not(.v11) #app .tier.tf{background:#ececec;color:#111}
+/* Added by a fellow podcaster keeps the old yellow dashed mark (class ti) */
+/* add a credit: the role prompt when nothing is picked yet */
+#app .pclb.v17-pick{color:#111;font-weight:700}
+#app .v17-proto{margin:12px 0 0}
+/* the verified-to-post rule */
+#app .v17-locked{flex:1;cursor:pointer;display:flex;align-items:center;gap:8px;color:#6b6b6b!important;background:#f4f4f4!important;border-style:dashed!important}
+#app .v17-locked svg{color:#6b6b6b}
+#app .v17-ok{display:flex;align-items:center;gap:8px;margin-top:12px;color:#3d3d3d}
+#app .v17-routes{display:flex;flex-direction:column;gap:8px;margin:0 0 16px}
+#app .v17-route{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid #e6e6e6;border-radius:12px;color:#111;text-decoration:none;cursor:pointer;background:#fff}
+#app .v17-route:hover{border-color:#111}
+#app .v17-ri{width:36px;height:36px;border-radius:50%;background:#f4f2ee;display:flex;align-items:center;justify-content:center;flex:none}
+#app .v17-rb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#app .v17-route>svg:last-child{flex:none;color:#6b6b6b}
+#app .v17-can{padding:12px 16px;border-radius:12px;background:#f4f2ee}
+#app .v17-show{display:flex;gap:8px;align-items:flex-start;margin-top:16px;color:#3d3d3d}
+#app .v17-scomp p{display:flex;align-items:center;gap:6px}
 </style></head><body>
 <div id="app"></div>
 <button class="pt-btn" onclick="document.getElementById('ptp').classList.toggle('op')">Prototype</button>
@@ -6290,6 +6318,165 @@ ACT.v16search=function(){var i=document.getElementById("v16q");return {go:"searc
 var _v16render=render;
 render=function(id){_v16render(id);try{v16swap()}catch(e){console.error("v16",e)}};
 /* V16 landing fix end */
+/* V17 final prototype start */
+/* ================================================================
+   V17, the final prototype (Karl 2026-11-16). The landing screens do
+   not change: every V17 change skips them.
+   1. PodCred marks: "Community" is renamed "Added by a fellow
+      podcaster" (yellow dashed); "Added by the show's owner" becomes a
+      solid navy badge; Feed-stated is plain grey; Verified stays green.
+   2. The claim pathways, walkable end to end:
+      a. a show's people, your name, claim, sign up, the show approves
+      b. search your own name, claim, the same path
+      c. the owner adds you by hand, sends the signed link, you join or
+         tap Done, the credit is verified
+      d. two keys: a second verified person confirms, no staff needed
+   3. The add a credit flow opens on Pick a role, no Guest default.
+   ================================================================ */
+var V17_LAND=["landing-page","landing-page-claim-referral-variant","podcred-landing-section","cookie-notice"];
+function v17land(){return V17_LAND.indexOf(CUR)>=0}
+function v17st(){S.v17=S.v17||{cp:{},ok:{},last:""};return S.v17}
+
+/* ---------- 1. the four marks ---------- */
+var V17_FELLOW="Added by a fellow podcaster";
+var _v17badge=pcBadge;
+pcBadge=function(t){if(v17land())return _v17badge(t);if(t==="v")return tier("v");if(t==="f")return tier("f");var o=t==="o";
+ return '<a class="tier '+(o?"to":"ti tc")+'" '+G("credit-trust-tiers-explained")+' title="'+(o?"The owner of the show added this credit by hand":"Named by one person in the community. Not verified yet")+'">'+ic(o?"check":"net",12)+(o?"Added by the show's owner":V17_FELLOW)+'</a>'};
+(function(){var o=R["credit-trust-tiers-explained"];R["credit-trust-tiers-explained"]=function(a){return o(a).replace(/(<h2[^>]*>)Community(<\/h2>)/,"$1"+V17_FELLOW+"$2")}})();
+
+/* ---------- 3. add a credit: Pick a role, no Guest default ---------- */
+var _v17mk=pcMk;
+pcMk=function(n,k,role){return _v17mk(n,k,role==="Guest"?"":role)};
+(function(){var o=R["podcred-add-a-credit-roles"];R["podcred-add-a-credit-roles"]=function(){var h=o(),p=pcS(),i=0;
+ return h.replace(/<div class="pclb" style="margin-top:0">Role<\/div>/g,function(m){var x=p.people[i++];return x&&!x.role?'<div class="pclb v17-pick" style="margin-top:0">Pick a role</div>':m})}})();
+
+/* ---------- 2a and 2b. claiming a profile a show names ---------- */
+/* who can be claimed, and the show whose page team confirms it */
+var V17_CP={iris:{show:"nightshift",role:"Guest, Episode 388",note:"I was your guest on Episode 388, The nurse who learned to sleep at noon."},
+ theo:{show:"localground",role:"Producer",note:"I produce Local Ground. The show's feed names me as producer."}};
+function v17cp(k){var s=v17st();return s.cp[k]||(s.cp[k]={st:"",show:V17_CP[k]?V17_CP[k].show:""})}
+/* the show's people: a claimable person stays Feed-stated until the show approves the claim */
+var _v17pp=pcPeople;
+pcPeople=function(k){var L=_v17pp(k),st=v17st();if(v17land())return L;
+ Object.keys(V17_CP).forEach(function(pk){var c=V17_CP[pk];if(c.show!==k)return;var ok=v17cp(pk).st==="approved";
+  var how=ok?"Confirmed by the show and by "+pcFirst(pk):"Named in the show's own feed. Waiting for "+pcFirst(pk)+" to claim the profile";
+  var have=L.filter(function(x){return x.k===pk});if(have.length)have.forEach(function(x){x.b=ok?"v":"f";x.how=how});else L.push({k:pk,n:"",role:c.role,b:ok?"v":"f",how:how,show:k,g:pcGroup(c.role)})});
+ if(k==="longtable"){
+  /* two keys */
+  PCPEND.forEach(function(p){if(v17keys(p)>=2&&!L.some(function(x){return x.k===p.k&&x.b==="v"}))L.push({k:p.k,n:"",role:p.role,b:"v",how:"Confirmed by two people from this show",show:k,g:pcGroup(p.role)})});
+  /* the signed link: the person joined or tapped Done */
+  L.forEach(function(x){if((x.b==="o"||x.b==="c")&&st.ok[pcName(x)]){x.b="v";x.how="The show named "+String(pcName(x)).split(" ")[0]+", and they confirmed it"}})}
+ return L};
+/* the claim bar on an unclaimed profile starts the real claim, not the after-claim page */
+function v17claimLinks(a){if(!vis())return;a.querySelectorAll('[data-go="pro-claim-landing"]').forEach(function(e){var k=e.getAttribute("data-arg");if(V17_CP[k]&&v17cp(k).st!=="approved")e.setAttribute("data-go","claim-a-profile-start")})}
+/* Theo's public profile: unclaimed until his claim is approved */
+(function(){var o=R["person-profile-public-limited-view"];R["person-profile-public-limited-view"]=function(a){
+ if(a==="theo"&&v17cp("theo").st!=="approved")return R["pro-unclaimed"]("theo");
+ if(a==="iris"&&v17cp("iris").st==="approved")return profile("iris",{guestView:1});
+ return o(a)}})();
+/* the claim flow speaks for the person being claimed */
+function v17who(){return S.cpk==="theo"?"theo":"iris"}
+function v17swap(h){if(v17who()!=="theo")return h;return h.replace(/iris\.novak@example\.com/g,"theo.park@example.com").replace(/The Quiet Hour feed lists i•••@example\.com/g,"The Local Ground feed lists t•••@example.com").replace(/i•••@example\.com/g,"t•••@example.com").replace(/Iris Novak/g,"Theo Park").replace(/\bIris\b/g,"Theo")}
+["claim-a-profile-sign-in-or-join","claim-a-profile-pick-a-proof","claim-a-profile-email-code","claim-a-profile-approved"].forEach(function(id){var o=R[id];R[id]=function(a){return v17swap(o(a))}});
+R["claim-a-profile-ask-a-show-to-confirm"]=function(){var k=v17who(),c=V17_CP[k],seen={},shows=[c.show];
+ creds(k).forEach(function(x){var s=x&&x[1];if(SH[s]&&shows.indexOf(s)<0)shows.push(s)});
+ return cp(3,{h:"Ask a show to confirm",lead:"We send the show's page team a request. Most answer within two days.",
+  body:fld("Show",'<select class="inp" id="v17cps">'+shows.map(function(s){return '<option value="'+s+'"'+(s===c.show?" selected":"")+'>'+SH[s].t+'</option>'}).join("")+'</select>')+fld("Note to the show",ta(c.note,"",60)),
+  btn:["Send the request","claim-a-profile-submitted","v17cpSend",k]})};
+ACT.v17cpSend=function(k){var s=document.getElementById("v17cps"),c=v17cp(k);c.show=s&&SH[s.value]?s.value:V17_CP[k].show;c.st="sent";v17st().proof="show";return {go:"claim-a-profile-submitted",arg:k}};
+(function(){var o=R["claim-a-profile-submitted"];R["claim-a-profile-submitted"]=function(a){var k=v17who(),c=v17cp(k);if(v17st().proof!=="show"||!c.st)return v17swap(o(a));
+ return cp(6,{icon:"send",h:"Claim sent to "+SH[c.show].t,lead:"The show's page team checks that this is you, usually within two days. We email you either way.",body:'<p class="small muted v17-proto"><a '+G("review-queue-all-review-duties",c.show)+'>Prototype: see it in the show\'s review queue</a></p>',btn:["See the status","claim-a-profile-under-review"]})}})();
+(function(){var o=R["claim-a-profile-under-review"];R["claim-a-profile-under-review"]=function(a){var k=v17who(),c=v17cp(k);if(v17st().proof!=="show"||!c.st)return v17swap(o(a));
+ if(c.st==="approved")return R["claim-a-profile-approved"]();var s=SH[c.show].t;
+ return cp(6,{h:"Your claim is with "+s,body:'<div class="tl">'+[["Sent","Today",1],["With the page team of "+s,"They confirm it is you",1],["Decision","Within two days",0]].map(function(x){return '<div class="tli'+(x[2]?" on":"")+'"><b>'+x[0]+'</b><span class="small muted">'+x[1]+'</span></div>'}).join("")+'</div><p class="small muted v17-proto"><a '+G("review-queue-all-review-duties",c.show)+'>Prototype: see it in the show\'s review queue</a></p>',btn:["Back to home","home-guest"]})}})();
+/* the show admin's review queue: profile claims */
+function v17claimCard(k){var rows=Object.keys(V17_CP).filter(function(pk){var c=v17cp(pk);return c.show===k&&c.st});if(!rows.length)return "";
+ return card(ch("Profile claims","People who say a profile named on your show is theirs")+'<div class="rows">'+rows.map(function(pk){var c=v17cp(pk),p=P[pk];
+  var dec=c.st==="sent"?'<div class="bar" style="margin-top:8px">'+btn(ic("check",16)+"Approve",A("v17cpDecide",pk+"|a"),"sm")+btn("Decline",A("v17cpDecide",pk+"|d"),"redo sm")+'</div>':
+   c.st==="approved"?'<div style="margin-top:8px">'+bn("ok","<b>Approved.</b> The profile is "+(pk==="iris"?"hers":"his")+" now, and the credit on "+SH[k].t+" is "+tier("v")+' <a '+G("show-page-people-tab",k)+'>See it on the show page</a>',"check")+'</div>':
+   '<div style="margin-top:8px">'+bn("er","<b>Declined.</b> The profile stays unclaimed. "+pcFirst(pk)+" was told why.")+'</div>';
+  return '<div class="row v17-claim">'+av(pk,56)+'<div class="bdy"><div class="t" '+G(profFor(pk),pk)+'>'+p.n+'</div><div class="s">says the profile your show names as <b>'+V17_CP[pk].role+'</b> is '+(pk==="iris"?"hers":"his")+'</div><div class="m">Proof asked for: the show confirms it is them · Sent today</div><div class="m">'+pcBadge(c.st==="approved"?"v":"f")+'</div>'+dec+'</div></div>'}).join("")+'</div>')}
+(function(){var o=R["review-queue-all-review-duties"];R["review-queue-all-review-duties"]=function(a){var h=o(a),k=rqShow(a),x=v17claimCard(k);if(!x)return h;
+ var w=Object.keys(V17_CP).filter(function(pk){var c=v17cp(pk);return c.show===k&&c.st==="sent"}).length;
+ if(w)h=h.replace(/(<a class="chip nv"[^>]*>All )(\d+)(<\/a>)/,function(m,a1,n,a3){return a1+(+n+w)+a3+'<a class="chip" '+G("review-queue-all-review-duties",k)+'>Profile claims '+w+'</a>'});
+ var m=h.indexOf("Guests who say they were on an episode");if(m<0)return h;var i=h.lastIndexOf('<div class="card',m);return i<0?h:h.slice(0,i)+x+h.slice(i)}})();
+ACT.v17cpDecide=function(a){var t=a.split("|"),c=v17cp(t[0]);c.st=t[1]==="a"?"approved":"declined";NOSCROLL=1;toast(t[1]==="a"?P[t[0]].n+" is verified on "+SH[c.show].t:"Declined. The profile stays unclaimed");return 1};
+
+/* ---------- 2c. the signed link ---------- */
+function v17sig(n){var h=0;String(n).split("").forEach(function(ch){h=(h*31+ch.charCodeAt(0))%1679616});return h.toString(36)}
+var _v17share=pcSharePanel;
+pcSharePanel=function(){var h=_v17share();return h.replace(/podsubs\.com\/c\/long-table\/([a-z0-9-]+)/g,function(m,sl){return m+"?s="+v17sig(sl)})};
+(function(){var o=R["podcred-share-link-landing"];R["podcred-share-link-landing"]=function(a){var h=o(a),n=(a||"").split("|")[0]||"Aiko Tanaka";v17st().last=n;
+ return h.replace(/<a([^>]*)data-go="show-page-public-view" data-arg="longtable"([^>]*)>Done<\/a>/,'<a$1'+A("v17linkDone",n)+'$2>Done</a>')}})();
+ACT.v17linkDone=function(n){v17st().ok[n]=1;return {go:"podcred-link-credit-verified",arg:n}};
+var _v17gate=ACT.gate;
+ACT.gate=function(a){var r=_v17gate(a);if(/claim your credit on The Long Table/.test(a||""))v17st().join=v17st().last||"Aiko Tanaka";return r};
+R["podcred-link-credit-verified"]=function(a){var st=v17st(),n=a||st.last||"Aiko Tanaka";st.ok[n]=1;
+ var x=pcPeople("longtable").filter(function(y){return pcName(y)===n})[0],role=x?x.role.replace(/, \d{4} to \d{4}$/,""):"your role";PAGE_TITLE="Your credit is verified | PodSubs";
+ return auth('<div class="pcsl">'+art("longtable",120,0)+'<div class="pcs-k">PodCred</div><h1>Your credit on The Long Table is verified</h1><div style="margin:8px 0 16px">'+tier("v")+'</div><p class="muted" style="margin-bottom:16px">'+esc(n)+', '+esc(role)+'. The show named you, and you confirmed it. It shows as Verified on the show\'s people and on your profile.</p>'+btn("See it on the show",G("show-page-people-tab","longtable"),"lg w")+'<div class="small" style="margin-top:14px"><a '+G(st.joined?"persona-pick":"show-page-public-view",st.joined?"":"longtable")+'>'+(st.joined?"Finish setting up your profile":"Back to the show page")+'</a></div></div>',{w:"w"})};
+
+/* ---------- 2d. two keys ---------- */
+PCPEND.forEach(function(p){if(p.id==="tom"){p.base=1;p.by="Added by Nia Johnson, confirmed by Jonah Bell"}if(p.id==="will")p.base=0});
+function v17keys(p){pcS();return p.base+(S.pcConf[p.id]?1:0)}
+pcBoard=function(k){if(k!=="longtable")return "";pcS();var can=!vis()&&(S.user==="host"||S.user==="pro"&&S.dana==="approved");
+ var rows=PCPEND.map(function(p){var n=v17keys(p),done=n>=2;
+  var line=done?"Confirmed by 2 of 2. This credit is verified now":n===1?"Confirmed by 1 of 2. One more verified person from this show can confirm it":"Waiting for two verified people from this show to confirm it";
+  var act=done?tier("v"):S.pcConf[p.id]?'<span class="btn on sm">'+ic("check",14)+'You confirmed this</span>':can?btn("Confirm",A("pcConfirm",p.id),"sm"):'<span class="vb n">'+ic("lock",13)+'Verified members of this show can confirm</span>';
+  return row({av:av(p.k,48),t:P[p.k].n,go:G(profFor(p.k),p.k),s:p.role+" · "+p.by,b:'<div class="pcprog" role="img" aria-label="'+n+' of 2"><i style="width:'+Math.round(Math.min(n,2)/2*100)+'%"></i></div><div class="small"><b>'+line+'</b></div>'+(p.self&&!done?'<div class="pcself">'+ic("link",16)+'<span>'+P[p.k].n+' sees this on the row</span>'+btn("Share your link with people on this show",A("pcShare",P[p.k].n+"|"+p.role+"|self"),"o sm")+'</div>':""),x:act})}).join("");
+ var mine=S.pcSent.filter(function(x){return x.show===k}).length;
+ return card(ch("Waiting to be verified","One person says it, two people confirm it.")+'<div class="rows" id="pcboard">'+rows+'</div><div class="cp small muted" style="border-top:1px solid var(--line)">'+(mine?'<b>'+mine+(mine>1?" credits":" credit")+' you gave</b> '+(mine>1?"are":"is")+' with our team for a check before appearing here. ':"")+(can?"You are signed in as a verified member of this show, so you can confirm people you worked with. Two confirmations verify a credit, with no one from our team involved.":'Signed in as a verified member of this show? Your Confirm button appears on each row. <a '+A("as","host","podcred-pending-verifications-board")+'>See that state</a>')+'</div>')};
+ACT.pcConfirm=function(a){pcS();S.pcConf[a]=1;NOSCROLL=1;var p=PCPEND.filter(function(x){return x.id===a})[0];if(p)toast(v17keys(p)>=2?P[p.k].n+" is verified on The Long Table now":"Confirmed. One more verified person can finish it");return 1};
+
+
+/* ---------- 3. the verified-to-post rule (Karl, anti-spam) ----------
+   Only verified people post and comment. An unverified member browses,
+   follows, saves, claims a profile, and requests credits. A claimed show
+   posts as the show: claiming the show is its verification. */
+var V17_ROUTES=[
+ ["link","A show's owner added you","The owner of a claimed show added you by hand and sent you a signed link. Open it, join or tap Done, and your credit is Verified.","podcred-share-link-landing","Aiko Tanaka|Sound designer"],
+ ["user","A show confirms your guest credit","Ask a show you were a guest on for the credit. When the show confirms it, your credit is Verified.","podcred-request-a-credit","longtable"],
+ ["check","Two people confirm a credit","A fellow podcaster named you on a show. Claim that credit, and when two verified people from the show confirm it, it is Verified.","podcred-pending-verifications-board",""],
+ ["mail","Your email is in a show's feed","A show's feed names you with your email. Claim the credit through the link we send to that email, and it is Verified.","claim-a-profile-email-code",""]];
+function v17routes(compact){return '<div class="v17-routes">'+V17_ROUTES.map(function(r,i){return '<a class="v17-route" '+G(r[3],r[4])+'><span class="v17-ri">'+ic(r[0],18)+'</span><span class="v17-rb"><b>'+r[1]+'</b>'+(compact?"":'<span class="small muted">'+r[2]+'</span>')+'</span>'+ic("right",16)+'</a>'}).join("")+'</div>'}
+function v17canNow(){return '<div class="v17-can"><div class="small b">You can do this now</div><div class="small muted">Browse everything, follow, save, claim a profile, and request credits.</div></div>'}
+/* the member home, for a member who is not verified yet, and once verified */
+function v17home(verified,panel){var o=ME.pro,u=S.user;S.user="pro";ME.pro="iris";var h;try{h=R["home-feed"]()}finally{ME.pro=o;S.user=u}
+ var t=document.createElement("div");t.innerHTML=h;
+ t.querySelectorAll(".v12-rl").forEach(function(r){if(/Post impressions/.test(r.textContent))r.remove()});
+ var comp=t.querySelector(".v12-comp");
+ if(comp){if(verified)comp.insertAdjacentHTML("beforeend",'<div class="v17-ok small">'+tier("v",1)+' You can post. Verified through your guest credit on Night Shift Radio.</div>');
+  else comp.outerHTML='<div class="v-card v12-comp v17-comp"><div style="display:flex;gap:12px;align-items:center">'+av("iris",48,0)+'<a class="lsb v17-locked" '+G("home-unverified-get-verified-panel")+'>'+ic("lock",16)+'Posting opens when you are verified</a></div><p class="small muted" style="margin:12px 0 0">Only verified people post and comment on PodSubs. It keeps the feed real and spam out. Your claim with Night Shift Radio is waiting. <a '+G("get-verified-to-post")+'>How to get verified</a></p></div>'}
+ if(!verified)[].forEach.call(t.querySelectorAll("a"),function(a){if(/^\s*(Comment|Repost)\s*$/.test(a.textContent)){a.setAttribute("data-go","home-unverified-get-verified-panel");a.removeAttribute("data-act");a.classList.add("v17-cmt")}});
+ var out=t.innerHTML;
+ if(panel)out+='<div class="pcov v17-pov"><div class="mdl" role="dialog" aria-label="Get verified to post"><div class="mh"><h2>Get verified to post</h2><a class="x" '+G("home-unverified-member")+' aria-label="Close">'+ic("x",20)+'</a></div><div class="mb2"><p class="small muted" style="margin:0 0 12px">Posting and commenting open once one of your credits is Verified. Any one of these does it.</p>'+v17routes(1)+v17canNow()+'</div><div class="mf"><a class="lnk small" style="margin-right:auto" '+G("get-verified-to-post")+'>Read each route in full</a>'+btn("Done",G("home-unverified-member"),"o")+'</div></div></div>';
+ return out}
+R["home-unverified-member"]=function(){return v17home(0,0)};
+R["home-unverified-get-verified-panel"]=function(){return v17home(0,1)};
+R["home-verified-to-post"]=function(){return v17home(1,0)};
+R["get-verified-to-post"]=function(){PAGE_TITLE="Get verified to post | PodSubs";
+ return app('<div class="l1"><div class="card"><div class="cp2"><div class="pcs-k">PodCred</div><h1 style="font-size:26px;margin:4px 0 8px">Get verified to post</h1><p class="muted" style="margin-bottom:16px">Only verified people post and comment on PodSubs. It keeps every thread real and keeps spam out. You are verified for posting the moment any one of your credits is Verified. There are four ways in.</p>'+v17routes(0)+v17canNow()+'<div class="v17-show small">'+ic("star",16)+'<span>Run a show? A claimed show posts as the show. Claiming the show is its verification. <a '+G("claim-find-your-show")+'>Claim your show</a></span></div></div></div></div>',"home")};
+/* a claimed show posting as the show */
+R["show-page-posting-as-the-show"]=function(){var c=S.claim,u=S.user;S.claim="approved";S.user="host";var h;try{h=R["show-page-posts-tab"]("longtable")}finally{S.claim=c;S.user=u}
+ var comp=card('<div class="cp v17-scomp"><div style="display:flex;gap:12px;align-items:center">'+art("longtable",48,0)+'<a class="lsb" style="flex:1;cursor:pointer" '+G("composer-announcement-as-a-show")+'>Post as The Long Table</a></div><p class="small muted" style="margin:12px 0 0">'+ic("check",14)+' The Long Table is claimed, so it posts as the show. Claiming the show is its verification.</p></div>');
+ var m=h.indexOf("We are recording live");if(m<0)return h;var i=h.lastIndexOf('<div class="card',m);return i<0?h:h.slice(0,i)+comp+h.slice(i)};
+/* ---------- render: links, the join hand-off ---------- */
+var _v17render=render;
+render=function(id){var st=v17st();
+ if(id==="persona-pick"&&st.join){var n=st.join;st.join="";st.ok[n]=1;st.joined=1;ARG=n;return render("podcred-link-credit-verified")}
+ _v17render(id);try{var a=document.getElementById("app");if(a&&!v17land())v17claimLinks(a)}catch(e){console.error("v17",e)}};
+
+/* ---------- registration: the two new screens ---------- */
+R["review-queue-profile-claim"]=function(){var c=v17cp("iris");if(!c.st)c.st="sent";c.show="nightshift";return R["review-queue-all-review-duties"]("nightshift")};
+var V17SCREENS=[["review-queue-profile-claim","Review queue, a profile claim","The show's page team approves or declines a person who says a profile the show names is theirs (V17)","host"],
+ ["podcred-link-credit-verified","Signed link, credit verified","The person opened the owner's signed link, joined or tapped Done, and the credit is verified (V17)",null],
+ ["home-unverified-member","Home, member not verified yet","The composer and every Comment show the get verified state instead of opening (V17)","pro"],
+ ["home-unverified-get-verified-panel","Home, get verified panel","The four routes to verification, opened from the composer or a Comment (V17)","pro"],
+ ["home-verified-to-post","Home, verified to post","The same member once a credit is Verified: the composer opens (V17)","pro"],
+ ["get-verified-to-post","Get verified to post","The four routes in plain words, and what an unverified member can do now (V17)","pro"],
+ ["show-page-posting-as-the-show","Show page, posting as the claimed show","A claimed show posts as the show; claiming it is its verification (V17)","host"]];
+V17SCREENS.forEach(function(x,i){META[x[0]]={n:1275+i,title:x[1],purpose:x[2],tag:"new"};WHO[x[0]]=x[3];if(!x[3])VOK.push(x[0])});
+SECS.push({n:47,name:"Final prototype (V17)",ids:V17SCREENS.map(function(x){return x[0]})});
+/* V17 final prototype end */
 
 
 document.getElementById("fav").href=LOGOM;
