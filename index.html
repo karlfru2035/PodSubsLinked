@@ -1439,6 +1439,33 @@ body.v11 #app .v13-sq{display:block;width:44px;height:44px;border-radius:12px;ba
  #app .ep:has(.v13e-slot){flex-wrap:wrap}
  #app .v13e-slot{width:100%}
 }
+
+/* ================================================================
+   V14, the final pass (Karl 2026-11-16): the quiet Add a credit
+   action, the PodCred explanation, covers.
+   ================================================================ */
+/* Add a credit: a quiet text action, never a button that competes */
+body.v11 #app .v14-credit{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 4px;font-size:15px;font-weight:500;color:#3d3d3d!important;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c4c4c4;cursor:pointer;white-space:nowrap}
+body.v11 #app .v14-credit:hover{color:#111!important}
+/* the default cover: a flat, quiet tonal panel in the navy family; no gradient */
+body.v11 #app .v-cover,body.v11 #app .v14-cover{background:#e3e7f0!important;background-image:none;border-radius:12px}
+body.v11 #app .v14-cover.v14-hasphoto{background-color:#e3e7f0!important;background-size:contain!important;background-repeat:no-repeat!important}
+body.v11 #app .v14-cover.v14-pos-left{background-position:left center!important}
+body.v11 #app .v14-cover.v14-pos-center{background-position:center center!important}
+body.v11 #app .v14-cover.v14-pos-right{background-position:right center!important}
+body.v11 #app .v14-covbtn{position:absolute;right:16px;bottom:16px;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid #d6d6d6;color:#111!important;font-size:13px;font-weight:600;text-decoration:none!important}
+body.v11 #app .v14-covbtn:hover{border-color:#111}
+body.v11 #app .v14-prev{height:150px;margin-top:8px}
+body.v11 #app .v14-up{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+body.v11 #app .v14-thumb{width:96px;height:54px;border-radius:12px;background-color:#e9e9e9;background-size:contain;background-repeat:no-repeat;background-position:center;border:2px solid transparent;cursor:pointer}
+body.v11 #app .v14-thumb.on{border-color:#111}
+body.v11 #app .v14-file{cursor:pointer}
+/* the PodCred explanation: two short lines with the record, one action */
+body.v11 #app .v14-why{margin:0 0 8px;color:#3d3d3d}
+body.v11 #app .v14-why p{margin:0 0 4px;font-size:15px}
+body.v11 #app .v14-act{margin:0 0 8px}
+body.v11 #app .v14-gline{margin:0 0 4px}
+body.v11 #app .v14-showwhy{margin:4px 0 12px}
 </style></head><body>
 <div id="app"></div>
 <button class="pt-btn" onclick="document.getElementById('ptp').classList.toggle('op')">Prototype</button>
@@ -5799,6 +5826,120 @@ function v13eFix(a){
 var _v13eRender=render;
 render=function(id){_v13eRender(id);try{v13eFix(document.getElementById("app"))}catch(e){console.error("v13e",e)}};
 /* V13 addendum end */
+/* V14 final pass start */
+/* ================================================================
+   V14, the final prototype pass (Karl, 2026-11-16). Karl's credits
+   ruling was about counts and stats, never about removing PodCred or
+   Add a credit. This pass wins where it conflicts with V13.
+   1. Add a credit on every person profile, in the first view, after
+      Claim this profile where that shows; a quiet action that never
+      competes with Follow, Connect, Message, Book, or Pitch.
+   2. PodCred explained where it lives, in plain words; the record sits
+      right after Experience. Guest terms on a guest's appearances.
+      The show page's people block gains the same plain line.
+   3. Recommendations on every profile variant, findable by scanning.
+   4. Covers: a quiet default in the navy family; the owner adds or
+      changes it on the cover itself (upload, reposition, remove).
+   5. Show pages: the last two credit counts go.
+   6. Sweep fixes: no rating average under 5 ratings anywhere; every
+      profile list pages in groups of 5.
+   ================================================================ */
+function v14img(c){return c&&PH[c]?'background-image:url(\''+PH[c]+'\')!important;':""}
+function v14st(){S.v14=S.v14||{cover:null,pos:"center",draft:null,dpos:null};return S.v14}
+var V14_COVERS=[["hero-studio","Studio"],["hero-live","Live taping"],["hero-mic","Microphone"]];
+
+/* ---------------- 1. Add a credit in the action area ---------------- */
+function v14credit(k){return '<a class="v14-credit" '+A("pcStart","p:"+k)+' aria-label="Add a credit for '+esc(P[k].n)+'">'+ic("plus",16)+'Add a credit</a>'}
+var _v14acts=v13acts;
+v13acts=function(k,o){var h=_v14acts(k,o);var cr=v14credit(k);
+ /* after Claim this profile, when it shows; otherwise last, after the working actions */
+ var claim=h.indexOf('Is this you? Claim this profile</a>');if(claim>=0){var at=claim+'Is this you? Claim this profile</a>'.length;return h.slice(0,at)+cr+h.slice(at)}
+ return h+cr};
+
+/* ---------------- 4. covers ---------------- */
+var _v14head=v13head;
+v13head=function(k,o){var h=_v14head(k,o);var st=v14st();
+ var mine=k===(ME.pro||"dana")&&st.cover;
+ var cls='v-cover v14-cover'+(mine?' v14-hasphoto'+ph(st.cover)+' v14-pos-'+st.pos:"");
+ h=h.replace('<div class="v-cover" style="position:relative">','<div class="'+cls+'" style="position:relative;'+(mine?v14img(st.cover):"")+'"'+(mine?' role="img" aria-label="Cover photo"':'')+'>');
+ if(o.own)h=h.replace(/<a class="v-circ v12-pen" [^>]*>[\s\S]*?<\/a>/,'<a class="v14-covbtn" '+G("pro-cover-editor")+'>'+ic("photo",16)+(mine?"Change cover":"Add cover photo")+'</a>');
+ return h};
+R["pro-cover-editor"]=function(){var st=v14st();var cur=st.draft!==null?st.draft:st.cover;var pos=st.dpos||st.pos;
+ var prev='<div class="v-cover v14-cover v14-prev'+(cur?' v14-hasphoto'+ph(cur)+' v14-pos-'+pos:"")+'" style="'+(cur?v14img(cur):"")+'" role="img" aria-label="'+(cur?"Cover preview":"Default cover")+'"></div>';
+ return v12page(v12sheet("Cover photo",prev+'<p class="small muted" style="margin-top:12px">'+(cur?"Your photo shows whole on the cover. Move it left, centre, or right.":"This is the default cover. Upload a photo to change it.")+'</p>'+
+  '<div class="v-place" style="margin-top:16px">Upload a photo</div><div class="v14-up">'+V14_COVERS.map(function(c){return '<a class="v14-thumb'+ph(c[0])+(cur===c[0]?" on":"")+'" '+A("v14pick",c[0])+' role="button" aria-label="Use '+c[1]+'"></a>'}).join("")+'<label class="v-pill sm v14-file">'+ic("up",14)+'Choose a file<input type="file" accept="image/*" aria-label="Choose a cover photo" style="display:none"></label></div>'+
+  (cur?'<div class="v-place" style="margin-top:16px">Reposition</div><div class="v-pills">'+[["left","Left"],["center","Centre"],["right","Right"]].map(function(x){return '<a class="v-pill sm'+(pos===x[0]?" on":"")+'" '+A("v14pos",x[0])+'>'+x[1]+'</a>'}).join("")+'</div>':"")+
+  (cur?'<p style="margin-top:16px"><a class="v11-link" '+A("v14remove","")+'>Remove photo, back to the default</a></p>':""),
+  '<a class="v-pill" '+A("v14cancel","")+' data-go="pro-owner">Cancel</a><a class="btn" '+A("v14save","")+' data-go="pro-owner">Save</a>'),"me")};
+R["pro-owner-cover-changed"]=function(){var st=v14st();st.cover="hero-live";st.pos="center";return v13profile(ME.pro||"dana",{own:1})};
+ACT.v14pick=function(c){var st=v14st();st.draft=c;st.dpos=st.dpos||"center";NOSCROLL=1;return 1};
+ACT.v14pos=function(p){var st=v14st();if(st.draft===null)st.draft=st.cover;st.dpos=p;NOSCROLL=1;return 1};
+ACT.v14remove=function(){var st=v14st();st.draft="";NOSCROLL=1;return 1};
+ACT.v14cancel=function(){var st=v14st();st.draft=null;st.dpos=null;return 0};
+ACT.v14save=function(){var st=v14st();if(st.draft!==null)st.cover=st.draft||null;if(st.dpos)st.pos=st.dpos;st.draft=null;st.dpos=null;S.toast=st.cover?"Cover saved":"Back to the default cover";return 0};
+
+/* ---------------- 2. the PodCred record, explained, after Experience ---------------- */
+function v14why(k,o,guestOnly){var first=P[k].n.split(" ")[0];
+ if(o.unclaimed)return '<div class="v14-why"><p>PodCred is the verified record of where '+first+' has worked and appeared. These credits come from the shows\' own feeds and wait for people who were there to confirm them.</p><p>Worked with '+first+' on a show? This is where you give them credit.</p></div>';
+ if(guestOnly)return '<div class="v14-why"><p>These appearances are credits. Each one was confirmed by the show '+first+' appeared on.</p><p>Know of an appearance that is missing? Add a credit to record it.</p></div>';
+ return '<div class="v14-why"><p>PodCred is the verified record of where '+first+' has worked and appeared. A credit here means people who were there confirmed the work.</p><p>Worked with '+first+' on a show? This is where you give them credit.</p></div>'}
+v13record=function(k,o){var cr=v2credits(k),first=P[k].n.split(" ")[0];var ap=v2appearances(k);
+ var roles={};cr.forEach(function(c){if(c.role==="Guest")return;(roles[c.role]=roles[c.role]||[]).push(c)});
+ var names=Object.keys(roles).sort(function(a,b){var i=V13_ROLE_ORDER.indexOf(a),j=V13_ROLE_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)});
+ var guestCr=cr.filter(function(c){return c.role==="Guest"});var hasGuest=guestCr.length||ap.length;var guestOnly=hasGuest&&!names.length;
+ var groups=names.map(function(r){return '<div class="v13-role"><h3>'+esc(r)+'</h3><div class="v13-list">'+roles[r].map(function(c){var s=SH[c.show];return vRow({cls:"v10li",pic:art(c.show,48,0),t:s.t,s:(c.detail?c.detail+" · ":"")+s.cat,s2:v2tierHtml(c.b),go:G(c.i!=null?"episode-page":v10showGo(),c.i!=null?c.i:c.show)})}).join("")+'</div></div>'}).join("");
+ var guest=hasGuest?'<div class="v13-role"><h3>Guest appearances</h3>'+(!guestOnly&&v13isGuest(k,o)?'<p class="small muted v14-gline">Each appearance is a credit, confirmed by the show.</p>':"")+'<div class="v13-list">'+(ap.length?ap.map(function(a){return v2epCard(a.s,a,{kick:SH[a.s].t,extra:a.st==="verified"?' '+vb("Verified appearance"):' '+vb("Waiting for the show","a")})}).join(""):guestCr.map(function(c){var s=SH[c.show];return vRow({cls:"v10li",pic:art(c.show,48,0),t:s.t,s:(c.detail||"Guest")+" · "+s.cat,s2:v2tierHtml(c.b)})}).join(""))+'</div></div>':"";
+ var empty=!groups&&!guest;
+ return '<div id="v13-record" class="v13-rec v14-rec">'+vCard(guestOnly?"Guest appearances":"PodCred record",guestOnly?"Part of "+first+"'s PodCred record":"The verified record of the work",
+  v14why(k,o,guestOnly)+'<p class="v14-act"><a class="v14-credit" '+A("pcStart","p:"+k)+'>'+ic("plus",16)+'Add a credit</a></p>'+
+  (empty?'<p class="muted">No credits yet.</p>':(guestOnly?guest.replace('<div class="v13-role"><h3>Guest appearances</h3>','<div class="v13-role">'):groups+guest))+
+  (o.own?'<p style="margin-top:16px"><a class="v11-link" '+G("podcred-owner-view")+'>Open your PodCred desk</a></p>':""))+'</div>'};
+
+/* ---------------- 3. recommendations on every variant ---------------- */
+var _v14recs=v12recs;
+v12recs=function(k,o){var h=_v14recs(k,o);var first=P[k].n.split(" ")[0];
+ if(!h){var deg=v12deg(k);var why=o.unclaimed?"Recommendations open once "+first+" claims this profile.":vis()?"Join PodSubs to read and write recommendations.":deg>=2?"Only 1st-degree connections can write a recommendation. Connect with "+first+" to recommend them.":"";
+  h=v12card("Recommendations","",'<div class="v-pills">'+[["rec","Received"],["giv","Given"]].map(function(t){return '<a class="v-pill sm'+(v12st().rtab===t[0]?" on":"")+'" '+A("v12rtab",t[0])+'>'+t[1]+'</a>'}).join("")+'</div><div class="v-row" style="cursor:default"><div class="v-b muted">'+first+(v12st().rtab==="giv"?" has not written a recommendation yet.":" has no recommendations yet.")+'</div></div>'+(why?'<p class="small muted" style="margin-top:8px">'+why+'</p>':"")+
+   (!o.unclaimed&&!vis()&&deg>=2?'<div class="v-pills" style="margin-top:8px"><a class="v-pill sm" '+G("net-connect-sheet",k)+'>Connect with '+first+'</a></div>':vis()&&!o.unclaimed?'<div class="v-pills" style="margin-top:8px"><a class="v-pill sm" '+A("gate","pro|recommend "+first,"join-account-step")+'>Join to recommend '+first+'</a></div>':""))}
+ return '<div id="v14-recs" class="v14-recs">'+h+'</div>'};
+
+/* the profile order: the PodCred record directly after Experience, then the rest of the V12 order */
+v13profile=function(k,o){o=o||{};k=P[k]?k:"sofia";var st=v12st();PAGE_TITLE=P[k].n+" | PodSubs";
+ if(st.blk[k]&&!o.own)return v12page(v12card("This profile is not available","",'<p class="muted">You blocked '+P[k].n+'. You are not connected, and recommendations and endorsements between you were removed.</p><a class="v-pill" '+A("v12unblock",k)+'>Unblock</a>'),"net");
+ var guest=v13isGuest(k,o);
+ var body=(o.pre||"")+v13head(k,o)+(o.own?v12suggest(k)+v12analytics(k):"")+v12about(k,o)+v12services(k,o)+v12featured(k,o)+(o.unclaimed?"":v12activity(k,o))+
+  v12exp(k,o)+v13record(k,o)+v12edu(k,o)+v12lic(k,o)+v12skills(k,o)+v12recs(k,o)+(guest||V12GR[k]?v12rating(k,o):"")+v12vol(k,o)+v12lang(k,o)+v12interests(k,o)+
+  (o.post||"")+(o.own?"":v12also(k));
+ return v12page(body,o.own?"me":vis()?"people-directory-public":"net",vis()?joinRail():"")};
+/* Interests pages in groups of 5 like every other list */
+var _v14int=v12interests;
+v12interests=function(k,o){return _v14int(k,o).replace(/<div class="v-row" /g,'<div class="v-row v10li" ')};
+
+/* ---------------- 5 and 6. text fixes after each render ---------------- */
+function v14fix(a){
+ /* show pages: the reviewer line keeps role and shows, drops the credit count; the cast line drops its count */
+ a.querySelectorAll(".v-cred").forEach(function(el){[].forEach.call(el.childNodes,function(n){if(n.nodeType===3&&/credits?\b/.test(n.textContent))n.textContent=n.textContent.replace(/\s*·\s*\d[\d,]*\s*credits?\b/gi,"")})});
+ a.querySelectorAll(".v-sub,.ch .s,.small").forEach(function(el){if(el.children.length)return;var t=el.textContent;var m=t.match(/^\s*\d[\d,]*\s*credits?,\s*in credit order/i);if(m)el.textContent=t.replace(/^\s*\d[\d,]*\s*credits?,\s*in credit order/i,"In credit order")});
+ /* the show page's people block: the same plain line, under its header */
+ a.querySelectorAll("h2").forEach(function(h){if(!/^The people of /.test(h.textContent))return;var card=h.closest(".v-card,.card");if(!card||card.querySelector(".v14-why"))return;var hd=h.closest(".v-hd,.ch")||h.parentNode;
+  var p=document.createElement("div");p.className="v14-why v14-showwhy";p.innerHTML='<p>PodCred is the verified record of who made this show. A credit here means people who were there confirmed the work.</p>';hd.parentNode.insertBefore(p,hd.nextSibling)});
+ /* ratings honesty: no average shown with fewer than 5 ratings */
+ var w=document.createTreeWalker(a,NodeFilter.SHOW_TEXT);var n;while((n=w.nextNode())){var t=n.textContent;
+  var r=t.replace(/(\d\.\d)\s*host rating,\s*([1-4])\s*ratings?/gi,function(m,avg,c){return c+(c==="1"?" host rating":" host ratings")+". The average shows at 5"});
+  if(r!==t)n.textContent=r}
+ /* the same rule where the average sits in its own element beside "host rating, 4 ratings" */
+ a.querySelectorAll("span,div,small").forEach(function(el){if(el.children.length)return;var m=el.textContent.trim().match(/^host rating,\s*([1-4])\s*ratings?$/i);if(!m)return;var prev=el.previousElementSibling;
+  if(prev&&/^\s*\d\.\d\s*$/.test(prev.textContent)){prev.textContent=m[1];el.textContent=(m[1]==="1"?"host rating":"host ratings")+". The average shows at 5"}});
+}
+var _v14render=render;
+render=function(id){_v14render(id);try{v14fix(document.getElementById("app"))}catch(e){console.error("v14",e)}};
+
+/* ---------------- registration ---------------- */
+var V14SCREENS=[["pro-cover-editor","Cover photo editor","Upload, reposition, remove back to the default (V14)","pro"],
+ ["pro-owner-cover-changed","Your profile with a changed cover","The owner's own photo on the cover, shown whole (V14)","pro"]];
+V14SCREENS.forEach(function(x,i){META[x[0]]={n:1273+i,title:x[1],purpose:x[2],tag:"new"};WHO[x[0]]=x[3]});
+SECS.push({n:46,name:"Final pass (V14)",ids:V14SCREENS.map(function(x){return x[0]})});
+/* V14 final pass end */
 
 
 document.getElementById("fav").href=LOGOM;
