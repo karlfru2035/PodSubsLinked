@@ -231,6 +231,204 @@
 @media(max-width:760px){.v-split{grid-template-columns:minmax(0,1fr)}.v-split.detail>.v-listcol{display:none}.v-split:not(.detail)>.v-detcol{display:none}.v-epv{grid-template-columns:minmax(0,1fr)}.v-cover{height:120px}}
 @media(max-width:560px){.v-epv,.v-fbar,.v-count,.v-rank,.v-cast,.v-rv-tools,.v-prod{padding-left:16px;padding-right:16px}.v-phead{padding:0 16px 14px}}
 /* V10 design system, slice 2 end */
+/* ================================================================
+   V11 RESTYLE (Karl 2026-11-16, after the designer review of V10).
+   One CSS layer over the V10 system. It changes how the V10 screens
+   and the landing page LOOK, never what they do or say. Every rule
+   is scoped to body.v11, which the V11 hook sets only on the 203 V10
+   screens and the two landing screens; V9 screens never get it.
+   The system:
+   - TYPE: page title 34px bold tight; section header 21px bold;
+     titles and body 15px; meta 13px regular grey. Bold is rationed.
+   - COLOUR: white ground, black and greys. PodSubs navy is spent once
+     per screen, on the one filled primary (.v11-p). No gradients on UI.
+   - SPACING: 8px unit; sections 32px apart, separated by space only;
+     rows 16px apart on hairlines; side padding 16px phone, 32px desktop.
+   - RADIUS: 12px for every surface and artwork; pills, chips, search
+     fields and badges full-round; people are circles.
+   - DEPTH: no shadows; contained surfaces are a light grey ground.
+     Soft shadows only on floating parts: player bar, bottom nav,
+     sticky bars, the messaging dock, the search dropdown.
+   ================================================================ */
+body.v11{--bg:#fff;--card:#fff;--line:#ebebeb;--line2:#dcdcdc;--ink:#111;--ink2:#5c5c5c;--ink3:#8a8a8a;
+ --navy:#111;--navy2:#000;--navy3:#ececec;--navy4:#f4f4f4;--green:#111;--green2:#f2f2f2;--amber:#5c5c5c;--amber2:#f2f2f2;
+ --r:12px;--sh:none;--v11-navy:#182852;--v11-g:#f4f4f4;background:#fff;color:#111}
+body.v11 #app{font-size:15px;line-height:1.5}
+/* depth: no shadows anywhere on the page, then back on the floating parts only */
+body.v11 #app *,body.v11 #app *:hover{box-shadow:none!important}
+body.v11 #app .pbar,body.v11 #app .mini,body.v11 #app .bnav,body.v11 #app .subbar,body.v11 .dock,body.v11 #app .sdd,body.v11 .ckn{box-shadow:0 -2px 16px rgba(0,0,0,.08)!important}
+body.v11 #app .sdd{box-shadow:0 8px 28px rgba(0,0,0,.12)!important}
+/* page width and side padding */
+body.v11 #app .wrap{padding-left:16px;padding-right:16px}
+@media(min-width:1000px){body.v11 #app .wrap{padding-left:32px;padding-right:32px;max-width:1192px}}
+/* ---------- type: four tiers, three in use on most screens ---------- */
+body.v11 #app h1,body.v11 #app .v-hero h1,body.v11 #app .v-phead h1,body.v11 #app .v-jd h1{font-size:34px!important;line-height:1.12!important;font-weight:700!important;letter-spacing:-.025em!important;color:#111!important}
+body.v11 #app h2,body.v11 #app .v-card>.v-hd h2,body.v11 #app .ch h2{font-size:21px!important;line-height:1.25!important;font-weight:700!important;letter-spacing:-.015em!important;color:#111!important}
+body.v11 #app h3,body.v11 #app h4{font-size:15px!important;font-weight:600!important;line-height:1.35!important}
+body.v11 #app main [style*="font-size"]:not(h1):not(h2):not(.art):not(.av),body.v11 #app .l2 [style*="font-size"]:not(h1):not(h2):not(.art):not(.av),body.v11 #app .cp2 [style*="font-size"]:not(h1):not(h2):not(.art):not(.av){font-size:inherit!important}
+body.v11 #app .small,body.v11 #app .muted.small,body.v11 #app .m,body.v11 #app .row .s,body.v11 #app .row .m,body.v11 #app .ch .s,
+body.v11 #app .v-row .v-s,body.v11 #app .v-card>.v-hd .v-sub,body.v11 #app .v-ep .v-d,body.v11 #app .v-epv .v-b .v-d,body.v11 #app .v-ep .v-desc,body.v11 #app .v-epv .v-b .v-desc,
+body.v11 #app .v-sc .v-scs,body.v11 #app .v-rc .v-rcs,body.v11 #app .v-jrow .v-m,body.v11 #app .v-jrow .v-s,body.v11 #app .v-stepl,body.v11 #app .v-count,body.v11 #app .v-cnt,body.v11 #app .v-cred,body.v11 #app .v-cc,
+body.v11 #app .v-castc .v-cr,body.v11 #app .v-phead .v-handle,body.v11 #app .v-phead .v-place,body.v11 #app .v-hero .v-kick,body.v11 #app .v-hero .v-rl,body.v11 #app .v-rev .v-rm,body.v11 #app .v-common .v-ck,
+body.v11 #app .v-hist .v-hr,body.v11 #app .v-avg span,body.v11 #app .v-stats a,body.v11 #app .v-stats span,body.v11 #app .v-tap,body.v11 #app .v-vid .v-vmeta,body.v11 #app .v-vid .v-vbar,body.v11 #app .v-gcard .v-active{font-size:13px!important;font-weight:400!important;color:#6b6b6b!important;letter-spacing:0!important;text-transform:none!important}
+body.v11 #app .v-vid .v-vmeta,body.v11 #app .v-vid .v-vbar{color:#fff!important;font-weight:600!important}
+/* eyebrows: the small grey line over a large tight headline (Spotify) */
+body.v11 #app .v-hero .v-kick,body.v11 #app .lb .k,body.v11 #app .pcland-t,body.v11 #app .v-common .v-ck{font-size:13px!important;color:#6b6b6b!important;letter-spacing:0!important;text-transform:none!important;font-weight:400!important}
+/* titles: semibold, not bold */
+body.v11 #app .v-row .v-t,body.v11 #app .row .t,body.v11 #app .v-ep .v-t,body.v11 #app .v-epv .v-b .v-t,body.v11 #app .v-sc .v-sct,body.v11 #app .v-rc .v-rct,body.v11 #app .v-jrow .v-t,body.v11 #app .v-castc .v-cn,body.v11 #app .v-rev .v-rt,body.v11 #app .v-tile,body.v11 #app .v-top .v-tt{font-size:15px!important;font-weight:600!important;color:#111!important;letter-spacing:0!important}
+body.v11 #app .v-hero .v-net,body.v11 #app .v-phead .v-head2,body.v11 #app .v-hero .v-about,body.v11 #app .v-rev p,body.v11 #app .v-rc .v-note,body.v11 #app p{font-size:15px!important;font-weight:400!important}
+body.v11 #app .v-avg b,body.v11 #app .v-top .v-tt,body.v11 #app .v-stats b,body.v11 #app .v-rk{font-size:inherit}
+body.v11 #app .v-avg b{font-size:34px!important;font-weight:700!important;letter-spacing:-.02em}
+body.v11 #app .v-stats b{font-size:15px!important;font-weight:600!important}
+body.v11 #app .v-rk{font-size:15px!important;font-weight:600!important;color:#6b6b6b!important}
+/* links: ink, underline on hover; never the accent */
+body.v11 #app a{color:#111}
+body.v11 #app p a,body.v11 #app .s a,body.v11 #app .v-s a,body.v11 #app .lnk{text-decoration:underline;text-underline-offset:2px;text-decoration-color:#bdbdbd}
+/* ---------- sections: space only ---------- */
+body.v11 #app .card,body.v11 #app .v-card{background:transparent;border:0!important;border-radius:0;margin-bottom:32px;overflow:visible}
+body.v11 #app .v-card>.v-hd,body.v11 #app .ch{padding:0 0 8px;align-items:center}
+body.v11 #app .v-card>.v-hd{align-items:center}
+body.v11 #app .cp,body.v11 #app .cp2{padding-left:0;padding-right:0}
+body.v11 #app .v-row,body.v11 #app .row,body.v11 #app .v-ep,body.v11 #app .v-epv,body.v11 #app .v-jrow,body.v11 #app .v-prod,body.v11 #app .v-tap{padding:16px 0;border-top:1px solid #ebebeb}
+body.v11 #app .v-row:hover,body.v11 #app .v-jrow:hover{background:transparent}
+body.v11 #app .v-row:hover .v-t,body.v11 #app .v-jrow:hover .v-t{text-decoration:underline;text-underline-offset:2px}
+body.v11 #app .v-shelf,body.v11 #app .v-grid,body.v11 #app .v-tiles,body.v11 #app .v-revs,body.v11 #app .v-rank,body.v11 #app .v-cast,body.v11 #app .v-fbar,body.v11 #app .v-count,body.v11 #app .v-rv-tools,body.v11 #app .v-rate,body.v11 #app .v-cnt,body.v11 #app .v-tabs,body.v11 #app .v-shd{padding-left:0;padding-right:0}
+body.v11 #app .v-hero{padding:8px 0 24px;gap:32px}
+body.v11 #app .v-phead{padding:0 0 24px}
+body.v11 #app .v-jd,body.v11 #app .v-steps,body.v11 #app .v-formb,body.v11 #app .v-formf{padding-left:0;padding-right:0}
+body.v11 #app .l2,body.v11 #app .l2l{gap:48px}
+/* contained surfaces: a light grey ground, 12px, no border, no shadow (the Nike tile) */
+body.v11 #app .v-rev,body.v11 #app .v-common,body.v11 #app .v-audio,body.v11 #app .v-rc .v-note,body.v11 #app .bn,body.v11 #app .v-tile,body.v11 #app .v-epv .v-afall,body.v11 #app .v-sheet,body.v11 #app .hw,body.v11 #app .dpc,body.v11 #app .strip,body.v11 #app .l2-path,body.v11 #app aside .card,body.v11 #app .v-rail{background:var(--v11-g)!important;border:0!important;border-radius:12px!important}
+body.v11 #app aside .card{padding:20px;margin-bottom:16px}
+body.v11 #app .v-gcard{background:#fff;border:0;border-radius:12px;margin-bottom:32px}
+body.v11 #app .v-gcard .v-gel{padding:16px 0;border-top:1px solid #ebebeb}
+body.v11 #app .v-gcard .v-gel:first-child{padding:0;border-top:0}
+body.v11 #app .v-gcard .v-gel .v-act{right:0}
+body.v11 #app .v-rc{background:#fff;border-radius:12px}
+body.v11 #app .v-rc .v-rcb{padding:12px 0 0}
+body.v11 #app .v-sheet .v-shb{padding:24px}
+body.v11 #app .v-audio .v-wave{background:#dcdcdc;height:4px;border-radius:2px}
+/* split view (jobs): columns on hairlines, no boxes */
+body.v11 #app .v-split{gap:32px}
+body.v11 #app .v-split>div>.card,body.v11 #app .v-split>div>.v-card{margin-bottom:0}
+body.v11 #app .v-split .v-sel{background:var(--v11-g);border-radius:12px}
+body.v11 #app .v-split .v-sel{padding-left:12px;padding-right:12px}
+body.v11 #app .v-rail{padding:8px}
+body.v11 #app .v-rail a{border-top:0;border-radius:999px;padding:10px 14px}
+body.v11 #app .v-rail a.on{background:#fff;color:#111}
+/* ---------- radius: one 12px for surfaces and artwork ---------- */
+body.v11 #app .art,body.v11 #app .v-row .v-art,body.v11 #app .v-sc .v-scart,body.v11 #app .v-hero .v-hart,body.v11 #app .v-vid,body.v11 #app .v-epv .v-afall,body.v11 #app .l2-frame,body.v11 #app .l2-th,body.v11 #app .strip-img,body.v11 #app .ph{border-radius:12px}
+body.v11 #app .v-row .v-art.round,body.v11 #app .av,body.v11 #app .v-castc .v-cp{border-radius:50%}
+body.v11 #app .inp:not(textarea),body.v11 #app select.inp{border-radius:12px;border-color:#cfcfcf}
+body.v11 #app textarea,body.v11 #app .v-sheet textarea{border-radius:12px;border-color:#cfcfcf}
+body.v11 #app .lsb,body.v11 #app .fqi,body.v11 #app input[type=search]{border-radius:999px!important}
+body.v11 #app .lsb{border-color:#cfcfcf;background:#fff}
+/* ---------- buttons: one filled navy primary; the rest outlined pills or text ---------- */
+body.v11 #app .btn{border-radius:999px;font-weight:600;font-size:14px;height:36px;padding:0 18px}
+body.v11 #app .btn.sm{height:30px;padding:0 14px;font-size:13px}
+body.v11 #app .btn.lg,body.v11 #app .btn.xl{height:44px;padding:0 22px;font-size:15px}
+body.v11 #app .btn:not(.v11-p):not(.red):not(.dis):not([disabled]):not(.g){background:#fff!important;color:#111!important;border:1px solid #cfcfcf!important}
+body.v11 #app .btn:not(.v11-p):not(.red):not(.dis):not([disabled]):not(.g):hover{border-color:#111!important}
+body.v11 #app .btn.g:not(.v11-p){border-color:transparent!important;background:transparent!important;color:#111!important}
+body.v11 #app .btn.v11-p{background:var(--v11-navy)!important;border:1px solid var(--v11-navy)!important;color:#fff!important}
+body.v11 #app .btn.v11-p:hover{background:#0f1b3d!important}
+body.v11 #app .btn.redo{color:#c9252c!important}
+/* pills and chips: full-round; the selected one is ink, never the accent */
+body.v11 #app .v-pill,body.v11 #app .chip,body.v11 #app .v-plat,body.v11 #app .v-tag,body.v11 #app .vb,body.v11 #app .v-ep .v-dur,body.v11 #app .v-sample{border-radius:999px}
+body.v11 #app .v-pill,body.v11 #app .chip{border:1px solid #d6d6d6;color:#111;font-weight:500;background:#fff}
+body.v11 #app .v-pill.on,body.v11 #app .chip.on,body.v11 #app .chip.nv{background:#111;border-color:#111;color:#fff}
+body.v11 #app .v-pill.o{border-color:#111;color:#111}
+body.v11 #app .v-pill.info,body.v11 #app .vb,body.v11 #app .v-tag,body.v11 #app .v-ep .v-dur,body.v11 #app .v-sample{background:var(--v11-g)!important;color:#3d3d3d!important;border-color:transparent;font-weight:500}
+body.v11 #app .v-sample{border:1px solid #d6d6d6;background:#fff!important;font-size:11px}
+body.v11 #app .v-circ{border:1px solid #cfcfcf;color:#111;background:#fff;width:36px;height:36px}
+body.v11 #app .v-circ.on,body.v11 #app .v-circ.play{background:#111;border-color:#111;color:#fff}
+body.v11 #app .v-act-btn{background:#fff;border:1px solid #cfcfcf;color:#111}
+body.v11 #app .v-act-btn.on{background:#111;border-color:#111;color:#fff}
+/* stars, bars and progress: ink */
+body.v11 #app .v-hist .v-bar{background:#ebebeb;height:4px}
+body.v11 #app .v-hist .v-bar i,body.v11 #app .v-prog i,body.v11 #app .v-match i{background:#111}
+body.v11 #app .v-prog,body.v11 #app .v-match{background:#ebebeb;height:4px}
+body.v11 #app .v-starline,body.v11 #app .v-tap .v-stars a{color:#111}
+/* ---------- the signature: the episode-count pill on the bottom edge of the artwork ---------- */
+body.v11 #app .v-sc .v-scart{overflow:visible;margin-bottom:12px}
+body.v11 #app .v-sc .v-scart>.art{border-radius:12px;overflow:hidden}
+body.v11 #app .v-sc .v-badge{top:auto;right:auto;left:10px;bottom:0;transform:translateY(50%);background:#fff;color:#111;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid #e3e3e3;line-height:1.3;z-index:2}
+body.v11 #app .v-sc .v-sct{margin-top:10px}
+body.v11 #app .v-shelf,body.v11 #app .v-grid{gap:24px 16px}
+/* ---------- the signature: a small circular arrow at the right of a header that leads somewhere ---------- */
+body.v11 #app .v11-arrow{flex:none;margin-left:auto;width:32px;height:32px;border-radius:50%;border:1px solid #d6d6d6;background:#fff;color:#111!important;display:inline-flex;align-items:center;justify-content:center;text-decoration:none!important;cursor:pointer}
+body.v11 #app .v11-arrow:hover{border-color:#111}
+body.v11 #app .v11-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* ---------- imagery: photos carry the screen; text on a photo is small, white, bold, over a scrim ---------- */
+body.v11 #app .v-vid{border-radius:12px;background:#111}
+body.v11 #app .v-vid .v-vplay{background:#fff;color:#111}
+body.v11 #app .v-vid .v-vtag{background:rgba(0,0,0,.55);border-radius:999px;padding:2px 8px}
+body.v11 #app .v-cover{background:var(--v11-g)!important;border-radius:12px}
+body.v11 #app .v-phead .v-pav{border-color:#fff}
+body.v11 #app .v-rc .v-rcn{background:#111}
+/* ---------- the page shell on V11 screens ---------- */
+body.v11 #app .tn{border-bottom:1px solid #ebebeb}
+body.v11 #app .tn .btn.o{border-color:#cfcfcf!important}
+body.v11 #app .tn input{border-radius:999px}
+@media(max-width:560px){body.v11 #app h1,body.v11 #app .v-hero h1,body.v11 #app .v-phead h1,body.v11 #app .v-jd h1{font-size:30px!important}}
+/* ---------- the landing page ---------- */
+body.v11 #app .l2h{border-bottom:0;padding:0}
+body.v11 #app .lb,body.v11 #app .lb.w{background:#fff;padding:48px 0}
+body.v11 #app .lb h2{font-size:21px!important;color:#111!important}
+body.v11 #app .lb.n{background:#fff;color:#111}
+body.v11 #app .lb.n h2{color:#111!important;margin:0!important}
+body.v11 #app .lb.n .wrap{padding-left:32px!important;padding-right:32px!important}
+body.v11 #app .lb.n .wrap{text-align:left!important;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--v11-g);border-radius:12px;padding-top:48px;padding-bottom:48px}
+body.v11 #app .hw h3{color:#111}
+body.v11 #app .hw li:before{background:#fff;color:#111;border:1px solid #d6d6d6}
+body.v11 #app .lq a{color:#111}
+body.v11 #app .strip:hover,body.v11 #app .dpc:hover,body.v11 #app .l2-path:hover{background:#ededed!important}
+body.v11 #app .lcen{text-align:left}
+/* the first view: text left, the one photo right, shown whole */
+body.v11 #app .v11-first{background:#fff}
+body.v11 #app .v11-fg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:center;min-height:calc(100vh - 72px);max-height:760px;padding:48px 0}
+body.v11 #app .v11-ft{max-width:440px}
+body.v11 #app .v11-eye{font-size:13px;color:#6b6b6b;margin:0 0 16px}
+body.v11 #app .v11-ft h1{font-size:34px!important;line-height:1.1!important;letter-spacing:-.03em!important;margin:0 0 16px}
+body.v11 #app .v11-ft p.v11-sub{font-size:15px!important;color:#6b6b6b;line-height:1.55;margin:0 0 32px;max-width:400px}
+body.v11 #app .v11-acts{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+body.v11 #app .v11-acts .btn{height:44px;padding:0 22px;font-size:15px}
+body.v11 #app .v11-text{font-weight:600;font-size:15px;color:#111;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#bdbdbd;cursor:pointer}
+body.v11 #app .v11-fp .l2-frame{border-radius:12px;background-color:#f4f4f4;background-size:contain!important;background-repeat:no-repeat;background-position:center}
+body.v11 #app .v11-rest{padding:16px 0 0}
+body.v11 #app .v11-rest .l2g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"search paths";column-gap:64px;row-gap:24px;align-items:start}
+body.v11 #app .v11-rest .l2-search{margin-top:0}
+body.v11 #app .v11-rest .l2-paths{margin-top:0}
+body.v11 #app .v11-rest .l2-path{max-width:none;padding:12px}
+@media(max-width:860px){
+ body.v11 #app .v11-fg{grid-template-columns:minmax(0,1fr);min-height:0;max-height:none;gap:40px;padding:40px 0 48px}
+ body.v11 #app .v11-ft h1{font-size:32px!important}
+ body.v11 #app .v11-rest .l2g{grid-template-columns:minmax(0,1fr);grid-template-areas:"search" "paths"}
+}
+/* ---------- residue the audit found: legacy pieces inside V10 screens ---------- */
+body.v11 #app .claimbar,body.v11 #app .cbar{background:var(--v11-g)!important;color:#111!important;border-radius:12px}
+body.v11 #app .claimbar a:not(.btn),body.v11 #app .cbar a:not(.btn){color:#111!important}
+body.v11 #app .claimbar svg,body.v11 #app .cbar svg{color:#111}
+body.v11 #app .l2-th,body.v11 #app .strip-img{background-color:var(--v11-g)}
+body.v11 #app .rxi{background:#111!important}
+body.v11 #app [style*="gradient"]:not(.av):not(.art):not(.ph):not(.v-vbg):not(.v-hart):not([class*=" p-"]){background:var(--v11-g)!important}
+body.v11 #app .v-chip{border-radius:50%;background:#fff!important;color:#111!important;border:1px solid #e3e3e3}
+body.v11 #app .pcself,body.v11 #app .pcl-card,body.v11 #app .ncard{border-radius:12px}
+body.v11 #app .tag,body.v11 #app .pt{border-radius:999px}
+/* nav labels on the meta tier */
+body.v11 .pubnav .pl a,body.v11 .tn .pl a,body.v11 .tn a{font-size:13px}
+body.v11 #app .btn,body.v11 #app .chip,body.v11 #app .v-pill,body.v11 #app .v-circ{transition:none!important}
+body.v11 #app .pcl-photo,body.v11 #app .pcd-img,body.v11 #app .lh-photo{background-color:var(--v11-g)!important;border-radius:12px}
+body.v11 #app .v-hero .v-hart,body.v11 #app .v-hart{border-radius:12px!important}
+/* the nav keeps its V10 control sizes so it fits a phone */
+body.v11 #app .tn .btn{height:34px;padding:0 16px;font-size:14px}
+body.v11 #app .tn .btn.sm{height:28px;padding:0 12px;font-size:13px}
+body.v11 #app .pc7row{background:var(--v11-g)!important;border:0!important;border-radius:12px!important}
+body.v11 #app .v-hd{padding-left:0!important;padding-right:0!important}
+/* eyebrows and labels in sentence case: the small grey line, never shouted */
+body.v11 #app *{text-transform:none!important}
+body.v11 #app .vbdg{color:#fff!important}
+
 
 
 *{box-sizing:border-box}
@@ -4655,6 +4853,97 @@ R["job-detail-closed-state"]=function(){return v2jobs({sel:2,pre:bn("","<b>This 
 R["my-jobs-application-status-detail"]=function(){var j=JOBS[0];return v2jobs({on:"my-jobs-applied",detailFirst:1,detail:vCard("Your application",j.t+" · "+SH[j.s].t,'<div class="cp" style="padding-top:2px">'+[["Sent","Nov 2"],["Viewed by the show","Nov 3"],["In review","Now"],["Decision","Not yet"]].map(function(x,i){return '<div style="display:flex;gap:12px;align-items:center;padding:8px 0"><span class="v-chip" style="width:26px;height:26px;border-radius:50%;background:'+(i<3?"var(--navy)":"var(--line2)")+'">'+ic("check",14)+'</span><b style="flex:1">'+x[0]+'</b><span class="small muted">'+x[1]+'</span></div>'}).join("")+'<div style="margin-top:10px">'+btn("Withdraw",G("withdraw-an-application-confirm"),"o sm")+'</div></div>')+v2jobDetail(j)})};
 R["my-jobs-empty-state"]=function(){return v2jobs({on:"my-jobs-applied",detailFirst:1,detail:vCard("My jobs","",'<div class="cp muted">You have not applied to anything yet. Jobs you apply to show here with where they stand.</div>')})};
 /* V10 slice 2 additions end */
+/* V11 restyle start */
+/* ================================================================
+   V11 RESTYLE (Karl 2026-11-16). Presentation only. After every
+   render, this hook:
+   1. sets body.v11 on the 203 V10 screens (a screen drawn with the V10
+      components) and on the two landing screens; every other screen
+      keeps the V9 look, untouched;
+   2. on the landing screens, rebuilds the first view: an eyebrow, the
+      lead line, the supporting line, one filled action (Find a guest)
+      and one text action (Add a credit), with the hero photo on the
+      right. The search, the quick links, the one-account line and the
+      three paths move, unchanged, to just below the first view;
+   3. turns a section header's text link into the small circular arrow
+      (the text stays as its accessible name);
+   4. picks the one filled navy primary on the screen (the action in
+      the page head first, else the first filled action); every other
+      filled action reads as an outlined pill.
+   No screen, flow, or line of copy outside the landing first view
+   changes. All V10 interactions keep their own handlers.
+   ================================================================ */
+var V11_LANDING=["landing-page","landing-page-claim-referral-variant"];
+var V11_EYEBROW="For show owners, podcast professionals, and guests";
+function v11IsV10(a){var m=a.querySelector("main")||a;return !!m.querySelector(".v-card,.v-row,.v-sheet,.v-split,.v-gcard,.v-hero")}
+function v11Arrow(){return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'}
+function v11Landing(a){
+ if(a.querySelector(".v11-first"))return;
+ var hero=a.querySelector("section.l2h");if(!hero)return;
+ var text=hero.querySelector(".l2-text"),photo=hero.querySelector(".l2-photo");if(!text||!photo)return;
+ var h1=text.querySelector("h1"),sub=text.querySelector(".lh-sub"),ref=text.querySelector(".lref");
+ var pc=hero.querySelector(".lqpc");
+ var first=document.createElement("section");first.className="v11-first";
+ first.innerHTML='<div class="wrap"><div class="v11-fg"><div class="v11-ft"></div><div class="v11-fp"></div></div></div>';
+ var ft=first.querySelector(".v11-ft");
+ /* the eyebrow; in the referral variant the waiting-page line is the eyebrow */
+ var eye=document.createElement("p");eye.className="v11-eye";
+ if(ref){eye.textContent=ref.textContent;ref.parentNode.removeChild(ref)}else eye.textContent=V11_EYEBROW;
+ ft.appendChild(eye);ft.appendChild(h1);
+ if(sub){sub.className="v11-sub";ft.appendChild(sub)}
+ var acts=document.createElement("div");acts.className="v11-acts";
+ acts.innerHTML='<a class="btn lg" data-go="guests-directory-public">Find a guest</a><a class="v11-text" data-act="pcStart" data-arg="">Add a credit</a>';
+ ft.appendChild(acts);
+ if(pc)pc.parentNode.removeChild(pc);/* Add a credit now lives in the first view */
+ first.querySelector(".v11-fp").appendChild(photo);
+ text.parentNode.removeChild(text);
+ hero.classList.add("v11-rest");
+ hero.parentNode.insertBefore(first,hero);
+}
+function v11Arrows(a){
+ var hs=[].slice.call(a.querySelectorAll(".v-card>.v-hd,.card>.ch"));
+ a.querySelectorAll(".bar").forEach(function(b){if(b.querySelector(":scope>div>h2,:scope>h2"))hs.push(b)});
+ hs.forEach(function(h){
+  if(h.querySelector(".v11-arrow"))return;
+  var links=[].slice.call(h.querySelectorAll("a")).filter(function(x){return !x.classList.contains("btn")&&!x.classList.contains("v-pill")&&!x.classList.contains("chip")&&(x.hasAttribute("data-go")||x.hasAttribute("data-act"))&&!x.closest("h2,h3,.v-sub,.s")});
+  if(links.length!==1)return;
+  var x=links[0],t=x.textContent.replace(/\s+/g," ").trim();if(!t)return;
+  x.classList.add("v11-arrow");x.setAttribute("aria-label",t);x.setAttribute("title",t);
+  x.innerHTML='<span class="v11-sr">'+x.innerHTML+'</span>'+v11Arrow();
+  if(x.parentNode!==h&&x.parentNode.children.length===1)x.parentNode.style.marginLeft="auto";
+ })}
+var V11_NAVY="rgb(24, 40, 82)";
+function v11Primary(a){
+ a.querySelectorAll(".v11-p").forEach(function(b){b.classList.remove("v11-p")});
+ /* filled primaries, as V10 drew them: a .btn with no variant class */
+ var c=[].slice.call(a.querySelectorAll(".btn")).filter(function(b){
+  if(b.closest(".tn,header,.pbar,.mini,.bnav,.dock,.subbar,.sdd"))return false;
+  if(/\b(o|g|gr|red|redo|dis|on|ghost)\b/.test(b.className)||b.hasAttribute("disabled"))return false;
+  return b.offsetParent!==null||b.getClientRects().length>0});
+ if(!c.length)return;
+ var head=c.filter(function(b){return b.closest(".v11-first,.v-hero,.v-phead,.v-jd,.v-sheet,.v-formf,.v-steps,.v-gcard")});
+ (head[0]||c[0]).classList.add("v11-p");
+}
+/* type: every text size snaps to one of the four tiers (34, 21, 15, 13) */
+function v11Tier(px){return px>=26?34:px>=18?21:px>=14.5?15:13}
+function v11Type(root){
+ root.querySelectorAll("*").forEach(function(e){
+  if(e.closest(".tn,header,footer,.ft,.art,.av,.ph,.v-vid,.pt-btn,.pt-pan,svg")||e.tagName==="svg")return;
+  var own=false;for(var i=0;i<e.childNodes.length;i++){var n=e.childNodes[i];if(n.nodeType===3&&n.textContent.trim()){own=true;break}}
+  if(!own&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.tagName))return;
+  var px=parseFloat(getComputedStyle(e).fontSize);if(!px)return;var t=v11Tier(px);
+  if(Math.abs(t-px)>.1)e.style.setProperty("font-size",t+"px","important")})}
+var V11_MO=null;
+function v11Watch(a){if(V11_MO)return;V11_MO=new MutationObserver(function(ms){if(!document.body.classList.contains("v11"))return;
+ ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1){v11Type(n.parentNode||n)}})})});
+ V11_MO.observe(a,{childList:true,subtree:true})}
+function v11(){var a=document.getElementById("app");if(!a)return;
+ var land=V11_LANDING.indexOf(CUR)>=0;var on=land||v11IsV10(a);
+ document.body.classList.toggle("v11",on);if(!on)return;
+ if(land)v11Landing(a);v11Arrows(a);v11Primary(a);v11Type(a);v11Watch(a)}
+var _v11render=render;
+render=function(id){_v11render(id);try{v11()}catch(e){console.error("v11",e)}};
+/* V11 restyle end */
 
 
 document.getElementById("fav").href=LOGOM;
