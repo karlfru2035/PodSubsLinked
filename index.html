@@ -3,6 +3,112 @@
 <title>PodSubs | The professional network for podcasting</title>
 <link rel="icon" id="fav">
 <style>:root{--bg:#f4f2ee;--card:#fff;--line:#e8e6e1;--line2:#d9d6cf;--ink:#1d1d1f;--ink2:#5e5e5e;--ink3:#8a8a8a;--navy:#182852;--navy2:#22397a;--navy3:#e9edf6;--navy4:#f3f5fa;--green:#0b7a48;--green2:#e6f4ec;--amber:#9a5b00;--amber2:#fdf3e1;--red:#c9252c;--red2:#fcebec;--r:10px;--sh:0 0 0 1px rgba(0,0,0,.06),0 2px 3px rgba(0,0,0,.04)}
+/* ================================================================
+   V10 DESIGN SYSTEM (UI/UX overhaul, slice 1, Karl 2026-11-16).
+   Built on the Apple Podcasts, Spotify and YouTube patterns from
+   Mobbin, in PodSubs navy. Every V10 surface below uses only these
+   components: the row, the card, the pill, the circular action, the
+   shelf and its show card, the category tile, the episode row, the
+   hero, and the rating summary.
+   ================================================================ */
+/* card: white, radius 10, the existing shadow */
+.v-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
+.v-card>.v-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 20px 6px}
+.v-card>.v-hd h2{font-size:19px;margin:0}
+.v-card>.v-hd .v-sub{font-size:13px;color:var(--ink2);margin-top:2px}
+.v-card>.v-hd a.v-see{font-size:14px;font-weight:600;color:var(--navy);white-space:nowrap}
+/* row: full width, artwork left (square for shows and episodes, round for people), bold title, one or two grey lines, exactly one action right */
+.v-row{display:flex;align-items:center;gap:14px;padding:10px 20px;border-top:1px solid var(--line);cursor:pointer}
+.v-row:first-child{border-top:0}
+.v-row:hover{background:var(--navy4)}
+.v-row .v-art{flex:none;border-radius:8px;overflow:hidden}
+.v-row .v-art.round,.v-row .v-art.round .av{border-radius:50%}
+.v-row .v-b{flex:1;min-width:0}
+.v-row .v-t{font-weight:700;font-size:15px;color:var(--ink);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-row .v-s{font-size:13px;color:var(--ink2);line-height:1.35;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v-row .v-x{flex:none}
+/* pill: filled navy when on, outlined otherwise; the filter pills, the Follow pill, the info pills */
+.v-pills{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.v-pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:16px;border:1px solid var(--line2);background:#fff;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none!important}
+.v-pill:hover{border-color:var(--navy)}
+.v-pill.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.v-pill.o{border-color:var(--navy);color:var(--navy)}
+.v-pill.info{cursor:default;background:var(--navy4);border-color:var(--navy4);color:var(--ink);font-weight:600}
+.v-pill.sm{height:28px;padding:0 12px;font-size:13px}
+.v-pill svg{flex:none}
+/* circular action: follow + on show rows, play on episode rows */
+.v-circ{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--navy);background:#fff;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.v-circ.on{background:var(--navy);color:#fff}
+.v-circ.play{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* shelf: a titled row of show cards that scrolls sideways */
+.v-shelf{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,168px);gap:16px;overflow-x:auto;padding:6px 20px 16px;scroll-snap-type:x proximity}
+.v-shelf::-webkit-scrollbar{height:6px}.v-shelf::-webkit-scrollbar-thumb{background:var(--line2);border-radius:3px}
+.v-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 16px;padding:6px 20px 18px}
+.v-sc{scroll-snap-align:start;cursor:pointer;min-width:0}
+.v-sc .v-scart{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.v-sc .v-scart>.art{width:100%!important;height:100%!important}
+.v-sc .v-badge{position:absolute;right:6px;top:6px;background:rgba(24,40,82,.88);color:#fff;font-size:11px;font-weight:700;padding:3px 7px;border-radius:6px}
+.v-sc .v-sct{font-weight:700;font-size:14px;margin-top:8px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-sc .v-scs{font-size:12.5px;color:var(--ink2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* category tile: two columns, a coloured icon chip per category */
+.v-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:6px 20px 18px}
+.v-tile{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--navy4);cursor:pointer;font-weight:700;font-size:14px;color:var(--ink)}
+.v-tile:hover{background:var(--navy3)}
+.v-chip{width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;color:#fff;flex:none}
+/* episode row: grey date, bold title up to two lines, two line description, duration pill, one action right */
+.v-ep{display:flex;gap:14px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
+.v-ep .v-b{flex:1;min-width:0}
+.v-ep .v-d{font-size:12px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.v-ep .v-t{font-weight:700;font-size:15px;line-height:1.3;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.v-ep .v-desc{font-size:13.5px;color:var(--ink2);margin-top:3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-ep .v-dur{display:inline-flex;align-items:center;gap:4px;margin-top:6px;height:22px;padding:0 9px;border-radius:11px;background:var(--navy4);font-size:12px;font-weight:700;color:var(--ink)}
+/* hero: the show page header, Apple order */
+.v-hero{display:flex;gap:24px;padding:22px 22px 18px;align-items:flex-start}
+.v-hero .v-hart{flex:none;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.v-hero .v-kick{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3)}
+.v-hero h1{font-size:28px;line-height:1.15;margin:4px 0 2px}
+.v-hero .v-net{font-size:16px;font-weight:600}
+.v-hero .v-net a{color:var(--navy)}
+.v-hero .v-rl{font-size:14px;color:var(--ink2);margin-top:6px}
+.v-hero .v-rl b{color:var(--ink)}
+.v-hero .v-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.v-hero .v-about{font-size:15px;line-height:1.5;color:var(--ink);margin:14px 0 10px;max-width:640px}
+.v-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 16px}
+/* rating summary: big average, histogram, count, Tap to Rate, review cards */
+.v-rate{display:flex;gap:24px;align-items:center;padding:8px 20px 6px;flex-wrap:wrap}
+.v-avg{text-align:center;min-width:96px}
+.v-avg b{display:block;font-size:52px;line-height:1;font-weight:800;color:var(--ink)}
+.v-avg span{font-size:13px;color:var(--ink2);font-weight:600}
+.v-hist{flex:1;min-width:200px;display:grid;gap:4px}
+.v-hist .v-hr{display:grid;grid-template-columns:56px 1fr;gap:8px;align-items:center;font-size:11px;color:var(--ink3);letter-spacing:1px}
+.v-hist .v-bar{height:5px;border-radius:3px;background:var(--line)}
+.v-hist .v-bar i{display:block;height:100%;border-radius:3px;background:var(--navy)}
+.v-cnt{font-size:13px;color:var(--ink2);font-weight:600;padding:0 20px 8px;text-align:right}
+.v-tap{display:flex;align-items:center;gap:10px;padding:10px 20px;border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
+.v-tap .v-stars{display:inline-flex;gap:2px}
+.v-tap .v-stars a{color:var(--navy);cursor:pointer;line-height:0}
+.v-revs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:6px 20px 18px}
+.v-rev{background:var(--navy4);border-radius:10px;padding:14px 16px}
+.v-rev .v-rt{font-weight:700;font-size:14px}
+.v-rev .v-rm{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin:4px 0 6px}
+.v-rev p{font-size:13.5px;line-height:1.45;margin:0}
+.v-starline{color:var(--navy);letter-spacing:1px;font-size:13px}
+.v-sample{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);background:var(--amber2);border-radius:6px;padding:2px 7px;vertical-align:middle}
+/* search: the results header, the dropdown */
+.v-shd{padding:16px 20px}
+.v-shd .lsb{max-width:none}
+.v-top{display:flex;align-items:center;gap:18px;padding:18px 20px;cursor:pointer}
+.v-top .v-tt{font-size:22px;font-weight:800;line-height:1.2}
+.v-top .v-ts{font-size:14px;color:var(--ink2);margin:4px 0 10px}
+.sdd .sdd-q{display:flex;gap:10px;align-items:center;padding:9px 14px;color:var(--ink);font-weight:600;font-size:14px}
+.sdd .sdd-q svg{color:var(--ink3);flex:none}
+.sdd .sdd-rx{margin-left:auto;color:var(--ink3);padding:4px;border-radius:50%;line-height:0}
+.sdd .sdd-rx:hover{background:var(--line);color:var(--ink)}
+.sdd .sdd-pic.round{border-radius:50%}
+@media(max-width:860px){.v-hero{flex-direction:column;align-items:center;text-align:center}.v-hero .v-acts,.v-hero .v-pills{justify-content:center}.v-hero .v-about{margin-left:auto;margin-right:auto}}
+@media(max-width:560px){.v-row,.v-ep,.v-tap{padding-left:16px;padding-right:16px}.v-shelf,.v-grid,.v-tiles,.v-revs{padding-left:16px;padding-right:16px}.v-tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.v-hero h1{font-size:24px}}
+/* V10 design system end */
+
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
@@ -3752,6 +3858,229 @@ render=function(id){sddClose();if(RETIRED[id]){var n=RETIRED[id];try{history.rep
  _v9Render(id);try{hubqAfter();retireLinks(document.body);lpEnhance(document.getElementById("app"))}catch(e){console.error("v9",e)}};
 
 /* V9 additions end */
+/* V10 additions start */
+/* ================================================================
+   V10, UI/UX overhaul slice 1 (Karl, 2026-11-16). Redesigned on the
+   Apple Podcasts, Spotify and YouTube patterns captured in Mobbin,
+   keeping PodSubs identity: navy, the real brand assets, the menu order
+   Shows, People, Guests, Jobs, News, Events, Blog, PodCred, and every
+   placement law (no top PodCred strip; the people section sits directly
+   under the show header). The core product does not change.
+   Built here, on the V10 design system at the top of the CSS:
+   1. search: the dropdown and the full results view, filter pills;
+   2. the Shows hub: category tiles, shelves, the full list;
+   3. the show page in Apple order, with ratings, Information,
+      More From this network and You Might Also Like;
+   4. the network page (sample: HubSpot Media).
+   People, Guests, Jobs and profile surfaces convert in slice 2.
+   ================================================================ */
+
+/* ---------------- sample data, appended ---------------- */
+/* Networks are free groupings of shows. No subscription. */
+var NETS={
+ hubspot:{n:"HubSpot Media",c1:"#ff7a59",c2:"#33475b",d:"Business shows for people who start, grow, and sell things.",sample:1},
+ halfmoon:{n:"Halfmoon Audio",c1:"#22223b",c2:"#693668",d:"An independent producer of narrative and craft shows."}};
+/* Sample hosts for the network's shows (fictional people, real show names as V9 did for My First Million). */
+P.avery={n:"Avery Lin",h:"Host of Marketing Against the Grain",loc:"Boston, Massachusetts",c:"#ad4e2b",slug:"avery-lin"};
+P.jordan={n:"Jordan Pike",h:"Host of The Hustle Daily Show",loc:"Austin, Texas",c:"#2f4858",slug:"jordan-pike"};
+P.casey={n:"Casey Moran",h:"Host of Business Made Simple",loc:"Nashville, Tennessee",c:"#5c4d7d",slug:"casey-moran"};
+P.riley={n:"Riley Shaw",h:"Host of Another Bite",loc:"Boston, Massachusetts",c:"#2a6f4e",slug:"riley-shaw"};
+P.morgan={n:"Morgan Diaz",h:"Host of Goal Digger",loc:"Minneapolis, Minnesota",c:"#9b3d5a",slug:"morgan-diaz"};
+(function(){var add={
+ mktgrain:{t:"Marketing Against the Grain",host:"avery",cat:"Business",eps:356,fol:48200,subs:3900,c1:"#ff7a59",c2:"#ffc2a9",lang:"English",city:"Boston",freq:"Twice weekly",feed:"feeds.sample.fm/mktgrain",d:"Marketers argue about what works now, and test it in public.",last:"2 days ago",since:"2021"},
+ hustledaily:{t:"The Hustle Daily Show",host:"jordan",cat:"Business",eps:980,fol:91000,subs:7400,c1:"#111d4a",c2:"#ff6b35",lang:"English",city:"Austin",freq:"Daily, weekdays",feed:"feeds.sample.fm/hustledaily",d:"The business and tech news of the day in fifteen minutes.",last:"Today",since:"2022"},
+ bizsimple:{t:"Business Made Simple",host:"casey",cat:"Business",eps:540,fol:37600,subs:2100,c1:"#33475b",c2:"#7c98b6",lang:"English",city:"Nashville",freq:"Weekly",feed:"feeds.sample.fm/bizsimple",d:"Plain lessons on running a company, one idea per episode.",last:"5 days ago",since:"2019"},
+ anotherbite:{t:"Another Bite",host:"riley",cat:"Business",eps:64,fol:5200,subs:420,c1:"#00a4bd",c2:"#b8f0f7",lang:"English",city:"Boston",freq:"Weekly",feed:"feeds.sample.fm/anotherbite",d:"Founders tell the story of the second idea, the one that worked.",last:"Yesterday",since:"2025"},
+ goaldigger:{t:"Goal Digger",host:"morgan",cat:"Business",eps:780,fol:68400,subs:5600,c1:"#9b3d5a",c2:"#f2a7b8",lang:"English",city:"Minneapolis",freq:"Twice weekly",feed:"feeds.sample.fm/goaldigger",d:"Small business owners on marketing, money, and building a life around work.",last:"3 days ago",since:"2015"}};
+ for(var k in add){add[k].net="hubspot";SH[k]=add[k]}
+ if(SH.myfirstmillion)SH.myfirstmillion.net="hubspot";
+ for(var x in SH)if(SH[x].house==="Halfmoon Audio"&&!SH[x].net)SH[x].net="halfmoon";
+})();
+/* The Apple category set, each with its coloured icon chip. PodSubs feed categories map onto it. */
+var V10CATS=[["Arts","#d4547a","photo"],["Business","#3b6fd8","chart"],["Comedy","#e0902a","spark"],["Education","#2f8f83","book"],["Fiction","#7a55c7","write"],["Government","#5d6b82","flag"],["Health & Fitness","#2fa36b","like"],["History","#9a6b3f","clock"],["Kids & Family","#e86d5a","house"],["Leisure","#3fa2c9","globe"],["Music","#c4467d","head"],["News","#c9252c","rss"],["Religion & Spirituality","#8a6fd1","star"],["Science","#1f8a9a","eye"],["Society & Culture","#b5523b","net"],["Sports","#2a7f3f","flag"],["Technology","#22397a","gear"],["True Crime","#4a4a4a","lock"],["TV & Film","#6b4bd1","video"]];
+var V10MAP={Food:"Arts",Books:"Arts",Culture:"Society & Culture",Documentary:"Society & Culture",Science:"Science",Business:"Business",Careers:"Business",Health:"Health & Fitness",Technology:"Technology",Podcasting:"Technology",News:"News"};
+function v10cat(k){return V10MAP[SH[k].cat]||SH[k].cat}
+function v10chip(name,s){var c=V10CATS.filter(function(x){return x[0]===name})[0]||["",'#5e5e5e',"rss"];s=s||34;return '<span class="v-chip" style="background:'+c[1]+';width:'+s+'px;height:'+s+'px">'+ic(c[2],Math.round(s*.55))+'</span>'}
+/* Sample ratings, display only, marked as sample wherever they show. */
+function v10hash(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))>>>0;return h}
+function v10rating(k){var h=v10hash(k),s=SH[k];var avg=Math.min(4.9,4.2+(h%8)/10);var n=Math.max(18,Math.round(s.fol*.035));var w5=.55+(avg-4.2)*.5,w4=.22,w3=.1,w2=.05;var w1=Math.max(.02,1-w5-w4-w3-w2);return {avg:avg.toFixed(1),n:n,hist:[w5,w4,w3,w2,w1]}}
+function v10count(n){return n>=1000?(Math.round(n/100)/10).toString().replace(/\.0$/,"")+"K":String(n)}
+function v10net(k){var n=SH[k].net;return n&&NETS[n]?n:null}
+function v10hostLine(k){var n=v10net(k);return n?NETS[n].n:(P[SH[k].host]?P[SH[k].host].n:SH[k].city)}
+function v10cadence(k){var f=SH[k].freq||"";return /daily/i.test(f)?"Daily":/twice/i.test(f)?"Twice weekly":/monthly/i.test(f)?"Monthly":/other/i.test(f)?"Every two weeks":"Weekly"}
+function v10upd(k){return SH[k].last.replace(/^Today$/,"today").replace(/^Yesterday$/,"yesterday")}
+function v10showGo(){return vis()?"show-page-public-view":"show-page-about-tab"}
+
+/* ---------------- components ---------------- */
+function vRow(o){return '<div class="v-row'+(o.cls?" "+o.cls:"")+'" '+(o.go||"")+'>'+'<div class="v-art'+(o.round?" round":"")+'">'+o.pic+'</div><div class="v-b"><div class="v-t">'+o.t+'</div>'+(o.s?'<div class="v-s">'+o.s+'</div>':"")+(o.s2?'<div class="v-s">'+o.s2+'</div>':"")+'</div>'+(o.x?'<div class="v-x">'+o.x+'</div>':"")+'</div>'}
+function vCard(title,sub,body,see){return '<div class="v-card"><div class="v-hd"><div><h2>'+title+'</h2>'+(sub?'<div class="v-sub">'+sub+'</div>':"")+'</div>'+(see||"")+'</div>'+body+'</div>'}
+/* exactly one action per row */
+function vFollowCirc(k){var on=!vis()&&S.follows[k];return '<button class="v-circ'+(on?" on":"")+'" '+V("listener","follow "+SH[k].t,A("follow",k))+' aria-label="'+(on?"Following ":"Follow ")+esc(SH[k].t)+'" title="'+(on?"Following":"Follow")+'">'+ic(on?"check":"plus",16)+'</button>'}
+function vFollowPill(k,name){var on=!vis()&&S.follows[k];return '<a class="v-pill sm'+(on?" on":" o")+'" '+V("listener","follow "+name,A("follow",k))+'>'+(on?ic("check",14)+"Following":"Follow")+'</a>'}
+function vPlay(i){return '<button class="v-circ play" '+A("play",typeof i==="number"?i:0)+' aria-label="Play">'+ic("play",14)+'</button>'}
+function vShowRow(k,line,cls){var s=SH[k];return vRow({cls:cls,pic:art(k,56,0),t:s.t,s:line||("Show · "+v10hostLine(k)),s2:v10cat(k)+" · "+s.eps+" episodes",go:G(v10showGo(),k),x:vFollowCirc(k)})}
+function vPersonRow(k){var p=P[k];return vRow({round:1,pic:av(k,56,0),t:p.n,s:"Person · "+p.h,s2:p.loc,go:G(vis()?"person-profile-public-limited-view":profFor(k),k),x:vFollowPill(k,p.n)})}
+function vEpRow(i,e){var s=SH[e.s];return vRow({pic:art(e.s,56,0),t:e.t,s:"Episode · "+s.t,s2:e.d+" · "+e.len,go:G("episode-page",i),x:vPlay(i)})}
+function vCatRow(c,n){return vRow({pic:v10chip(c,56),t:c,s:"Category · "+n+(n===1?" show":" shows"),go:G("search-all-results",c+"|shows"),x:'<span class="v-pill sm o">Browse</span>'})}
+function vShowCard(k,line){var s=SH[k];return '<div class="v-sc" '+G(v10showGo(),k)+'><div class="v-scart">'+art(k,168,0)+'<span class="v-badge">'+fmt(s.eps)+' eps</span></div><div class="v-sct">'+s.t+'</div><div class="v-scs">'+(line||v10hostLine(k))+'</div><div class="v-scs">Updated '+v10upd(k)+'</div></div>'}
+function vShelf(title,sub,keys,see,line){return keys.length?vCard(title,sub,'<div class="v-shelf">'+keys.map(function(k){return vShowCard(k,line&&line(k))}).join("")+'</div>',see):""}
+function vStars(n){var r=Math.round(n);return '<span class="v-starline" aria-label="'+n+' out of 5">'+"★".repeat(r)+'<span style="opacity:.25">'+"★".repeat(5-r)+'</span></span>'}
+
+/* ---------------- 1. search: results view ---------------- */
+var V10FILTERS=[["top","Top Results"],["shows","Shows"],["people","People"],["episodes","Episodes"],["categories","Categories"]];
+function v10q(a){var p=String(a||"").split("|");return {q:p[0]||"",f:p[1]||"top"}}
+function v10match(t,q){return !q||t.toLowerCase().indexOf(q.toLowerCase())>=0}
+function v10results(q){
+ var shows=Object.keys(SH).filter(function(k){var s=SH[k];return v10match(s.t+" "+s.cat+" "+v10cat(k)+" "+v10hostLine(k)+" "+s.city,q)}).sort(function(a,b){var ta=SH[a].t.toLowerCase().indexOf(q.toLowerCase())===0?0:1,tb=SH[b].t.toLowerCase().indexOf(q.toLowerCase())===0?0:1;return ta-tb||SH[b].fol-SH[a].fol});
+ var ppl=Object.keys(P).filter(function(k){return v10match(P[k].n+" "+P[k].h,q)}).sort(function(a,b){var pa=(typeof PFOL!=="undefined"&&PFOL[a])||0,pb=(typeof PFOL!=="undefined"&&PFOL[b])||0;return pb-pa});
+ var eps=[];EP.forEach(function(e,i){if(SH[e.s]&&v10match(e.t+" "+SH[e.s].t,q))eps.push(i)});
+ var cats=V10CATS.map(function(c){return c[0]}).filter(function(c){return v10match(c,q)}).map(function(c){return [c,Object.keys(SH).filter(function(k){return v10cat(k)===c}).length]});
+ return {shows:shows,ppl:ppl,eps:eps,cats:cats}}
+function v10recent(q){q=String(q||"").trim();if(!q)return;S.recent=(S.recent||[]).filter(function(x){return x.toLowerCase()!==q.toLowerCase()});S.recent.unshift(q);S.recent=S.recent.slice(0,8)}
+function v10search(a,forceF){var o=v10q(a),q=o.q,f=forceF||o.f;v10recent(q);var r=v10results(q);var target=CUR||"search-all-results";
+ var pills='<div class="v-pills">'+V10FILTERS.map(function(x){return '<a class="v-pill'+(x[0]===f?" on":"")+'" '+G(target,q+"|"+x[0])+'>'+x[1]+'</a>'}).join("")+'</div>';
+ var head='<div class="v-card"><div class="v-shd"><div class="lsb">'+ic("search",20)+'<input id="srq" value="'+esc(q)+'" placeholder="Search shows, people, and episodes" aria-label="Search" data-enter="'+target+'"><a class="btn" '+A("srsearch")+'>Search</a></div><div style="margin-top:12px">'+pills+'</div>'+(q?'<div class="small muted" style="margin-top:10px">Results for "'+esc(q)+'"</div>':'<div class="small muted" style="margin-top:10px">Popular right now</div>')+'</div></div>';
+ var none='<div class="v-row" style="cursor:default"><div class="v-b muted">Nothing matches "'+esc(q)+'" here.</div></div>';
+ var body="";
+ if(f==="top"){
+  var top=r.shows[0];
+  if(top)body+='<div class="v-card"><div class="v-top" '+G(v10showGo(),top)+'>'+art(top,120,0)+'<div style="flex:1;min-width:0"><div class="v-kick small muted b">Top result</div><div class="v-tt">'+SH[top].t+'</div><div class="v-ts">Show · '+v10hostLine(top)+' · '+fmt(SH[top].fol)+' followers</div>'+vFollowPill(top,SH[top].t)+'</div></div></div>';
+  var mix=r.shows.slice(1,4).map(function(k){return vShowRow(k)}).concat(r.ppl.slice(0,3).map(vPersonRow)).concat(r.eps.slice(0,3).map(function(i){return vEpRow(i,EP[i])})).concat(r.cats.slice(0,2).map(function(c){return vCatRow(c[0],c[1])}));
+  body+=vCard("Top results","",mix.length?mix.join(""):(top?"":none));
+ }else if(f==="shows")body+=vCard("Shows",r.shows.length+" found",r.shows.map(function(k){return vShowRow(k)}).join("")||none);
+ else if(f==="people")body+=vCard("People",r.ppl.length+" found",r.ppl.map(vPersonRow).join("")||none);
+ else if(f==="episodes")body+=vCard("Episodes",r.eps.length+" found",r.eps.map(function(i){return vEpRow(i,EP[i])}).join("")||none);
+ else body+=vCard("Categories","The Apple Podcasts category set",(q?r.cats:V10CATS.map(function(c){return [c[0],Object.keys(SH).filter(function(k){return v10cat(k)===c[0]}).length]})).map(function(c){return vCatRow(c[0],c[1])}).join("")||none);
+ body+='<div class="small muted" style="margin:4px 4px 14px">Looking for guests, jobs, news, or events? <a '+G("search-guests")+'>Guests</a> · <a '+G("search-jobs")+'>Jobs</a> · <a '+G("search-news")+'>News</a> · <a '+G("search-events")+'>Events</a></div>';
+ var rail=vis()?joinRail():card('<div class="cp"><div class="b">Search is a trust surface</div><p class="small muted">Verified results always come first. Paid placement is marked and never lifts above a verified result.</p></div>');
+ return page('<div class="l2"><div class="froot">'+head+body+'</div><aside>'+rail+'</aside></div>',vis()?"":"home")}
+/* The category and filter carry in the address: search-all-results/Business|shows. A category tile names the category; its shows are those in it. */
+var _v10res=v10results;v10results=function(q){var r=_v10res(q);var cat=V10CATS.filter(function(c){return c[0].toLowerCase()===String(q).toLowerCase()})[0];if(cat){r.shows=Object.keys(SH).filter(function(k){return v10cat(k)===cat[0]}).sort(function(a,b){return SH[b].fol-SH[a].fol})}return r};
+R["search-all-results"]=function(a){return v10search(a)};
+R["unified-search-results"]=function(a){return v10search(a)};
+R["search-shows"]=function(a){return v10search(a,"shows")};
+R["search-people"]=function(a){return v10search(a,"people")};
+R["search-episodes"]=function(a){return v10search(a,"episodes")};
+R["unified-search-no-results"]=function(){return v10search("zzqx")};
+R["podcred-search-credit-actions"]=function(a){return v10search(a||"")};
+
+/* ---------------- 1b. search: the as-you-type dropdown ---------------- */
+/* Plain suggestions first, then instant results; an empty box lists recent searches with an x per row. */
+function v10target(){return vis()?"search-all-results":"unified-search-results"}
+function v10mark(name,q){var i=name.toLowerCase().indexOf(q);if(i<0||!q)return esc(name);return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+q.length))+"</mark>"+esc(name.slice(i+q.length))}
+sddOpen=function(input){var scope=sddScope(input);if(!scope)return;var raw=input.value.trim(),q=raw.toLowerCase();
+ var items=[],html="";
+ if(!q){var rec=S.recent||[];if(!rec.length||scope!=="all"){sddClose();return}
+  items=rec.map(function(r){return {type:"r",q:r}});
+  html='<div class="sdd-h">Recent searches</div>'+rec.map(function(r,i){return '<a role="option" id="sdd-'+i+'" data-sdd="'+i+'" class="sdd-q">'+ic("clock",16)+'<span>'+esc(r)+'</span><span class="sdd-rx" data-rx="'+esc(r)+'" aria-label="Remove '+esc(r)+'" title="Remove">'+ic("x",14)+'</span></a>'}).join("");
+ }else{
+  var pool=(SDD_POOLS[scope]||SDD_POOLS.all)();
+  if(scope==="all"){pool=SDD_POOLS.shows().concat(Object.keys(P).map(function(k){return {kind:"person",ref:k,name:P[k].n,ctx:"Person · "+P[k].h,pop:(typeof PFOL!=="undefined"&&PFOL[k])||0,go:[vis()?"person-profile-public-limited-view":profFor(k),k]}})).concat(EP.map(function(e,i){return SH[e.s]?{kind:"show",ref:e.s,name:e.t,ctx:"Episode · "+SH[e.s].t,pop:Math.round(SH[e.s].fol/50),go:["episode-page",i]}:null}).filter(Boolean))}
+  pool.forEach(function(x){if(x.kind==="show"&&SH[x.ref]&&/followers/.test(x.ctx))x.ctx="Show · "+v10hostLine(x.ref)});
+  var hits=pool.filter(function(x){return x.name.toLowerCase().indexOf(q)>=0}).sort(function(a,b){var sa=a.name.toLowerCase().indexOf(q)===0?0:1,sb=b.name.toLowerCase().indexOf(q)===0?0:1;return sa-sb||b.pop-a.pop||a.name.localeCompare(b.name)});
+  var sugg=[];if(scope==="all"){[raw].concat(hits.map(function(h){return h.name})).concat(V10CATS.map(function(c){return c[0]})).forEach(function(t){if(sugg.length<4&&t.toLowerCase().indexOf(q)>=0&&sugg.map(function(s){return s.toLowerCase()}).indexOf(t.toLowerCase())<0)sugg.push(t)})}
+  items=sugg.map(function(t){return {type:"q",q:t}}).concat(hits.slice(0,6));
+  var n=0;html=(sugg.length?sugg.map(function(t){return '<a role="option" id="sdd-'+n+'" data-sdd="'+(n++)+'" class="sdd-q">'+ic("search",16)+'<span>'+v10mark(t,q)+'</span></a>'}).join(""):"")+
+   (hits.length?'<div class="sdd-h">'+(scope==="all"?"Top results":SDD_LABEL[scope])+'</div>'+hits.slice(0,6).map(function(x){var round=x.kind==="person";return '<a role="option" id="sdd-'+n+'" data-sdd="'+(n++)+'"><span class="sdd-pic'+(round?" round":"")+'">'+sddPic(x.kind,x.ref)+'</span><span class="sdd-b"><span class="sdd-n">'+v10mark(x.name,q)+'</span><span class="sdd-c" style="display:block">'+esc(x.ctx)+'</span></span></a>'}).join(""):'<div class="sdd-x">No matches for "'+esc(raw)+'"</div>')+
+   (scope==="all"?'<div class="sdd-x sdd-f">Press Enter for all results</div>':hits.length>6?'<div class="sdd-x sdd-f">'+hits.length+' matches. Press Enter for all results.</div>':"");
+ }
+ if(!SDD.el){SDD.el=document.createElement("div");SDD.el.className="sdd";SDD.el.id="sdd";SDD.el.setAttribute("role","listbox");document.body.appendChild(SDD.el)}
+ SDD.input=input;SDD.items=items;SDD.active=-1;input.setAttribute("aria-expanded","true");input.setAttribute("aria-controls","sdd");input.setAttribute("autocomplete","off");
+ SDD.el.innerHTML=html;sddPlace()};
+var _v10pick=sddPick;
+sddPick=function(i){var x=SDD.items[i];if(!x)return;if(x.type==="q"||x.type==="r"){var inp=SDD.input;sddClose();if(inp)inp.blur();v10recent(x.q);save();go(v10target(),x.q);return}_v10pick(i)};
+/* The x on a recent search: heard before the pick, so it removes the row instead of searching it. */
+window.addEventListener("mousedown",function(e){var x=e.target.closest&&e.target.closest("#sdd [data-rx]");if(!x)return;e.preventDefault();e.stopPropagation();var r=x.getAttribute("data-rx");S.recent=(S.recent||[]).filter(function(y){return y!==r});save();var inp=SDD.input;if(inp){sddOpen(inp);inp.focus()}},true);
+/* An empty box opens on recent searches. */
+document.addEventListener("focusin",function(e){var t=e.target;if(t&&t.tagName==="INPUT"&&!t.value.trim()&&sddScope(t)==="all")sddOpen(t)});
+R["search-autocomplete-dropdown"]=function(){return v10search("night")};
+R["search-recent-searches"]=function(){if(!(S.recent||[]).length)S.recent=["the long table","priya nair","business","night shift"];return v10search("")};
+
+/* ---------------- 2. the Shows hub ---------------- */
+R["shows-directory"]=function(){var keys=Object.keys(SH);
+ var tiles=V10CATS.slice(0,12).map(function(c){return '<div class="v-tile" '+G("search-all-results",c[0]+"|shows")+'>'+v10chip(c[0])+'<span>'+c[0]+'</span></div>'}).join("");
+ var newest=keys.slice().sort(function(a,b){return (+SH[b].since)-(+SH[a].since)||SH[b].fol-SH[a].fol}).slice(0,10);
+ var popular=keys.slice().sort(function(a,b){return SH[b].fol-SH[a].fol}).slice(0,10);
+ var byCat={};keys.forEach(function(k){var c=v10cat(k);(byCat[c]=byCat[c]||[]).push(k)});
+ var catShelves=Object.keys(byCat).filter(function(c){return byCat[c].length>=2}).sort(function(a,b){return byCat[b].length-byCat[a].length}).slice(0,3);
+ var all=keys.slice().sort(function(a,b){return SH[b].fol-SH[a].fol});
+ var head='<div class="v-card"><div class="v-shd"><h1 style="font-size:28px;margin:0 0 4px">Shows</h1><p class="muted" style="margin:0 0 12px">Every show page here was built from its RSS feed. Follow a show to hear when it posts.</p><div class="lsb">'+ic("search",20)+'<input class="fqi" placeholder="Search shows by name" aria-label="Search shows by name" data-enter="search-shows"></div></div></div>';
+ var body=head+
+  vCard("Browse by category","",'<div class="v-tiles">'+tiles+'</div>','<a class="v-see" '+G("search-all-results","|categories")+'>All categories</a>')+
+  vShelf("New shows","Most recent first",newest,'<a class="v-see" '+G("new-shows-this-week-public")+'>See all</a>')+
+  vShelf("Popular","Most followed on PodSubs",popular,'<a class="v-see" '+G("top-shows-chart-public")+'>See all</a>')+
+  catShelves.map(function(c){return vShelf(c,"",byCat[c].sort(function(a,b){return SH[b].fol-SH[a].fol}),'<a class="v-see" '+G("search-all-results",c+"|shows")+'>See all</a>')}).join("")+
+  vCard("All shows",keys.length+" shows, most followed first",'<div class="v10list">'+all.map(function(k){return vShowRow(k,"Show · "+v10hostLine(k)+" · Updated "+v10upd(k),"v10li v10show")}).join("")+'</div>');
+ return pub('<div class="l2"><div>'+body+'</div><aside>'+joinRail()+'</aside></div>',"shows-directory")};
+
+/* ---------------- 3. the show page ---------------- */
+function v10claimBar(h){var i=h.indexOf('<div class="claimbar"');if(i<0)return "";var j=h.indexOf("</a></div>",i);return j<0?"":h.slice(i,j+10)}
+function v10epDesc(e){var s=SH[e.s];return (e.g&&P[e.g]?P[e.g].n+" joins "+s.t+". ":"")+s.d}
+function v10eps(k){var l=feedList(k);return l.map(function(x){var i=epIndex(k,x.n);var e=typeof i==="number"?EP[i]:{s:k,n:x.n,t:x.t,d:x.d,len:x.len,g:""};
+ return '<div class="v-ep v10li"><div class="v-b"><div class="v-d">'+x.d+'</div><div class="v-t" '+G("episode-page",i)+'>'+x.t+'</div><div class="v-desc">'+esc(v10epDesc(e))+'</div><span class="v-dur">'+ic("clock",12)+x.len+'</span></div>'+vPlay(i)+'</div>'}).join("")}
+function v10ratings(k){var r=v10rating(k),mine=(S.myrate||{})[k]||0;
+ var hist='<div class="v-hist">'+r.hist.map(function(w,i){return '<div class="v-hr"><span>'+"★".repeat(5-i)+'</span><div class="v-bar"><i style="width:'+Math.round(w*100)+'%"></i></div></div>'}).join("")+'</div>';
+ var tap='<div class="v-tap"><span>Tap to Rate:</span><span class="v-stars">'+[1,2,3,4,5].map(function(n){return '<a '+V("listener","rate "+SH[k].t,A("v10rate",k+"|"+n))+' aria-label="Rate '+n+' out of 5">'+(n<=mine?'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>':ic("star",22))+'</a>'}).join("")+'</span>'+(mine?'<span class="small">You rated it '+mine+' out of 5</span>':"")+'</div>';
+ var rev=[["Worth every episode","Sep 30, 2026","listener_412",5,"I listen on every commute now. The guests talk like real people, and nobody is selling anything."],["Longer than it used to be","Aug 12, 2026","weeknight_listener",4,"Still one of my favourite shows. The newer episodes run long, but the stories are worth it."]];
+ return vCard("Ratings and reviews",'<span class="v-sample">Sample</span> Display only. Ratings come from listeners on PodSubs.','<div class="v-rate"><div class="v-avg"><b>'+r.avg+'</b><span>out of 5</span></div>'+hist+'</div><div class="v-cnt">'+fmt(r.n)+' ratings</div>'+tap+'<div class="v-revs">'+rev.map(function(x){return '<div class="v-rev"><div class="v-rt">'+x[0]+'</div><div class="v-rm"><span>'+vStars(x[3])+'</span><span>'+x[1]+' · '+x[2]+'</span></div><p>'+x[4]+'</p></div>'}).join("")+'</div>')}
+ACT.v10rate=function(a){var p=String(a).split("|");S.myrate=S.myrate||{};S.myrate[p[0]]=+p[1];NOSCROLL=1;S.toast="Rated "+p[1]+" out of 5. Sample, display only";return 1};
+function v10info(k){var s=SH[k],n=v10net(k),r=v10rating(k),L=typeof showLinks==="function"?showLinks(k):{};var web=L&&L.website?L.website:null;
+ return vCard("Information","",'<div class="cp" style="padding-top:4px">'+kv([["Network",n?'<a '+G("network-page",n)+'>'+NETS[n].n+'</a>':"Independent"],["Creator",P[s.host]?P[s.host].n:"From the feed"],["Years active",s.since+" to now"],["Episodes",fmt(s.eps)],["Rating",r.avg+' out of 5 · '+v10count(r.n)+' <span class="v-sample">Sample</span>'],["Category",v10cat(k)],["Updated",s.freq],["Copyright","© "+(n?NETS[n].n:(P[s.host]?P[s.host].n:s.t))],["Show website",web?'<a '+G("show-website-leaving-notice",k)+'>'+esc(String(web).replace(/^https?:\/\//,"").replace(/\/$/,""))+'</a>':"Not given"]])+'</div>'+cf("Show all show data",G("show-page-about-this-show-data",k)))}
+function v10showPage(k,tab,o){o=o||{};k=SH[k]?k:"longtable";var s=SH[k];PAGE_TITLE=s.t+", "+s.cat+" podcast | PodSubs";PCCTX={show:k};
+ var cs=o.cs||claimState(k),r=v10rating(k),n=v10net(k);var f=!vis()&&S.follows[k];
+ var old=showHead(k,{tab:tab,guest:o.guest,cs:cs,nobar:o.nobar});
+ var follow='<a class="v-pill'+(f?" on":" o")+'" '+V("listener","follow "+s.t,A("follow",k))+'>'+(f?ic("check",16)+"Following":ic("plus",16)+"Follow")+'</a>';
+ var subOn=subscribed(k)&&!vis();
+ var acts=follow+'<a class="v-pill" '+G(subOn?"manage-your-subscription":"subscribe-form-default",k)+'>'+ic("mail",16)+(subOn?"Subscribed by email":"Subscribe by email")+'</a>'+'<a class="v-pill" '+A("pcStart","s:"+k)+'>'+ic("plus",16)+'Add a credit</a>'+(o.guest&&cs==="claimed"?'<a class="v-pill" '+V("guest","show interest",A("interest",null,"interest-signal-on-a-profile"))+'>'+ic("hand",16)+'Show interest</a>':"")+'<a class="v-pill" '+G(o.menu||"show-report-page")+' aria-label="More">'+ic("more",16)+'</a>';
+ var badge=cs==="claimed"?" "+vbadge():"";var stateLine=cs==="claimed"?"":cs==="review"?" · "+vb("Claim under review","a"):cs==="pending"?" · "+vb("Claim in notice period","a"):"";
+ var hero='<div class="v-card"><div class="v-hero"><div class="v-hart">'+art(k,200,0)+'</div><div style="flex:1;min-width:0"><div class="v-kick">Podcast'+(cs==="claimed"?"":" · built from the feed")+'</div><h1>'+s.t+badge+'</h1><div class="v-net">'+(n?'<a '+G("network-page",n)+'>'+NETS[n].n+'</a>':(P[s.host]?'<a '+G(vis()?"person-profile-public-limited-view":profFor(s.host),s.host)+'>'+P[s.host].n+'</a>':""))+'</div>'+
+  '<div class="v-rl"><b>★ '+r.avg+'</b> ('+v10count(r.n)+') · '+v10cat(k)+' · '+v10cadence(k)+stateLine+'</div>'+
+  '<div class="v-acts">'+acts+'</div><p class="v-about">'+s.d+'</p>'+
+  '<div class="v-pills"><span class="v-pill info sm">★ '+r.avg+' · '+v10count(r.n)+' ratings <span class="v-sample">Sample</span></span><a class="v-pill sm" '+G("search-all-results",v10cat(k)+"|shows")+'>'+v10cat(k)+'</a><span class="v-pill info sm">'+fmt(s.eps)+' episodes</span><span class="v-pill info sm">'+fmt(s.fol)+' followers</span></div></div></div>'+
+  '<div class="v-tabs">'+[["Episodes","show-page-about-tab"],["People","show-page-people-tab"],["Posts","show-page-posts-tab"],["Press","show-page-press-tab"],["Jobs","show-page-jobs-tab"],["Events","show-page-events-tab"],["Guest brief","show-page-guest-brief-view"]].map(function(t){return '<a class="v-pill sm'+(t[1]==="show-page-about-tab"?" on":"")+'" '+G(t[1],k)+'>'+t[0]+'</a>'}).join("")+'</div>'+v10claimBar(old)+'</div>';
+ var eps=vCard("Episodes",fmt(s.eps)+" episodes from the feed, newest first",'<div class="v10eps">'+v10eps(k)+'</div>','<a class="v-see" '+G("show-page-seasons-view",k)+'>Seasons</a>');
+ var more=n?Object.keys(SH).filter(function(x){return x!==k&&SH[x].net===n}):[];
+ var like=Object.keys(SH).filter(function(x){return x!==k&&more.indexOf(x)<0&&(v10cat(x)===v10cat(k)||SH[x].cat===s.cat)}).concat(Object.keys(SH).filter(function(x){return x!==k&&more.indexOf(x)<0&&v10cat(x)!==v10cat(k)}).sort(function(a,b){return SH[b].fol-SH[a].fol})).slice(0,8);
+ var main=(o.pre||"")+hero+pc6ShowSection(k,false)+card(linkBlock(k),"lnkcard")+subscribeCard(k)+(o.mid||"")+eps+v10ratings(k)+
+  (more.length?vShelf("More From "+NETS[n].n,"",more,'<a class="v-see" '+G("network-page",n)+'>See all</a>'):"")+
+  vShelf("You Might Also Like","From shared listeners, guests, and categories",like,'<a class="v-see" '+G("show-similar-shows-rail-page",k)+'>See all</a>')+
+  '<div class="subbar"><div class="subbar-in">'+art(k,36,0)+'<div style="flex:1;min-width:0"><b>'+s.t+'</b><span>Episodes, news, events by email</span></div>'+(subOn?btn(ic("check",14)+"Subscribed",G("manage-your-subscription",k),"on sm"):btn("Subscribe",G("subscribe-form-default",k),"sm"))+'</div></div>';
+ var rail=(vis()?'<div class="pubgate"><h3>Follow '+s.t+'</h3><p class="muted small">Browse everything here freely. Join to follow the show, rate it, or reach its team.</p>'+btn("Join PodSubs",A("gate","listener|follow "+s.t,"join-account-step"),"w")+'<div class="small muted" style="margin-top:8px;text-align:center">Already a member? <a '+G("sign-in")+'>Sign in</a></div></div>':"")+v10info(k);
+ return page('<div class="l2"><div>'+main+'</div><aside class="lr2">'+rail+'</aside></div>',"home")}
+var _v10showPage=showPage;
+showPage=function(k,tab,o){if(tab==="show-page-about-tab"||tab==="show-page-episodes-tab"||!tab)return v10showPage(k,tab,o);return _v10showPage(k,tab,o)};
+R["show-page-episodes-tab"]=function(a){return showPage(a||"longtable","show-page-episodes-tab")};
+
+/* ---------------- 4. the network page ---------------- */
+R["network-page"]=function(a){var n=NETS[a]?a:"hubspot",N=NETS[n];var keys=Object.keys(SH).filter(function(k){return SH[k].net===n});PAGE_TITLE=N.n+", podcast network | PodSubs";
+ var newest=keys.slice().sort(function(a,b){return (+SH[b].since)-(+SH[a].since)});var top=keys.slice().sort(function(a,b){return SH[b].fol-SH[a].fol});
+ var grid=function(l){return '<div class="v-grid">'+l.map(function(k){return vShowCard(k,v10cat(k))}).join("")+'</div>'};
+ var head='<div class="v-card"><div class="v-hero" style="align-items:center"><div class="v-hart" style="width:120px;height:120px;border-radius:16px;background:linear-gradient(150deg,'+N.c1+','+N.c2+');display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:34px">'+ini(N.n)+'</div><div style="flex:1;min-width:0"><div class="v-kick">Network'+(N.sample?' <span class="v-sample">Sample</span>':"")+'</div><h1>'+N.n+'</h1><div class="v-rl"><b>'+keys.length+' shows</b> · '+esc(N.d)+'</div><p class="small muted" style="margin-top:10px">Networks on PodSubs are free groupings of shows. There is nothing to subscribe to here; follow the shows you like.</p></div></div></div>';
+ return page('<div class="l1">'+head+vCard("New Shows","Most recent first",grid(newest.slice(0,8)))+vCard("Top Shows","Most followed on PodSubs",grid(top.slice(0,8)))+'</div>',vis()?"shows-directory":"home")};
+/* The old house and network page is now the network page, for the producer it named. */
+R["show-page-house-and-network-page"]=function(){return R["network-page"]("halfmoon")};
+META["network-page"]={n:1215,title:"Network page",purpose:"A network's shows, New Shows and Top Shows, free grouping (V10)",tag:"v10"};
+(function(){for(var i=0;i<SECS.length;i++){var j=SECS[i].ids.indexOf("show-page-public-view");if(j>=0){SECS[i].ids.splice(j+1,0,"network-page");return}}})();
+
+/* ---------------- menu order: Shows, People, Guests, Jobs, News, Events, Blog, PodCred ---------------- */
+var V10ORDER=["Shows","People","Guests","Jobs","News","Events","Blog","PodCred"];
+var _v10pubnav=pubnav;
+pubnav=function(on){var h=_v10pubnav(on);var a=h.indexOf('<nav class="pl">'),b=h.indexOf("</nav>",a);if(a<0||b<0)return h;var inner=h.slice(a+16,b);
+ var links=inner.split(/(?=<a )/).filter(function(x){return x.trim()});links=links.map(function(x){return x.replace(/>Podblog<\/a>/,">Blog</a>")});
+ var label=function(x){return x.replace(/<[^>]*>/g,"").trim()};links.sort(function(x,y){var i=V10ORDER.indexOf(label(x)),j=V10ORDER.indexOf(label(y));return (i<0?99:i)-(j<0?99:j)});
+ return h.slice(0,a+16)+links.join("")+h.slice(b)};
+
+/* ---------------- lists: groups of 5, and the show list's own words ---------------- */
+LP_PAGE=5;
+/* V10 rows join the list pattern; their card heading names the list. */
+LP_ITEM+=",.v10li";
+var _v10lpKind=lpKind;lpKind=function(first){var c=first.closest&&first.closest(".v-card");if(c){var h=c.querySelector("h2"),t=(h?h.textContent:"").toLowerCase();if(/episode/.test(t))return ["episodes","Search episodes"];if(first.classList.contains("v10show")||/show/.test(t))return ["shows","Search shows"]}return _v10lpKind(first)};
+
+/* ---------------- render hook ---------------- */
+var _v10Render=render;
+render=function(id){_v10Render(id)};
+/* V10 additions end */
+
 document.getElementById("fav").href=LOGOM;
 boot();
 </script>
