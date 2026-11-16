@@ -108,6 +108,130 @@
 @media(max-width:860px){.v-hero{flex-direction:column;align-items:center;text-align:center}.v-hero .v-acts,.v-hero .v-pills{justify-content:center}.v-hero .v-about{margin-left:auto;margin-right:auto}}
 @media(max-width:560px){.v-row,.v-ep,.v-tap{padding-left:16px;padding-right:16px}.v-shelf,.v-grid,.v-tiles,.v-revs{padding-left:16px;padding-right:16px}.v-tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.v-hero h1{font-size:24px}}
 /* V10 design system end */
+/* ================================================================
+   V10 DESIGN SYSTEM, slice 2 additions (Karl 2026-11-16). Same tokens,
+   same components; these add the pieces the second Mobbin pass needs:
+   the video tile (VIDEO FIRST), episode platform buttons, the profile
+   head, the stats row, the guest card (Hinge model), the split view
+   (jobs), the stepped form with a progress bar, the sheet, ranked
+   cards, cast cards (IMDb), and review chips and credibility lines.
+   ================================================================ */
+/* video tile: a video version leads; it plays in place */
+.v-vid{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#0d1530;cursor:pointer;display:block}
+.v-vid .v-vbg{position:absolute;inset:0;opacity:.9}
+.v-vid .v-vbg>.art{width:100%!important;height:100%!important;border-radius:0!important;padding:0!important}
+.v-vid:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.6))}
+.v-vid .v-vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--navy);display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.v-vid .v-vmeta{position:absolute;left:10px;right:10px;bottom:8px;color:#fff;font-size:12px;font-weight:700;z-index:2;display:flex;justify-content:space-between;gap:8px}
+.v-vid .v-vtag{background:rgba(0,0,0,.6);border-radius:5px;padding:2px 6px}
+.v-vid.sm .v-vplay{width:34px;height:34px}
+.v-vid.playing{cursor:default;background:#000}
+.v-vid.playing .v-vbg{opacity:.35;filter:blur(2px)}
+.v-vid .v-vbar{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;color:#fff;font-size:12px;font-weight:600}
+.v-vid .v-vbar .v-vtrack{height:4px;border-radius:2px;background:rgba(255,255,255,.3);margin-top:6px}
+.v-vid .v-vbar .v-vtrack i{display:block;height:100%;width:22%;border-radius:2px;background:#fff}
+.v-vid .v-vnow{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:2;color:#fff;font-weight:700;font-size:14px;display:flex;gap:10px;align-items:center}
+.v-audio{display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--navy4)}
+.v-audio .v-wave{flex:1;height:28px;background:repeating-linear-gradient(90deg,var(--navy3) 0 3px,transparent 3px 6px);border-radius:4px}
+/* episode platform buttons: small, one per platform */
+.v-plats{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.v-plat{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border-radius:13px;border:1px solid var(--line2);background:#fff;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer}
+.v-plat svg,.v-plat img{width:14px;height:14px}
+.v-plat:hover{border-color:var(--navy)}
+/* video-first episode card (lists of episodes) */
+.v-epv{display:grid;grid-template-columns:200px minmax(0,1fr);gap:16px;padding:14px 20px;border-top:1px solid var(--line);align-items:start}
+.v-epv:first-child{border-top:0}
+.v-epv .v-b .v-d{font-size:12px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.v-epv .v-b .v-t{font-weight:700;font-size:15px;line-height:1.3;margin-top:2px;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-epv .v-b .v-desc{font-size:13.5px;color:var(--ink2);margin-top:3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-epv .v-b .v-foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.v-epv .v-afall{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border-radius:10px;background:var(--navy4);gap:10px;color:var(--ink2);font-size:12px;font-weight:700}
+/* profile head: cover, overlapping round avatar, name, handle, headline, place, stats, actions, tabs */
+.v-cover{height:170px;position:relative}
+.v-phead{padding:0 22px 16px;position:relative}
+.v-phead .v-pav{margin-top:-64px;border:4px solid #fff;border-radius:50%;display:inline-block;line-height:0;background:#fff}
+.v-phead .v-pav .av{border-radius:50%!important}
+.v-phead h1{font-size:26px;margin:8px 0 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.v-phead .v-handle{color:var(--ink3);font-size:14px;font-weight:600}
+.v-phead .v-head2{font-size:15px;margin-top:6px}
+.v-phead .v-place{font-size:13.5px;color:var(--ink2);margin-top:4px}
+.v-stats{display:flex;gap:22px;margin-top:12px;flex-wrap:wrap}
+.v-stats a,.v-stats span{font-size:14px;color:var(--ink2)}
+.v-stats b{color:var(--ink);font-size:16px;margin-right:4px}
+/* filter bar */
+.v-fbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:4px 20px 14px}
+.v-count{font-size:13px;color:var(--ink2);font-weight:600;padding:0 20px 8px}
+/* guest card: Hinge model, scrollable, one action per element */
+.v-gcard{background:var(--card);border-radius:14px;box-shadow:var(--sh);overflow:hidden;margin:0 auto 16px;max-width:560px}
+.v-gcard .v-gel{position:relative;padding:14px 18px;border-top:1px solid var(--line)}
+.v-gcard .v-gel:first-child{border-top:0;padding:0}
+.v-gcard .v-gel .v-act{position:absolute;right:14px;bottom:12px}
+.v-gcard .v-gname{display:flex;align-items:center;gap:12px}
+.v-gcard .v-gname h3{font-size:20px;margin:0;display:flex;align-items:center;gap:6px}
+.v-gcard .v-active{font-size:12.5px;color:var(--green);font-weight:700;margin-top:2px}
+.v-common{background:var(--navy4);border-radius:10px;padding:12px 14px}
+.v-common .v-ck{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.v-act-btn{width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18);border:0;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.v-act-btn.on{background:var(--navy);color:#fff}
+/* ranked cards (pitch list, Tinder Likes) */
+.v-rank{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding:6px 20px 18px}
+.v-rc{border-radius:12px;overflow:hidden;background:var(--card);box-shadow:0 0 0 1px var(--line);cursor:pointer;position:relative}
+.v-rc .v-rcn{position:absolute;left:10px;top:10px;background:var(--navy);color:#fff;font-weight:800;font-size:12px;border-radius:12px;padding:2px 8px;z-index:3}
+.v-rc .v-rcb{padding:10px 12px 12px}
+.v-rc .v-rct{font-weight:700;font-size:15px}
+.v-rc .v-rcs{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.v-rc .v-note{font-size:13px;margin-top:8px;background:var(--navy4);border-radius:8px;padding:8px 10px;line-height:1.4}
+.v-match{height:5px;border-radius:3px;background:var(--line);margin-top:8px}.v-match i{display:block;height:100%;border-radius:3px;background:var(--green)}
+/* sheet: the pitch-with-note sheet (Bumble) */
+.v-sheet{max-width:560px;margin:0 auto;background:var(--card);border-radius:16px;box-shadow:0 10px 40px rgba(24,40,82,.18);overflow:hidden}
+.v-sheet .v-grab{width:40px;height:4px;border-radius:2px;background:var(--line2);margin:10px auto 0}
+.v-sheet .v-shb{padding:16px 22px 22px}
+.v-sheet textarea{width:100%;min-height:120px;border:1px solid var(--line2);border-radius:12px;padding:12px;font:inherit;resize:vertical}
+.v-cc{font-size:12px;color:var(--ink3);text-align:right;margin-top:4px}
+/* split view (jobs): list left, detail right, filter bar above, rail */
+.v-split{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1.25fr);gap:16px;align-items:start}
+.v-split .v-list{max-height:none}
+.v-split .v-sel{background:var(--navy4);box-shadow:inset 3px 0 0 var(--navy)}
+.v-jrow{display:flex;gap:12px;padding:12px 16px;border-top:1px solid var(--line);cursor:pointer;align-items:flex-start}
+.v-jrow:first-child{border-top:0}
+.v-jrow:hover{background:var(--navy4)}
+.v-jrow .v-b{flex:1;min-width:0}
+.v-jrow .v-t{font-weight:700;font-size:15px;color:var(--navy);line-height:1.3}
+.v-jrow .v-s{font-size:13px;color:var(--ink);margin-top:2px}
+.v-jrow .v-m{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.v-tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:700;margin-top:6px;margin-right:4px}
+.v-tag.g{background:var(--green2);color:var(--green)}.v-tag.n{background:var(--navy3);color:var(--navy)}.v-tag.a{background:var(--amber2);color:var(--amber)}
+.v-rail a{display:flex;gap:10px;align-items:center;padding:10px 16px;font-weight:600;color:var(--ink);border-top:1px solid var(--line)}
+.v-rail a:first-child{border-top:0}.v-rail a.on{color:var(--navy);background:var(--navy4)}
+.v-jd{padding:18px 20px}
+.v-jd h1{font-size:22px;margin:8px 0 4px}
+/* stepped form with progress */
+.v-steps{padding:16px 22px 6px}
+.v-prog{height:6px;border-radius:3px;background:var(--line);overflow:hidden}.v-prog i{display:block;height:100%;background:var(--navy);border-radius:3px}
+.v-stepl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);font-weight:600;margin-top:8px}
+.v-formb{padding:8px 22px 20px}
+.v-formf{display:flex;justify-content:space-between;gap:10px;padding:14px 22px;border-top:1px solid var(--line)}
+/* cast cards (IMDb Top Cast) */
+.v-cast{display:grid;grid-auto-flow:column;grid-auto-columns:132px;gap:14px;overflow-x:auto;padding:6px 20px 16px}
+.v-castc{cursor:pointer;text-align:center}
+.v-castc .v-cp{width:112px;height:112px;margin:0 auto;border-radius:50%;overflow:hidden;line-height:0}
+.v-castc .v-cp .av{border-radius:50%!important}
+.v-castc .v-cn{font-weight:700;font-size:14px;margin-top:8px;line-height:1.25}
+.v-castc .v-cr{font-size:12.5px;color:var(--ink2);margin-top:2px}
+/* reviews extended: topic chips, sort, credibility line */
+.v-rv-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:6px 20px 10px}
+.v-cred{font-size:12px;color:var(--ink3);margin-top:2px}
+/* your shows / your credits (Product Hunt) */
+.v-prod{display:flex;gap:14px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
+.v-prod:first-child{border-top:0}
+.v-prod .v-b{flex:1;min-width:0}
+/* ranked chart rows */
+.v-rk{flex:none;width:28px;text-align:center;font-weight:800;font-size:16px;color:var(--ink2)}
+@media(max-width:1000px){.v-split{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}.v-split>.v-railcol{display:none}}
+@media(max-width:760px){.v-split{grid-template-columns:minmax(0,1fr)}.v-split.detail>.v-listcol{display:none}.v-split:not(.detail)>.v-detcol{display:none}.v-epv{grid-template-columns:minmax(0,1fr)}.v-cover{height:120px}}
+@media(max-width:560px){.v-epv,.v-fbar,.v-count,.v-rank,.v-cast,.v-rv-tools,.v-prod{padding-left:16px;padding-right:16px}.v-phead{padding:0 16px 14px}}
+/* V10 design system, slice 2 end */
+
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -4080,6 +4204,458 @@ var _v10lpKind=lpKind;lpKind=function(first){var c=first.closest&&first.closest(
 var _v10Render=render;
 render=function(id){_v10Render(id)};
 /* V10 additions end */
+/* V10 slice 2 additions start */
+/* ================================================================
+   V10, UI/UX overhaul slice 2 (Karl, 2026-11-16). The remaining
+   surfaces move onto the V10 design system, on the second Mobbin pass:
+   jobs sites, social apps, dating matching (Hinge's model), IMDb and
+   review products, talent directories. PodSubs identity, the menu
+   order, and every placement law are unchanged.
+   Karl's product rule for this slice, VIDEO FIRST: wherever episodes
+   appear, a video version leads, shows a thumbnail with a play button,
+   and plays in place; audio is the fallback only when no video exists.
+   Every episode carries small platform buttons (Apple Podcasts,
+   YouTube, Spotify).
+   1. People and Guests hubs     5. the episode page
+   2. the person profile         6. remaining search, browse, show tabs
+   3. guest matching, pitches    7. PodCred: cast order, filmography,
+   4. jobs                          Your shows and Your credits
+   ================================================================ */
+
+/* ---------------- sample data, appended ---------------- */
+/* Sample video versions for the network's shows, marked Sample where shown. */
+["myfirstmillion","mktgrain","hustledaily","bizsimple","goaldigger"].forEach(function(k){if(SH[k]&&!VST[k])VST[k]="yt"});
+var V2SAMPLEVID={myfirstmillion:1,mktgrain:1,hustledaily:1,bizsimple:1,goaldigger:1};
+/* What each show covers, for the things-in-common card. */
+var V2SHOWTOPICS={longtable:["Food","Family","Climate","Business"],nightshift:["Health","Careers","Science"],fieldnotes:["Climate","Science"],smallbiz:["Business","Careers","Family money"],quiethour:["Health","Science","Books"],deepsignal:["Technology","Business"]};
+var V2ACTIVE={priya:"Active today",grace:"Active yesterday",leo:"Active this week",iris:"Active 3 days ago",marcus:"Active today",rosa:"Active this week"};
+var V2LANG={priya:["English","Malayalam"],rosa:["Spanish","English"],marcus:["English"],grace:["English","Korean"],leo:["English"],iris:["English"]};
+
+/* ---------------- shared: VIDEO FIRST ---------------- */
+function v2vidShow(k){var v=vstate(k);return v==="yt"||v==="sp"}
+function v2plat(name,logo,go,k){return '<a class="v-plat" '+G(go,k)+' aria-label="'+name+' for this episode">'+logo+name+'</a>'}
+function v2plats(k){return '<span class="v-plats">'+v2plat("Apple Podcasts",typeof LOGO_AP!=="undefined"?LOGO_AP:"","listen-on-apple-podcasts-leaving-notice",k)+v2plat("YouTube",typeof LOGO_YT!=="undefined"?LOGO_YT:"","listen-on-youtube-leaving-notice",k)+v2plat("Spotify",typeof LOGO_SP!=="undefined"?LOGO_SP:"","listen-on-spotify-leaving-notice",k)+'</span>'}
+/* The video tile. key: an EP index, or "show:number". It plays in place. */
+function v2vid(k,key,o){o=o||{};var playing=String(S.vplay)===String(key);var sz=o.sm?" sm":"";var src=vstate(k)==="sp"?"Video on Spotify":"Video on YouTube";var len=o.len||"";
+ if(playing)return '<div class="v-vid playing'+sz+'"><div class="v-vbg">'+art(k,320,0)+'</div><div class="v-vnow"><button class="v-act-btn" '+A("v2vstop",key)+' aria-label="Pause">'+ic("pause",18)+'</button>Playing in place</div><div class="v-vbar"><div style="display:flex;justify-content:space-between"><span>'+src+(V2SAMPLEVID[k]?' · Sample':'')+'</span><span>4:12 / '+(len||"58:00")+'</span></div><div class="v-vtrack"><i></i></div></div></div>';
+ return '<div class="v-vid'+sz+'" '+A("v2vplay",key)+' role="button" aria-label="Play video"><div class="v-vbg">'+art(k,320,0)+'</div><span class="v-vplay">'+ic("play",o.sm?16:24)+'</span><div class="v-vmeta">'+(o.sm?'<span></span>':'<span class="v-vtag">'+ic("video",12)+' '+src+'</span>')+(len?'<span class="v-vtag">'+len+'</span>':"")+'</div></div>'}
+ACT.v2vplay=function(a){S.vplay=a;NOSCROLL=1;return 1};
+ACT.v2vstop=function(){S.vplay=null;NOSCROLL=1;return 1};
+/* Audio fallback, only when no video exists. */
+function v2audioTile(i){return '<div class="v-afall">'+ic("head",18)+'Audio only</div>'}
+/* A video-first episode card for any episode list. */
+function v2epCard(k,x,o){o=o||{};var key=epIndex(k,x.n);var e=typeof key==="number"?EP[key]:{s:k,n:x.n,t:x.t,d:x.d,len:x.len,g:""};var vid=v2vidShow(k);
+ return '<div class="v-epv v10li"><div>'+(vid?v2vid(k,key,{sm:1,len:x.len}):v2audioTile(key))+'</div><div class="v-b"><div class="v-d">'+(o.kick?o.kick+" · ":"")+x.d+'</div><div class="v-t" '+G("episode-page",key)+'>'+x.t+'</div><div class="v-desc">'+esc(v10epDesc(e))+'</div><div class="v-foot"><span class="v-dur">'+ic("clock",12)+x.len+'</span>'+(vid?"":'<button class="v-circ play" '+A("play",typeof key==="number"?key:0)+' aria-label="Play audio">'+ic("play",14)+'</button>')+v2plats(k)+(o.extra||"")+'</div></div></div>'}
+/* The show page's episode list, video first. */
+v10eps=function(k){return feedList(k).map(function(x){return v2epCard(k,x)}).join("")};
+
+/* ---------------- shared: reviews, extended (topic chips, sort, credibility) ---------------- */
+/* id: which block; rv: [title,date,author key or name,stars,text,topic,credits line]. */
+function v2reviews(id,o){S.v2rv=S.v2rv||{};var st=S.v2rv[id]||{t:"",s:"Relevance"};var list=o.list.slice();
+ if(st.t)list=list.filter(function(r){return r[5]===st.t});
+ if(st.s==="Newest")list.sort(function(a,b){return Date.parse(b[1])-Date.parse(a[1])});if(st.s==="Highest")list.sort(function(a,b){return b[3]-a[3]});
+ var topics=[];o.list.forEach(function(r){if(r[5]&&topics.indexOf(r[5])<0)topics.push(r[5])});
+ var hist='<div class="v-hist">'+o.hist.map(function(w,i){return '<div class="v-hr"><span>'+"★".repeat(5-i)+'</span><div class="v-bar"><i style="width:'+Math.round(w*100)+'%"></i></div></div>'}).join("")+'</div>';
+ var tools='<div class="v-rv-tools">'+topics.map(function(t){return '<a class="v-pill sm'+(st.t===t?" on":"")+'" '+A("v2rv",id+"|t|"+(st.t===t?"":t))+'>'+t+'</a>'}).join("")+'<span style="flex:1"></span><span class="small muted">Sort</span>'+["Relevance","Newest","Highest"].map(function(s){return '<a class="v-pill sm'+(st.s===s?" on":"")+'" '+A("v2rv",id+"|s|"+s)+'>'+s+'</a>'}).join("")+'</div>';
+ var cards='<div class="v-revs">'+(list.length?list.map(function(r){var who=P[r[2]]?P[r[2]].n:r[2];return '<div class="v-rev"><div class="v-rt">'+r[0]+'</div><div class="v-rm"><span>'+vStars(r[3])+'</span><span>'+r[1]+'</span></div><div class="small b">'+(P[r[2]]?'<a '+G(vis()?"person-profile-public-limited-view":profFor(r[2]),r[2])+'>'+who+'</a>':who)+'</div><div class="v-cred">'+ic("shield",11)+' '+r[6]+'</div><p style="margin-top:6px">'+r[4]+'</p></div>'}).join(""):'<div class="muted small">No reviews on this topic yet.</div>')+'</div>';
+ return vCard(o.title,o.sub,'<div class="v-rate"><div class="v-avg"><b>'+o.avg+'</b><span>out of 5</span></div>'+hist+'</div><div class="v-cnt">'+fmt(o.n)+' '+(o.unit||"ratings")+'</div>'+(o.tap||"")+tools+cards)}
+ACT.v2rv=function(a){var p=String(a).split("|");S.v2rv=S.v2rv||{};var st=S.v2rv[p[0]]||{t:"",s:"Relevance"};if(p[1]==="t")st.t=p[2];else st.s=p[2];S.v2rv[p[0]]=st;NOSCROLL=1;return 1};
+/* The show page's ratings block, slice 1 extended. */
+v10ratings=function(k){var r=v10rating(k),mine=(S.myrate||{})[k]||0;
+ var tap='<div class="v-tap"><span>Tap to Rate:</span><span class="v-stars">'+[1,2,3,4,5].map(function(n){return '<a '+V("listener","rate "+SH[k].t,A("v10rate",k+"|"+n))+' aria-label="Rate '+n+' out of 5">'+(n<=mine?'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>':ic("star",22))+'</a>'}).join("")+'</span>'+(mine?'<span class="small">You rated it '+mine+' out of 5</span>':"")+'</div>';
+ var list=[["Worth every episode","Sep 30, 2026","listener_412",5,"I listen on every commute now. The guests talk like real people, and nobody is selling anything.","Guests","Listener · follows 14 shows · 32 ratings"],["Longer than it used to be","Aug 12, 2026","weeknight_listener",4,"Still one of my favourite shows. The newer episodes run long, but the stories are worth it.","Length","Listener · follows 6 shows · 9 ratings"],["The interviews carry it","Oct 28, 2026","dana",5,"Good questions, and room to answer them. The edit is clean and never rushed.","Guests","Producer · 3 shows · 27 credits"],["Audio is great, video is better","Nov 2, 2026","tom",4,"Watching the video version makes the long ones easier. The sound stays excellent.","Video","Mix engineer · 2 shows · 41 credits"]];
+ return v2reviews("show-"+k,{title:"Ratings and reviews",sub:'<span class="v-sample">Sample</span> Display only. Ratings come from listeners on PodSubs.',avg:r.avg,n:r.n,hist:r.hist,tap:tap,list:list})};
+
+/* ---------------- 2. the person profile, universal order ---------------- */
+var V2VERIFIED=["dana","priya","ruth","lena","omar","marcus","elena","tom","nia","jonah","sofia","kwame","grace"];
+/* A person's credits, IMDb filmography form: every credit on every show, with its trust tier. */
+function v2credits(k){var out=[],seen={};
+ Object.keys(SH).forEach(function(s){var L=[];try{var f=PCFORCE;L=pcPeople(s);}catch(e){L=[]}L.forEach(function(x){if(x.k!==k)return;var role=x.role.replace(/,.*$/,"");var key=s+"|"+role+"|"+x.role;if(seen[key])return;seen[key]=1;out.push({show:s,role:role,detail:x.role.indexOf(",")>0?x.role.split(", ").slice(1).join(", "):"",b:x.b,n:+(String(x.role).match(/\d+/)||[0])[0]})})});
+ hostedShows(k).forEach(function(s){if(!out.some(function(c){return c.show===s&&/host/i.test(c.role)}))out.push({show:s,role:"Host",detail:"",b:"f",n:0})});
+ (PWORKS[k]||[]).forEach(function(s){var role=(PROLE[k]||["Credited"])[0];if(!out.some(function(c){return c.show===s}))out.push({show:s,role:role,detail:"",b:"f",n:0})});
+ EP.forEach(function(e,i){if(e.g===k&&SH[e.s]&&!out.some(function(c){return c.show===e.s&&c.role==="Guest"&&c.n===e.n}))out.push({show:e.s,role:"Guest",detail:"Episode "+e.n,b:"f",n:e.n,i:i})});
+ /* every appearance is a credit: approved ones verified, waiting ones community */
+ S.apps.forEach(function(a){if(a.g===k&&a.st!=="declined"&&SH[a.s]&&!out.some(function(c){return c.show===a.s&&c.role==="Guest"&&c.n===a.n})){var i=epIndex(a.s,a.n);out.push({show:a.s,role:"Guest",detail:"Episode "+a.n,b:a.st==="verified"?"v":"c",n:a.n,i:i})}});
+ return out}
+function v2tierHtml(b){return b==="v"?tier("v",1):b==="f"?tier("f",1):pcBadge(b)}
+function v2appearances(k){var o=[],seen={};EP.forEach(function(e,i){if(e.g===k&&SH[e.s]){seen[e.s+":"+e.n]=1;o.push({s:e.s,n:e.n,t:e.t,d:e.d,len:e.len,st:"verified"})}});S.apps.forEach(function(a){if(a.g===k&&!seen[a.s+":"+a.n]&&a.st!=="declined"&&SH[a.s]){seen[a.s+":"+a.n]=1;var f=feedList(a.s).filter(function(x){return x.n===a.n})[0];o.push({s:a.s,n:a.n,t:a.t,d:a.d,len:f?f.len:"",st:a.st})}});
+ /* VIDEO FIRST: appearances with a video version lead, newest first within each */
+ return o.sort(function(x,y){return (v2vidShow(y.s)?1:0)-(v2vidShow(x.s)?1:0)||Date.parse(y.d)-Date.parse(x.d)})}
+function v2isGuest(k,o){return (o&&o.guestView)||GDIR.some(function(g){return g.k===k})||v2appearances(k).length>0}
+function v2guestReviews(k){var nm=P[k].n.split(" ")[0];return [["Came prepared, stayed generous","Oct 21, 2026","maya",5,nm+" sent notes a week early and told stories nobody had heard. Our listeners wrote in for days.","Preparation","Host of The Long Table · 214 episodes · 18 credits"],["Clear on a hard subject","Oct 31, 2026","ruth",5,"Explained the science without talking down to anyone. Easy to edit, nothing to fix.","Clarity","Host of Field Notes on Climate · 146 episodes · 11 credits"],["Great guest, slow to confirm","Sep 9, 2026","lena",4,"A strong conversation once we got there. Booking took three rounds of email.","Booking","Booking producer at Night Shift Radio · 9 credits"]]}
+function v2profile(k,o){o=o||{};k=P[k]?k:"maya";var p=P[k],own=o.own,lim=vis()||o.limited;PAGE_TITLE=p.n+" | PodSubs";
+ var verified=V2VERIFIED.indexOf(k)>=0||(k==="maya"&&claimed());var guest=v2isGuest(k,o);
+ var cr=v2credits(k),ap=v2appearances(k),fol=(typeof PFOL!=="undefined"&&PFOL[k])||Math.round(200+v10hash(k)%900);
+ var emp=hostedShows(k)[0]||(PWORKS[k]||[])[0];var f=!vis()&&S.follows[k];
+ var follow='<a class="v-pill'+(f?" on":" o")+'" '+V("listener","follow "+p.n,A("follow",k))+'>'+(f?ic("check",16)+"Following":ic("plus",16)+"Follow")+'</a>';
+ var acts=own?'<a class="v-pill on" '+G(k==="priya"?"guest-profile-builder":"profile-link-edit")+'>'+ic("edit",16)+'Edit profile</a><a class="v-pill" '+G("profile-qr-and-share-card")+'>'+ic("send",16)+'Share</a><a class="v-pill" '+G(k==="priya"?"guest-availability-calendar":"settings-availability-controls")+'>Open to</a>'
+  :o.unclaimed?follow+'<a class="v-pill" '+G("claim-a-profile-start",k)+'>Is this you? Claim this profile</a><a class="v-pill" '+A("pcStart","p:"+k)+'>'+ic("plus",16)+'Add a credit</a>'
+  :follow+(guest?'<a class="v-pill" '+V("host","book "+p.n,G("book-this-guest-entry-form",k))+'>'+ic("cal",16)+'Book</a>':"")+'<a class="v-pill" '+V("pro","message "+p.n,G("messages-inbox"))+'>'+ic("msg",16)+'Message</a><a class="v-pill" '+A("pcStart","p:"+k)+'>'+ic("plus",16)+'Add a credit</a>';
+ var badges=(verified&&!o.unclaimed?" "+vbadge():"")+(o.unclaimed?" "+vb("Unclaimed, assembled from feed credits","n"):"")+(o.newm?" "+vb("New member","a"):"")+(o.top?" "+vb("Top trust mark","g"):"");
+ var tabs=[["Credits","v2-credits"]].concat(ap.length?[["Appearances","v2-apps"]]:[]).concat(guest?[["Reviews","v2-revs"]]:[]).concat([["About","v2-about"]]);
+ var head='<div class="v-card"><div class="v-cover" style="background:linear-gradient(120deg,'+p.c+','+shade(p.c,.5)+')"></div><div class="v-phead"><div class="v-pav">'+av(k,128,0)+'</div><h1>'+p.n+badges+'</h1><div class="v-handle">@'+(p.slug||k)+'</div><div class="v-head2">'+(k==="dana"&&S.proRole?esc(S.proRole):p.h)+'</div><div class="v-place">'+p.loc+(emp&&SH[emp]?' · <a '+G(v10showGo(),emp)+'>'+SH[emp].t+'</a>':"")+'</div>'+
+  '<div class="v-stats"><a '+A("v2scroll","v2-credits")+'><b>'+cr.length+'</b>credits</a>'+(ap.length?'<a '+A("v2scroll","v2-apps")+'><b>'+ap.length+'</b>appearances</a>':"")+'<span><b>'+fmt(fol)+'</b>followers</span></div>'+
+  '<div class="v-acts" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">'+acts+'</div>'+
+  (o.dual?'<div class="v-pills" style="margin-top:12px"><a class="v-pill sm'+(o.guestView?"":" on")+'" '+G("profile-work-view-of-a-dual-member")+'>Work profile</a><a class="v-pill sm'+(o.guestView?" on":"")+'" '+G("profile-guest-view-of-a-dual-member")+'>Guest profile</a></div>':"")+'</div>'+
+  '<div class="v-tabs">'+tabs.map(function(t,i){return '<a class="v-pill sm'+(i===0?" on":"")+'" '+A("v2scroll",t[1])+'>'+t[0]+'</a>'}).join("")+'</div></div>';
+ /* the filmography: role pills, a count line, sorted, a search field (the list pattern) */
+ S.v2role=S.v2role||{};S.v2sort=S.v2sort||{};var role=S.v2role[k]||"All",sort=S.v2sort[k]||"Newest";var roles=["All"];cr.forEach(function(c){if(roles.indexOf(c.role)<0)roles.push(c.role)});
+ var list=cr.filter(function(c){return role==="All"||c.role===role});
+ list.sort(sort==="A to Z"?function(a,b){return SH[a.show].t.localeCompare(SH[b.show].t)}:function(a,b){return (b.n||+SH[b.show].since*0)-(a.n||0)||(+SH[b.show].since)-(+SH[a.show].since)});
+ var credits='<div id="v2-credits">'+vCard("Credits",'PodCred record. Every credit shows how we know it. <a '+G("credit-trust-tiers-explained")+'>What the marks mean</a>',
+  '<div class="v-fbar">'+roles.map(function(r){var n=r==="All"?cr.length:cr.filter(function(c){return c.role===r}).length;return '<a class="v-pill sm'+(r===role?" on":"")+'" '+A("v2role",k+"|"+r)+'>'+r+' '+n+'</a>'}).join("")+'<span style="flex:1"></span>'+["Newest","A to Z"].map(function(s){return '<a class="v-pill sm'+(s===sort?" on":"")+'" '+A("v2sort",k+"|"+s)+'>'+s+'</a>'}).join("")+'</div>'+
+  '<div class="v-count">'+(role==="All"?list.length+(list.length===1?" credit":" credits"):list.length+" of "+cr.length+" credits · "+role)+'</div>'+
+  '<div class="v2credl">'+(list.length?list.map(function(c){var s=SH[c.show];return vRow({cls:"v10li v2cred",pic:art(c.show,56,0),t:s.t,s:c.role+(c.detail?" · "+c.detail:"")+" · "+s.cat,s2:v2tierHtml(c.b),go:G(c.i!=null?"episode-page":v10showGo(),c.i!=null?c.i:c.show)})}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">No credits yet.</div></div>')+'</div>'+(own?cf("Open your PodCred desk",G("podcred-owner-view")):""))+'</div>';
+ var apps=ap.length?'<div id="v2-apps">'+vCard("Guest appearances","Video first. Each appearance was approved by the show, or waits for it.",'<div class="v2appl">'+ap.map(function(a){return v2epCard(a.s,a,{kick:SH[a.s].t,extra:a.st==="verified"?' '+vb("Verified appearance"):' '+vb("Waiting for the show","a")})}).join("")+'</div>')+'</div>':"";
+ var revs=guest?'<div id="v2-revs">'+v2reviews("guest-"+k,{title:"Host reviews",sub:'<span class="v-sample">Sample</span> From hosts of verified appearances only.',avg:"4.7",n:12,unit:"host ratings",hist:[.75,.17,.08,0,0],list:v2guestReviews(k)})+'</div>':"";
+ var about='<div id="v2-about">'+vCard("About","",'<div class="cp" style="padding-top:4px"><p>'+p.h+'.</p>'+kv([["Location",p.loc],["Languages",(V2LANG[k]||["English"]).join(", ")],["Roles",(PROLE[k]||[guest?"Podcast Guest":"Member"]).join(", ")],["On PodSubs since","2024"]])+'</div>')+'</div>';
+ var rail=(lim?joinRail():card('<div class="cp"><div class="b">'+(own?"Your profile":"People also viewed")+'</div></div>'+(own?'<div class="cp small muted" style="padding-top:0">Visitors see this page in the same order: who you are, your credits, then your work.</div>':'<div class="rows">'+["dana","lena","omar"].filter(function(x){return x!==k}).slice(0,3).map(function(x){return vRow({round:1,pic:av(x,44,0),t:P[x].n,s:P[x].h,go:G(vis()?"person-profile-public-limited-view":profFor(x),x)})}).join("")+'</div>')));
+ return page('<div class="l2"><div>'+(o.pre||"")+head+credits+apps+revs+about+(o.post||"")+'</div><aside>'+rail+'</aside></div>',vis()?"people-directory-public":"me")}
+ACT.v2role=function(a){var p=String(a).split("|");S.v2role=S.v2role||{};S.v2role[p[0]]=p[1];NOSCROLL=1;return 1};
+ACT.v2sort=function(a){var p=String(a).split("|");S.v2sort=S.v2sort||{};S.v2sort[p[0]]=p[1];NOSCROLL=1;return 1};
+ACT.v2scroll=function(a){var el=document.getElementById(a);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return 0};
+var _v2profile=profile;
+profile=function(k,o){try{return v2profile(k,o)}catch(e){console.error("v2profile",e);return _v2profile(k,o)}};
+
+/* ---------------- 1. the People hub ---------------- */
+function v2hubHead(title,sub,ph,enter,pills){return '<div class="v-card"><div class="v-shd"><h1 style="font-size:28px;margin:0 0 4px">'+title+'</h1><p class="muted" style="margin:0 0 12px">'+sub+'</p><div class="lsb">'+ic("search",20)+'<input class="fqi" placeholder="'+ph+'" aria-label="'+ph+'" data-enter="'+enter+'"></div>'+(pills?'<div class="v-pills" style="margin-top:12px">'+pills+'</div>':"")+'</div></div>'}
+function v2personRow(k,x){var p=P[k];var roles=(PROLE[k]||[]).join(", ");return vRow({cls:"v10li",round:1,pic:av(k,56,0),t:p.n+(V2VERIFIED.indexOf(k)>=0?" "+vbadge():""),s:(roles?roles+" · ":"")+p.h,s2:p.loc+((PWORKS[k]||[]).length?" · "+PWORKS[k].map(function(s){return SH[s].t}).join(", "):""),go:G(vis()?"person-profile-public-limited-view":profFor(k),k),x:x||vFollowPill(k,p.n)})}
+function v2peopleHub(role){var all=Object.keys(PROLE);var roles=["Host","Producer","Editor","Sound engineer","Videographer","Marketer","Writer","Booker"];role=role||S.v2prole||"";
+ var keys=all.filter(function(k){return !role||PROLE[k].indexOf(role)>=0}).sort(function(a,b){return ((typeof PFOL!=="undefined"&&PFOL[b])||0)-((typeof PFOL!=="undefined"&&PFOL[a])||0)});
+ var pills='<a class="v-pill'+(role?"":" on")+'" '+A("v2prole","")+'>All</a>'+roles.map(function(r){return '<a class="v-pill'+(role===r?" on":"")+'" '+A("v2prole",r)+'>'+r+'</a>'}).join("")+'<a class="v-pill" '+A("v2prole","open")+'>'+ic("check",14)+'Open to work</a>';
+ if(role==="open")keys=all.filter(function(k){return POPEN[k]});
+ var body=v2hubHead("People","The people who make podcasts. Each role is vouched for by the show that confirmed it.","Search people by name","search-people",pills)+
+  vCard("Most followed","",'<div class="v-cast">'+keys.slice(0,8).map(function(k){return '<div class="v-castc" '+G(vis()?"person-profile-public-limited-view":profFor(k),k)+'><div class="v-cp">'+av(k,112,0)+'</div><div class="v-cn">'+P[k].n+'</div><div class="v-cr">'+PROLE[k][0]+'</div></div>'}).join("")+'</div>')+
+  vCard(role&&role!=="open"?role+"s":role==="open"?"Open to work":"Everyone",keys.length+(keys.length===1?" person":" people"),'<div class="v2pl">'+keys.map(function(k){return v2personRow(k)}).join("")+'</div>');
+ return pub('<div class="l2"><div>'+body+'</div><aside>'+joinRail()+'</aside></div>',"people-directory-public")}
+ACT.v2prole=function(a){S.v2prole=a;NOSCROLL=1;return 1};
+R["people-directory-public"]=function(){return v2peopleHub()};
+R["browse-people-all-roles"]=function(){S.v2prole="";return v2peopleHub()};
+R["browse-people-one-role"]=function(a){return v2peopleHub(a||"Producer")};
+
+/* ---------------- 3. guest matching: the Hinge model ---------------- */
+function v2viewerShow(){var h=hostedShows(me());return h[0]||"longtable"}
+function v2firstApp(k){var a=v2appearances(k);var vid=a.filter(function(x){return v2vidShow(x.s)})[0];return vid||a[0]||null}
+function v2gcard(g,o){o=o||{};var k=g.k,p=P[k];var ap=v2firstApp(k);var vs=v2viewerShow();var mine=V2SHOWTOPICS[vs]||[];var common=g.topics.filter(function(t){return mine.indexOf(t)>=0});var saved=S.saved&&S.saved["g"+k];
+ var pitch=function(about){return '<button class="v-act-btn" '+V("host","pitch "+p.n,A("v2pitch",k+"|"+about))+' aria-label="Pitch about '+esc(about)+'" title="Pitch about this">'+ic("send",17)+'</button>'};
+ var media=ap?(v2vidShow(ap.s)?v2vid(ap.s,epIndex(ap.s,ap.n),{len:ap.len}):'<div class="v-audio" style="margin:14px 18px 0">'+art(ap.s,56,0)+'<div style="flex:1;min-width:0"><div class="small b">Audio appearance</div><div class="small muted">'+SH[ap.s].t+'</div><div class="v-wave" style="margin-top:6px"></div></div><button class="v-circ play" '+A("play",epIndex(ap.s,ap.n))+' aria-label="Play">'+ic("play",14)+'</button></div>'):'<div class="v-afall" style="margin:14px 18px 0">'+ic("video",18)+'No appearance on video yet</div>';
+ return '<div class="v-gcard">'+
+  '<div class="v-gel">'+media+(ap?'<div style="padding:10px 18px 14px"><div class="small muted">'+(v2vidShow(ap.s)?"Video appearance":"Appearance")+' on <a '+G(v10showGo(),ap.s)+'>'+SH[ap.s].t+'</a> · '+ap.d+'</div><div class="b" '+G("episode-page",epIndex(ap.s,ap.n))+' style="cursor:pointer">'+ap.t+'</div><div style="margin-top:8px">'+v2plats(ap.s)+'</div></div><span class="v-act">'+pitch("their appearance on "+SH[ap.s].t)+'</span>':"")+'</div>'+
+  '<div class="v-gel"><div class="v-gname">'+av(k,56,0)+'<div style="min-width:0"><h3><a '+G(vis()?"person-profile-public-limited-view":profFor(k),k)+'>'+p.n+'</a>'+(V2VERIFIED.indexOf(k)>=0?" "+vbadge():"")+'</h3><div class="v-active">'+(V2ACTIVE[k]||"Active this month")+'</div><div class="small muted">'+p.h+' · '+p.loc+'</div></div></div><span class="v-act"><button class="v-act-btn'+(saved?" on":"")+'" '+V("host","save guests",A("v2gsave",k))+' aria-label="'+(saved?"Saved":"Save")+'">'+ic("save",17)+'</button></span></div>'+
+  '<div class="v-gel"><div class="small b" style="margin-bottom:8px">Topics</div><div class="v-pills">'+g.topics.map(function(t){return '<span class="v-pill sm info">'+t+'</span>'}).join("")+(g.remote?'<span class="v-pill sm info">Records remotely</span>':"")+(g.inperson?'<span class="v-pill sm info">In person</span>':"")+'</div><span class="v-act">'+pitch(g.topics[0])+'</span></div>'+
+  '<div class="v-gel"><div class="v-common"><div class="v-ck">In common with '+SH[vs].t+'</div><div style="margin-top:6px;font-size:14px">'+(common.length?"You both cover <b>"+common.join("</b> and <b>")+"</b>.":"No shared topics yet, a new angle for your listeners.")+'</div><div class="small muted" style="margin-top:4px">'+v2appearances(k).length+' verified appearances · '+(V2LANG[k]||["English"]).join(", ")+'</div></div><span class="v-act">'+pitch(common[0]||g.topics[0])+'</span></div>'+
+  '</div>'}
+ACT.v2gsave=function(a){S.saved=S.saved||{};S.saved["g"+a]=!S.saved["g"+a];NOSCROLL=1;S.toast=S.saved["g"+a]?"Saved "+P[a].n:"Removed from saved";return 1};
+/* A show pitching a guest has its own screen; pitch-form stays the guest pitching a show. */
+ACT.v2pitch=function(a){return {go:"pitch-a-guest",arg:a}};
+function v2guestFilters(){var f=S.v2gf||{};var topics=[];GDIR.forEach(function(g){g.topics.forEach(function(t){if(topics.indexOf(t)<0)topics.push(t)})});
+ var row=function(label,key,vals){return '<a class="v-pill'+(f[key]?" on":"")+'" '+A("v2gfcycle",key+"|"+vals.join(","))+'>'+label+(f[key]?": "+f[key]:"")+' '+ic("down",14)+'</a>'};
+ return row("Topic","topic",topics)+row("Show size","size",["Small","Medium","Large"])+row("Location","loc",["Remote","Chicago","Seattle","Atlanta","Miami"])+row("Language","lang",["English","Spanish","Malayalam","Korean"])+(Object.keys(f).some(function(x){return f[x]})?'<a class="v-pill" '+A("v2gfclear")+'>Clear</a>':"")}
+ACT.v2gfcycle=function(a){var p=String(a).split("|"),vals=p[1].split(",");S.v2gf=S.v2gf||{};var cur=S.v2gf[p[0]];var i=vals.indexOf(cur);S.v2gf[p[0]]=i+1<vals.length?vals[i+1]:"";NOSCROLL=1;return 1};
+ACT.v2gfclear=function(){S.v2gf={};NOSCROLL=1;return 1};
+function v2guestList(){var f=S.v2gf||{};return GDIR.filter(function(g){return (!f.topic||g.topics.indexOf(f.topic)>=0)&&(!f.lang||(V2LANG[g.k]||["English"]).indexOf(f.lang)>=0)&&(!f.loc||(f.loc==="Remote"?g.remote:city(g.k)===f.loc))})}
+function v2guestsHub(o){o=o||{};var list=o.list||v2guestList();
+ var head=v2hubHead(o.title||"Guests",o.sub||"Every appearance on these profiles came from a feed or was approved by the show.","Search guests by name or topic","search-guests",v2guestFilters());
+ var cards=list.length?list.map(function(g){return v2gcard(g)}).join(""):vCard("No guests match","",'<div class="cp muted">Try another topic or clear the filters.</div>');
+ var rail=(vis()?joinRail("Pitch a guest","Browsing guests is free. Join as a show to pitch them.","host"):card('<div class="cp"><div class="b">How matching works</div><p class="small muted">Guests are ranked by shared topics with '+SH[v2viewerShow()].t+', verified appearances, and how recently they were active. Nobody pays to rank higher.</p></div>')+card(cf("Saved guests",G("saved-guests-list"))));
+ return page('<div class="l2"><div>'+(o.pre||"")+head+'<div class="small muted" style="margin:0 4px 10px">'+list.length+(list.length===1?" guest":" guests")+', scroll to see each card</div>'+cards+'</div><aside>'+rail+'</aside></div>',vis()?"guests-directory-public":"home")}
+R["guests-directory-public"]=function(){return v2guestsHub()};
+R["guests-to-discover"]=function(){return v2guestsHub({title:"Guests to discover",sub:"Matched to "+SH[v2viewerShow()].t+" by shared topics and verified appearances."})};
+R["guest-search-full-filters"]=function(){S.v2gf={topic:"Climate",lang:"English"};return v2guestsHub()};
+R["guest-search-by-verified-appearances"]=function(){return v2guestsHub({title:"Guests with verified appearances",list:GDIR.filter(function(g){return v2appearances(g.k).some(function(a){return a.st==="verified"})})})};
+R["guest-search-no-results"]=function(){return v2guestsHub({list:[]})};
+R["saved-guests-list"]=function(){var l=GDIR.filter(function(g){return S.saved&&S.saved["g"+g.k]});if(!l.length)l=GDIR.slice(0,2);return v2guestsHub({title:"Saved guests",sub:"Guests you saved. Pitch them when you are ready.",list:l})};
+R["guest-card-saved-state"]=function(){S.saved=S.saved||{};S.saved.gpriya=1;return v2guestsHub()};
+R["browse-guests-by-topic"]=function(a){if(a)S.v2gf={topic:a};return v2guestsHub({title:"Guests by topic"})};
+R["guest-topics-browse-public"]=R["browse-guests-by-topic"];
+R["guests-by-language-browse-public"]=function(a){S.v2gf={lang:a||"Spanish"};return v2guestsHub({title:"Guests by language"})};
+R["top-guests-chart-public"]=function(){var l=GDIR.slice().sort(function(a,b){return ((typeof PFOL!=="undefined"&&PFOL[b.k])||0)-((typeof PFOL!=="undefined"&&PFOL[a.k])||0)});return v2guestsHub({title:"Top guests this month",sub:"Ranked by verified appearances and host reviews.",list:l})};
+
+/* the ranked pitch list for a show, Tinder's Likes pattern: Pitches, Sent, Top Picks */
+var V2PITCHES=[{g:"priya",about:"Food and climate",note:"What a warmer world does to dinner, part two. I have new numbers from this summer's river survey.",m:94,t:"2h",vid:0},{g:"grace",about:"Health",note:"Why we eat badly when we sleep badly, the follow up your listeners asked for.",m:88,t:"5h"},{g:"leo",about:"Food",note:"My grandmother's gumbo, and the three cooks who tried to write it down after her.",m:81,t:"1d"},{g:"marcus",about:"Business",note:"Running a family restaurant on a small business budget. Happy to bring receipts.",m:74,t:"2d"},{g:"rosa",about:"Family money",note:"Talking money at the dinner table, in Spanish and English.",m:69,t:"3d"},{g:"iris",about:"Health",note:"A nurse's view of meals on the night shift.",m:61,t:"4d"}];
+function v2pitchList(tab){tab=tab||S.v2ptab||"pitches";var chip=S.v2pchip||"All";var list=V2PITCHES.slice();
+ if(tab==="sent")list=[{g:"rosa",about:"Family money",note:"Sent by The Long Table: would you join us for a Sunday table episode?",m:72,t:"1d",sent:1},{g:"marcus",about:"Business",note:"Sent by The Long Table: the economics of a busy kitchen.",m:70,t:"3d",sent:1}];
+ if(tab==="top")list=list.filter(function(x){return x.m>=80});
+ if(chip==="Video ready")list=list.filter(function(x){return v2firstApp(x.g)&&v2vidShow(v2firstApp(x.g).s)});
+ if(chip==="Verified")list=list.filter(function(x){return V2VERIFIED.indexOf(x.g)>=0});
+ if(chip==="Food"||chip==="Health")list=list.filter(function(x){return x.about.indexOf(chip)>=0});
+ var tabs='<div class="v-pills">'+[["pitches","Pitches",V2PITCHES.length],["sent","Sent",2],["top","Top Picks",V2PITCHES.filter(function(x){return x.m>=80}).length]].map(function(t){return '<a class="v-pill'+(tab===t[0]?" on":"")+'" '+A("v2ptab",t[0])+'>'+t[1]+' '+t[2]+'</a>'}).join("")+'</div>';
+ var chips='<div class="v-fbar" style="padding-top:12px">'+["All","Video ready","Verified","Food","Health"].map(function(c){return '<a class="v-pill sm'+(chip===c?" on":"")+'" '+A("v2pchip",c)+'>'+c+'</a>'}).join("")+'</div>';
+ var cards='<div class="v-rank">'+(list.length?list.map(function(x,i){var ap=v2firstApp(x.g);return '<div class="v-rc" '+G("pitch-detail-show-view",x.g)+'><span class="v-rcn">#'+(i+1)+'</span>'+(ap&&v2vidShow(ap.s)?v2vid(ap.s,epIndex(ap.s,ap.n),{sm:1}):'<div style="aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,'+P[x.g].c+','+shade(P[x.g].c,.45)+')">'+av(x.g,72,0)+'</div>')+'<div class="v-rcb"><div class="v-rct">'+P[x.g].n+(V2VERIFIED.indexOf(x.g)>=0?" "+vbadge():"")+'</div><div class="v-rcs">'+x.about+' · '+x.t+' ago</div><div class="v-match" title="Match '+x.m+' of 100"><i style="width:'+x.m+'%"></i></div><div class="small muted" style="margin-top:3px">Match '+x.m+' of 100</div><div class="v-note">'+ic("cmt",12)+' '+x.note+'</div></div></div>'}).join(""):'<div class="muted small">Nothing here with this filter.</div>')+'</div>';
+ return sadm(vCard("Pitches to The Long Table","Ranked by fit: shared topics, verified appearances, and how complete the pitch is. Nobody pays to rank higher.",'<div style="padding:4px 20px 0">'+tabs+'</div>'+chips+cards))}
+ACT.v2ptab=function(a){S.v2ptab=a;NOSCROLL=1;return 1};
+ACT.v2pchip=function(a){S.v2pchip=a;NOSCROLL=1;return 1};
+R["pitch-inbox-for-a-show"]=function(){return v2pitchList()};
+R["pitch-shortlist-state"]=function(){S.v2ptab="top";return v2pitchList("top")};
+R["show-side-shortlist"]=function(){S.v2ptab="top";return v2pitchList("top")};
+R["empty-state-no-pitches"]=function(){S.v2pchip="Verified";S.v2ptab="sent";return v2pitchList("sent")};
+
+/* the pitch with a note, Bumble's Sending a note: a sheet */
+function v2pitchSheet(a,o){o=o||{};var p=String(a||"").split("|");var toPerson=P[p[0]]&&p[0]!==me();var who=toPerson?P[p[0]].n:"The Long Table";var about=p[1]||(toPerson?"":"Food and climate");var note=S.v2note||"";var max=300;var l=S.left;
+ var aboutOpts=toPerson?[about].concat((GDIR.filter(function(g){return g.k===p[0]})[0]||{topics:[]}).topics.filter(function(t){return t!==about})):["Food and climate","Home cooks who feed a crowd","Family recipes"];
+ var head=toPerson?'<div style="display:flex;gap:12px;align-items:center">'+av(p[0],56,0)+'<div><div class="small muted">Pitch to</div><div class="b" style="font-size:18px">'+who+'</div></div></div>':'<div style="display:flex;gap:12px;align-items:center">'+art("longtable",56,0)+'<div><div class="small muted">Pitch to</div><div class="b" style="font-size:18px">'+who+'</div></div></div>';
+ return page('<div class="l1" style="padding-top:20px"><div class="v-sheet"><div class="v-grab"></div><div class="v-shb">'+head+
+  '<div class="sec-t" style="margin-top:16px">What this pitch is about</div><div class="v-pills" style="margin-top:6px">'+aboutOpts.filter(Boolean).map(function(t,i){return '<span class="v-pill sm'+(i===0?" on":"")+'">'+esc(t)+'</span>'}).join("")+'</div>'+
+  '<div class="sec-t" style="margin-top:16px">Add a note</div><p class="small muted" style="margin:2px 0 8px">A short note gets read. Say why this fits their listeners, in your own words.</p><textarea id="v2note" maxlength="'+max+'" placeholder="Hi, I loved the episode with...">'+esc(note)+'</textarea><div class="v-cc"><span id="v2cc">'+note.length+'</span> of '+max+'</div>'+
+  (toPerson?"":'<div class="small muted" style="margin-top:8px">'+(l>0?"This pitch uses 1 of your "+l+" pitches left this month.":"You have no pitches left this month. Open calls are still free to answer.")+'</div>')+
+  '</div><div class="v-formf"><a class="v-pill" '+G(toPerson?"guests-directory-public":"show-page-about-tab","longtable")+'>Cancel</a><a class="btn" '+(toPerson?V("host","pitch guests",A("v2send",who)):G("pitch-sent-confirmation"))+'>'+ic("send",16)+'Send pitch</a></div></div></div>',vis()?"guests-directory-public":"home")}
+ACT.v2send=function(a){S.toast="Pitch sent to "+a;return {go:"pitch-inbox-for-a-show"}};
+R["pitch-form"]=function(){return v2pitchSheet("")};
+R["pitch-a-guest"]=function(a){return v2pitchSheet(a||"priya|Climate")};
+WHO["pitch-a-guest"]="host";
+META["pitch-a-guest"]={n:1217,title:"Pitch a guest, with a note",purpose:"A show pitches a guest about one appearance or topic, Bumble's Sending a note (V10 slice 2)",tag:"v10"};
+(function(){for(var i=0;i<SECS.length;i++){var j=SECS[i].ids.indexOf("pitch-inbox-for-a-show");if(j>=0){SECS[i].ids.splice(j+1,0,"pitch-a-guest");return}}})();
+document.addEventListener("input",function(e){if(e.target&&e.target.id==="v2note"){S.v2note=e.target.value;var c=document.getElementById("v2cc");if(c)c.textContent=e.target.value.length}});
+
+/* ---------------- 4. jobs: the split view ---------------- */
+function v2jobNew(j){return /^(today|yesterday|just now|[1-3] days? ago)$/i.test(j.posted)}
+function v2jobTags(j){return (j.apps<50?'<span class="v-tag g">'+ic("check",11)+'Actively recruiting</span>':"")+(v2jobNew(j)?'<span class="v-tag n">New</span>':"")+(j.ext?'<span class="v-tag a">Apply on their site</span>':"")}
+function v2jobSaved(j){return S.saved&&S.saved["job"+j.id]}
+function v2jobRow(j,sel,base){var s=SH[j.s];return '<div class="v-jrow'+(sel?" v-sel":"")+'" '+G(base||"job-detail",j.id)+'>'+art(j.s,48,0)+'<div class="v-b"><div class="v-t">'+j.t+'</div><div class="v-s">'+s.t+'</div><div class="v-m">'+j.place+'</div><div class="v-m b" style="color:var(--ink)">'+j.pay+'</div><div>'+v2jobTags(j)+'</div></div><button class="v-circ'+(v2jobSaved(j)?" on":"")+'" '+V("pro","save jobs",A("save","job"+j.id))+' aria-label="'+(v2jobSaved(j)?"Saved":"Save")+'">'+ic("save",15)+'</button></div>'}
+function v2jobDetail(j){var s=SH[j.s];var applyGo=j.ext?G("external-apply-leaving-podsubs",j.id):V("pro","apply",G("apply-step-one-profile",j.id));var sim=JOBS.filter(function(x){return x.id!==j.id&&(x.role===j.role||x.type===j.type)}).concat(JOBS.filter(function(x){return x.id!==j.id})).filter(function(x,i,a){return a.indexOf(x)===i}).slice(0,3);
+ return '<div class="v-card"><div class="v-jd">'+art(j.s,56,0)+'<h1>'+j.t+'</h1><div style="font-size:15px"><a '+G(v10showGo(),j.s)+'>'+s.t+'</a> · '+j.place+'</div><div class="v-pills" style="margin-top:12px"><span class="v-pill info sm">'+j.pay+'</span><span class="v-pill info sm">'+j.type+'</span><span class="v-pill info sm">'+(j.role||"Podcast")+'</span></div><div class="small muted" style="margin-top:10px">'+(j.apps<50?"Actively recruiting · ":"")+j.apps+' applicants · posted '+j.posted+'</div><div style="display:flex;gap:8px;margin-top:14px"><a class="btn" '+applyGo+'>'+(j.ext?"Apply on their site":"Apply")+'</a><a class="v-pill'+(v2jobSaved(j)?" on":" o")+'" '+V("pro","save jobs",A("save","job"+j.id))+'>'+ic("save",15)+(v2jobSaved(j)?"Saved":"Save")+'</a></div><div class="rec small" style="margin-top:10px">'+ic("check",12)+' Posted from a verified show page</div></div>'+
+  '<div class="cp" style="border-top:1px solid var(--line)"><h3 style="margin:0 0 6px">About the job</h3><p>'+s.t+' is looking for '+(/^[aeiou]/i.test(j.t)?"an ":"a ")+j.t.toLowerCase()+'. '+s.d+' You will work with the show\'s team every week, from booking through the final mix.</p><h3 style="margin:14px 0 6px">Qualifications</h3><ul style="margin:0;padding-left:20px;line-height:1.7"><li>Two years making a show, or a portfolio that shows the same</li><li>Comfortable with remote recording and shared edits</li><li>Clear notes, kept on time</li></ul></div>'+
+  '<div style="border-top:1px solid var(--line)"><div class="v-hd" style="padding:14px 20px 4px"><h2 style="font-size:17px;margin:0">Similar jobs</h2></div>'+sim.map(function(x){return v2jobRow(x)}).join("")+'</div></div>'}
+function v2jobRail(on){var it=[["My jobs","my-jobs-applied","jobs"],["Saved jobs","saved-jobs","save"],["Job alerts","job-alerts-list","bell"],["Post a job","post-a-job-title-and-type","plus"]];return '<div class="v-card v-rail">'+it.map(function(x){return '<a class="'+(on===x[1]?"on":"")+'" '+(x[1]==="post-a-job-title-and-type"?V("host","post a job",G(x[1])):vis()&&x[1]!=="post-a-job-title-and-type"?A("gate","pro|"+x[0].toLowerCase(),"join-account-step"):G(x[1]))+'>'+ic(x[2],18)+x[0]+'</a>'}).join("")+'</div>'}
+function v2jobs(o){o=o||{};var q=(o.q||"").toLowerCase();var f=o.f||{};
+ var list=(o.list||JOBS).filter(function(j){var s=SH[j.s];return (!q||(j.t+" "+s.t+" "+j.place+" "+(j.role||"")).toLowerCase().indexOf(q)>=0)&&(!f.type||j.type===f.type)&&(!f.remote||/remote/i.test(j.place))&&(!f.role||j.role===f.role)&&(!f.place||j.place.toLowerCase().indexOf(f.place.toLowerCase())>=0)});
+ var sel=o.sel!=null?JOBS.filter(function(j){return String(j.id)===String(o.sel)})[0]:null;var shown=sel||list[0];
+ var fb='<div class="v-card"><div class="v-shd"><div class="lsb">'+ic("search",20)+'<input id="srq" value="'+esc(o.q||"")+'" placeholder="Search jobs by title, show, or place" aria-label="Search jobs" data-enter="jobs-search-results"><a class="btn" '+A("srsearch")+'>Search</a></div><div class="v-pills" style="margin-top:12px">'+
+  Object.keys(V2JF).map(function(name){var x=V2JF[name];var on=JSON.stringify(x)===JSON.stringify(f)||(!Object.keys(f).length&&name==="All jobs");return '<a class="v-pill sm'+(on?" on":"")+'" '+A("v2jf",name)+'>'+name+'</a>'}).join("")+'<a class="v-pill sm" '+G("jobs-filter-panel")+'>'+ic("filter",14)+'All filters</a></div></div></div>';
+ var listCol='<div class="v-listcol"><div class="v-card"><div class="v-count" style="padding-top:12px">'+list.length+(list.length===1?" job":" jobs")+(o.title?" · "+o.title:"")+'</div>'+(list.length?list.map(function(j){return v2jobRow(j,shown&&j.id===shown.id)}).join(""):'<div class="cp muted">No jobs match. Try fewer filters, or <a '+V("pro","set alerts",G("job-alert-create"))+'>get an alert</a> when one is posted.</div>')+'</div></div>';
+ var det='<div class="v-detcol">'+(o.detail||(shown?v2jobDetail(shown):""))+'</div>';
+ return page((o.pre||"")+fb+'<div class="v-split'+(o.sel!=null||o.detailFirst?" detail":"")+'"><div class="v-railcol">'+v2jobRail(o.on)+'</div>'+listCol+det+'</div>',vis()?"podcast-jobs-public-hub":"jobs")}
+var V2JF={"All jobs":{},"Remote":{remote:1},"Full time":{type:"Full time"},"Part time":{type:"Part time"},"Contract":{type:"Contract"},"Producer":{role:"Producer"},"Editor":{role:"Editor"}};
+ACT.v2jf=function(a){S.v2jf=V2JF[a]||{};NOSCROLL=1;return 1};
+function v2jobsF(){return S.v2jf||{}}
+R["podcast-jobs-public-hub"]=function(){return v2jobs({f:v2jobsF()})};
+R["jobs-home"]=function(){return v2jobs({f:v2jobsF()})};
+R["jobs-search-results"]=function(a){return v2jobs({q:a||"",f:v2jobsF()})};
+R["job-search-filters-applied"]=function(){return v2jobs({f:{remote:1}})};
+R["job-search-no-results"]=function(){return v2jobs({q:"underwater welder"})};
+R["jobs-by-role-browse-public"]=function(a){return v2jobs({f:{role:a||"Producer"},title:"by role"})};
+R["jobs-by-place-browse-public"]=function(a){return v2jobs({f:{remote:1},title:"remote"})};
+R["job-detail"]=function(a){return v2jobs({sel:a||1,f:v2jobsF()})};
+R["job-page-public-view"]=function(a){return v2jobs({sel:a||1})};
+R["job-page-apply-on-podsubs"]=function(a){return v2jobs({sel:a||1})};
+R["job-page-external-apply"]=function(){return v2jobs({sel:6})};
+R["saved-jobs"]=function(){var l=JOBS.filter(v2jobSaved);if(!l.length)l=[JOBS[0],JOBS[2]];return v2jobs({list:l,on:"saved-jobs",title:"saved"})};
+R["my-jobs-saved"]=R["saved-jobs"];
+/* My jobs: what you applied to, with status */
+function v2myJobs(){var st=[[1,"Applied","n","Viewed by the show yesterday"],[3,"In review","a","Shortlisted, a call is likely"],[5,"Not moving forward","n","The show filled the role"]];
+ var det=vCard("My jobs","Applications you sent, newest first",st.map(function(x){var j=JOBS[x[0]-1];return '<div class="v-jrow" '+G("my-jobs-application-status-detail",j.id)+'>'+art(j.s,48,0)+'<div class="v-b"><div class="v-t">'+j.t+'</div><div class="v-s">'+SH[j.s].t+'</div><div><span class="v-tag '+x[2]+'">'+x[1]+'</span></div><div class="v-m">'+x[3]+'</div></div></div>'}).join(""));
+ return v2jobs({on:"my-jobs-applied",detail:det,detailFirst:1})}
+R["my-jobs-applied"]=v2myJobs;R["my-applications"]=v2myJobs;R["listener-my-job-applications"]=v2myJobs;
+/* Job alerts */
+function v2alerts(pre){var al=[["Producer, remote","Daily",1,"3 new"],["Editor in Chicago","Weekly",1,"1 new"],["Jobs at shows you follow","As they post",1,""],["Booking producer","Weekly",0,""]];
+ var det=vCard("Job alerts","We email you when a matching job is posted",al.map(function(x,i){return vRow({pic:'<span class="v-chip" style="background:var(--navy)">'+ic("bell",18)+'</span>',t:x[0],s:x[1]+(x[3]?" · "+x[3]:""),x:'<a class="v-pill sm'+(x[2]?" on":" o")+'" '+A("tg")+'>'+(x[2]?"On":"Off")+'</a>'})}).join("")+cf("Create a job alert",V("pro","job alerts",G("job-alert-create"))));
+ return v2jobs({on:"job-alerts-list",detail:(pre||"")+det,detailFirst:1})}
+R["job-alerts-list"]=function(){return v2alerts()};
+R["job-alert-settings"]=function(){return v2alerts()};
+R["job-alerts-for-followed-shows"]=function(){return v2alerts()};
+R["job-alert-create"]=function(){return v2alerts(vCard("Create a job alert","",'<div class="cp">'+fld("Keywords",inp("Producer"))+fld("Place",inp("Remote"))+'<div class="sec-t">How often</div><div class="v-pills" style="margin:6px 0 12px"><span class="v-pill sm on">Daily</span><span class="v-pill sm">Weekly</span><span class="v-pill sm">As they post</span></div>'+btn("Create alert",A("tg"))+'</div>'))};
+
+/* the stepped form with a progress bar: apply, and post a job */
+function v2steps(title,steps,at,body,o){o=o||{};var pct=Math.round((Math.min(at,steps.length))/steps.length*100);
+ return '<div class="v-card" style="max-width:680px;margin:0 auto 12px"><div class="v-steps"><div class="small muted b">'+title+'</div><div class="v-prog" style="margin-top:10px"><i style="width:'+pct+'%"></i></div><div class="v-stepl"><span>Step '+Math.min(at,steps.length)+' of '+steps.length+': '+steps[Math.min(at,steps.length)-1]+'</span><span>'+pct+'%</span></div></div><div class="v-formb">'+(o.err?bn("er",o.err):"")+body+'</div><div class="v-formf">'+(at>1?'<a class="v-pill" '+G(o.back)+'>Back</a>':'<a class="v-pill" '+G(o.cancel||"jobs-home")+'>Cancel</a>')+'<a class="btn" '+G(o.next)+'>'+(o.nextLabel||"Next")+'</a></div></div>'}
+var V2APPLY=["Your profile","A note to the show","Questions from the show","Review and send"];
+function v2apply(at,o){o=o||{};var j=JOBS[0];var ids=["apply-step-one-profile","apply-step-two-note","apply-screening-answers","apply-review-and-send"];var body;
+ if(at===1)body='<div style="display:flex;gap:12px;align-items:center">'+av("dana",56,0)+'<div><div class="b">Dana Reyes</div><div class="small muted">Producer and editor · 27 credits · 3 shows</div></div></div><div class="sec-t" style="margin-top:14px">Shared with the show</div><div class="v-pills" style="margin-top:6px"><span class="v-pill sm on">'+ic("check",13)+'Your credits</span><span class="v-pill sm on">'+ic("check",13)+'Verified roles</span><span class="v-pill sm">Resume, '+(o.resume?"dana-reyes.pdf":"none yet")+'</span></div>'+(o.uploadErr?bn("er","That file did not upload. PDF or Word, under 5 MB."):"")+'<div style="margin-top:12px">'+btn(ic("up",15)+"Upload a resume",A("tg"),"o sm")+'</div>';
+ else if(at===2)body=fld("A short note",ta("I produced 140 episodes of Field Notes on Climate and would bring the same rhythm to The Long Table.","Why you, in a few lines"),{h:"The show reads this first."});
+ else if(at===3)body=fld("Have you produced a weekly show for a year or more?",sel(["Yes","No"],"Yes"),{err:o.missing?"Answer this question to continue.":""})+fld("Your editing tools",inp(o.missing?"":"Pro Tools, Descript"));
+ else body=kv([["Job",j.t+" · "+SH[j.s].t],["Profile","Dana Reyes, 27 credits"],["Note","I produced 140 episodes of Field Notes..."],["Answers","2 of 2"]]);
+ if(at>4)return v2jobs({sel:j.id,pre:bn("ok","<b>Application sent.</b> The Long Table sees your credits first. We will tell you when they look.")});
+ return page('<div class="l1">'+v2steps("Apply for "+j.t+" at "+SH[j.s].t,V2APPLY,at,body,{back:ids[at-2],next:at<4?ids[at]:"apply-submitted-confirmation",nextLabel:at<4?"Next":"Send application",cancel:"job-detail",err:o.err})+'</div>',"jobs")}
+R["apply-step-one-profile"]=function(){return v2apply(1)};R["apply-application-form"]=function(){return v2apply(1)};
+R["apply-resume-uploaded"]=function(){return v2apply(1,{resume:1})};R["apply-resume-upload-error"]=function(){return v2apply(1,{uploadErr:1})};
+R["apply-step-two-note"]=function(){return v2apply(2)};
+R["apply-screening-answers"]=function(){return v2apply(3)};R["apply-missing-answers-error"]=function(){return v2apply(3,{missing:1,err:"One question needs an answer."})};
+R["apply-review-and-send"]=function(){return v2apply(4)};R["apply-review"]=function(){return v2apply(4)};
+R["application-sent-state"]=function(){return v2apply(5)};R["apply-submitted-confirmation"]=function(){return v2apply(5)};
+var V2POST=["Title and type","Workplace and location","Description and skills","Pay range","How people apply","Review","Pay and publish"];
+var V2POSTIDS=["post-a-job-title-and-type","post-a-job-workplace-and-location","post-a-job-description-editor","post-a-job-pay-range-step","post-a-job-apply-method","post-a-job-review","post-a-job-pay"];
+function v2post(at,o){o=o||{};var body;
+ if(at===1)body=fld("Job title",inp("Audio editor, contract"))+'<div class="sec-t">Type</div><div class="v-pills" style="margin:6px 0 12px">'+["Full time","Part time","Contract","Internship"].map(function(t,i){return '<span class="v-pill sm'+(i===2?" on":"")+'">'+t+'</span>'}).join("")+'</div>'+fld("Posting as",sel(["The Long Table"],"The Long Table"),{h:"Posted from your Hiring Admin seat."});
+ else if(at===2)body='<div class="sec-t">Workplace</div><div class="v-pills" style="margin:6px 0 12px">'+["Remote","Hybrid","On site"].map(function(t,i){return '<span class="v-pill sm'+(i===0?" on":"")+'">'+t+'</span>'}).join("")+'</div>'+fld("Location",inp("Chicago, Illinois"));
+ else if(at===3)body=fld("Description",ta("Edit two episodes a week from rough cut to final mix.","What the job is"))+'<div class="sec-t">Skills</div><div class="v-pills" style="margin-top:6px"><span class="v-pill sm on">Editing</span><span class="v-pill sm on">Mixing</span><span class="v-pill sm">Sound design</span><span class="v-pill sm">'+ic("plus",13)+'Add a skill</span></div>';
+ else if(at===4)body=fld("Pay range",'<div style="display:flex;gap:8px">'+inp(o.payErr?"":"$45","From")+inp(o.payErr?"":"$60","To")+sel(["an hour","a year"],"an hour")+'</div>',{err:o.payErr?"A pay range is required on PodSubs.":"",h:"Every job on PodSubs shows its pay."});
+ else if(at===5)body='<div class="sec-t">How people apply</div><div class="v-pills" style="margin:6px 0 12px"><span class="v-pill sm'+(o.ext?"":" on")+'">On PodSubs</span><span class="v-pill sm'+(o.ext?" on":"")+'">On your site</span></div>'+(o.ext?fld("Apply link",inp(o.badLink?"careers dot example":"https://careers.example/editor"),{err:o.badLink?"That link does not look right. Start with https://.":""}):fld("A screening question",inp("Have you edited a weekly show?"),{h:"Up to three questions."}));
+ else if(at===6)body=(o.preview?bn("","<b>Preview as an applicant.</b> This is how the job looks on PodSubs."):"")+v2jobDetail({id:7,t:"Audio editor, contract",s:"longtable",type:"Contract",place:"Remote",pay:"$45 to $60 an hour",posted:"Just now",apps:0,role:"Editor"});
+ else body=kv([["Post","Audio editor, contract"],["Runs","30 days"],["Price",S.job==="first"?"Free, your first post":"$99"]])+'<div class="small muted" style="margin-top:10px">Refunded in full if nobody applies in 14 days.</div>';
+ if(at>7)return v2jobs({sel:1,pre:bn("ok","<b>Your job is live.</b> Audio editor, contract, is on The Long Table page and in Jobs.")});
+ return sadm(v2steps("Post a job",V2POST,at,body,{back:V2POSTIDS[at-2],next:at<7?V2POSTIDS[at]:"post-a-job-published",nextLabel:at<6?"Next":at===6?"Continue to pay":"Pay and publish",cancel:"show-admin-jobs-manager",err:o.err}))}
+R["post-a-job-start"]=function(){return v2post(1)};R["post-a-job-title-and-type"]=function(){return v2post(1)};R["post-a-job-details-form"]=function(){return v2post(1)};
+R["post-a-job-workplace-and-location"]=function(){return v2post(2)};
+R["post-a-job-description-editor"]=function(){return v2post(3)};R["post-a-job-skills"]=function(){return v2post(3)};
+R["post-a-job-pay-range-step"]=function(){return v2post(4)};R["post-a-job-pay-range-required-error"]=function(){return v2post(4,{payErr:1,err:"Add a pay range to continue."})};
+R["post-a-job-apply-method"]=function(){return v2post(5)};R["post-a-job-screening-questions"]=function(){return v2post(5)};R["post-a-job-add-a-screening-question"]=function(){return v2post(5)};
+R["post-a-job-external-link"]=function(){return v2post(5,{ext:1})};R["post-a-job-external-link-invalid"]=function(){return v2post(5,{ext:1,badLink:1,err:"Fix the apply link to continue."})};
+R["post-a-job-review"]=function(){return v2post(6)};R["post-a-job-preview-as-applicant"]=function(){return v2post(6,{preview:1})};
+R["post-a-job-pay"]=function(){return v2post(7)};R["post-a-job-published"]=function(){return v2post(8)};
+
+/* ---------------- 5. the episode page, video first ---------------- */
+var _v2epPage=epPage;
+epPage=function(i,o){o=o||{};var e=epObj(i),s=SH[e.s];PAGE_TITLE=e.t+", "+s.t+" | PodSubs";var key=e.key;var vid=v2vidShow(e.s);
+ var playerArea=o.pulled?bn("er","<b>This episode left the feed.</b> The show removed it, so it no longer plays here. Credits and comments stay.")
+  :vid?v2vid(e.s,key,{len:e.len})
+  :'<div class="v-audio">'+art(e.s,72,0)+'<div style="flex:1;min-width:0"><div class="small b">Audio only</div><div class="small muted">No video version exists for this episode. It plays from the show\'s own hosting.</div><div class="v-wave" style="margin-top:8px"></div></div><button class="v-circ play" style="width:48px;height:48px" '+A("play",typeof key==="number"?key:0)+' aria-label="Play">'+ic("play",20)+'</button></div>';
+ var people=[{k:s.host,r:"Host"}];if(e.s==="longtable")people.push({k:"jonah",r:"Co-host"});epGuests(e).forEach(function(g){if(P[g])people.push({k:g,r:"Guest"})});
+ var head='<div class="v-card"><div style="padding:18px 20px 6px">'+playerArea+'</div><div style="padding:8px 20px 16px"><div class="small muted"><a '+G(v10showGo(),e.s)+'>'+s.t+'</a> · Episode '+e.n+'</div><h1 style="font-size:26px;line-height:1.2;margin:4px 0">'+e.t+'</h1><div class="small muted">'+e.d+' · '+e.len+(vid?' · '+(vstate(e.s)==="sp"?"Video on Spotify":"Video on YouTube")+(V2SAMPLEVID[e.s]?' <span class="v-sample">Sample</span>':""):" · Audio")+'</div><div style="margin-top:10px">'+v2plats(e.s)+'</div></div>'+
+  '<div class="v-tabs">'+[["Overview","episode-page"],["Credits","episode-page-credits-view"],["Guests","episode-page-guest-appearances-strip"],["Comments","episode-page-comments"]].map(function(t){return '<a class="v-pill sm'+((o.tab||"episode-page")===t[1]?" on":"")+'" '+G(t[1],key)+'>'+t[0]+'</a>'}).join("")+'</div></div>';
+ var cast=vCard("Hosts and Guests","",'<div class="v-cast">'+people.filter(function(x){return P[x.k]}).map(function(x){return '<div class="v-castc" '+G(vis()?"person-profile-public-limited-view":profFor(x.k),x.k)+'><div class="v-cp" style="width:96px;height:96px">'+av(x.k,96,0)+'</div><div class="v-cn">'+P[x.k].n+'</div><div class="v-cr">'+x.r+'</div></div>'}).join("")+'</div>');
+ var desc=vCard("About this episode","",'<div class="cp" style="padding-top:2px"><p style="font-size:15px;line-height:1.55">'+esc(v10epDesc(e))+'</p><div class="sec-t" style="margin-top:10px">Chapters</div>'+[["0:00","Pulling up a chair"],["8:40","The recipe that was never written down"],["31:12","The kitchen in 1971"]].map(function(c){return '<div class="small" style="padding:4px 0"><b style="display:inline-block;width:52px">'+c[0]+'</b>'+c[1]+'</div>'}).join("")+'</div>');
+ var more=feedList(e.s).filter(function(x){return x.n!==e.n}).slice(0,8);
+ var moreCard=vCard("More episodes of "+s.t,"Video first, newest first",'<div class="v2more">'+more.map(function(x){return v2epCard(e.s,x)}).join("")+'</div>','<a class="v-see" '+G(v10showGo(),e.s)+'>See all</a>');
+ var rail='<div class="v-card"><div class="v-top" '+G(v10showGo(),e.s)+' style="padding:16px">'+art(e.s,72,0)+'<div style="min-width:0"><div class="b">'+s.t+'</div><div class="small muted">'+v10hostLine(e.s)+'</div><div style="margin-top:8px">'+vFollowPill(e.s,s.t)+'</div></div></div></div>'+v10info(e.s);
+ return page('<div class="l2"><div>'+(o.pre||"")+head+(o.body?o.body:cast+desc)+moreCard+'</div><aside class="lr2">'+rail+'</aside></div>',"home")};
+
+/* ---------------- 6a. search: the remaining groups, on the slice 1 system ---------------- */
+V10FILTERS=[["top","Top Results"],["shows","Shows"],["people","People"],["guests","Guests"],["episodes","Episodes"],["jobs","Jobs"],["news","News"],["events","Events"],["posts","Posts"],["categories","Categories"]];
+var V2POSTS=[{by:"omar",type:"Question to the network",body:"Which loudness target are you mixing to for video versions?",t:"2h"},{by:"lena",type:"Guest call",body:"Looking for a guest who works nights in a hospital, a transit yard, or a bakery.",t:"5h"},{by:"maya",type:"Announcement",body:"We are recording live at Chicago Podcast Week on Nov 19.",t:"2d"},{by:"dana",type:"Milestone",body:"Field Notes on Climate passed 140 episodes this week.",t:"4d"}];
+var _v2search=v10search;
+v10search=function(a,forceF){var o=v10q(a),q=o.q,f=forceF||o.f;if(["guests","jobs","news","events","posts"].indexOf(f)<0)return _v2search(a,forceF);
+ v10recent(q);var target=CUR||"search-all-results";var m=function(t){return v10match(t,q)};
+ var pills='<div class="v-pills">'+V10FILTERS.map(function(x){return '<a class="v-pill'+(x[0]===f?" on":"")+'" '+G(target,q+"|"+x[0])+'>'+x[1]+'</a>'}).join("")+'</div>';
+ var head='<div class="v-card"><div class="v-shd"><div class="lsb">'+ic("search",20)+'<input id="srq" value="'+esc(q)+'" placeholder="Search shows, people, and episodes" aria-label="Search" data-enter="'+target+'"><a class="btn" '+A("srsearch")+'>Search</a></div><div style="margin-top:12px">'+pills+'</div>'+(q?'<div class="small muted" style="margin-top:10px">Results for "'+esc(q)+'"</div>':'<div class="small muted" style="margin-top:10px">Popular right now</div>')+'</div></div>';
+ var none='<div class="v-row" style="cursor:default"><div class="v-b muted">Nothing matches "'+esc(q)+'" here.</div></div>';var body;
+ if(f==="guests"){var gs=GDIR.filter(function(g){return m(P[g.k].n+" "+P[g.k].h+" "+g.topics.join(" "))});body=gs.length?gs.map(function(g){return v2gcard(g)}).join(""):vCard("Guests","",none)}
+ else if(f==="jobs"){var js=JOBS.filter(function(j){return m(j.t+" "+SH[j.s].t+" "+j.place+" "+(j.role||""))});body=vCard("Jobs",js.length+" found",js.map(function(j){return v2jobRow(j)}).join("")||none,'<a class="v-see" '+G("jobs-search-results",q)+'>Open in Jobs</a>')}
+ else if(f==="news"){var ns=NEWS.filter(function(n){return m(n.t+" "+n.top+" "+n.src)});body=vCard("News",ns.length+" found",ns.map(function(n){return vRow({pic:'<div class="art'+ph("news-"+n.id)+'" style="width:88px;height:50px;background:linear-gradient(150deg,'+n.c1+','+n.c2+')"></div>',t:n.t,s:"News · "+n.src,s2:n.d+" · "+n.r,go:G(vis()?"news-story-public-view":"news-story-page",n.id),x:'<a class="v-circ" '+V("listener","save stories",A("save","n"+n.id))+' aria-label="Save">'+ic("save",15)+'</a>'})}).join("")||none)}
+ else if(f==="events"){var es=EV.filter(function(e){return m(e.t+" "+e.type+" "+e.place)});body=vCard("Events",es.length+" found",es.map(function(e){return vRow({pic:'<div class="art'+ph("event-"+e.id)+'" style="width:88px;height:50px;background:linear-gradient(150deg,'+e.c1+','+e.c2+')"></div>',t:e.t,s:"Event · "+e.type,s2:e.d+" · "+e.place+(e.full?" · full":"")+(e.cancelled?" · cancelled":""),go:G(vis()?"event-page-public-view":"event-page",e.id),x:'<a class="v-pill sm o" '+V("listener","RSVP",A("rsvp",e.id))+'>'+(e.past?"Recap":"RSVP")+'</a>'})}).join("")||none)}
+ else {var ps=V2POSTS.filter(function(p){return m(p.body+" "+p.type+" "+P[p.by].n)});body=vCard("Posts",ps.length+" found",ps.map(function(p){return vRow({round:1,pic:av(p.by,48,0),t:P[p.by].n,s:"Post · "+p.type+" · "+p.t,s2:p.body,go:G("post-page-episode-share"),x:'<a class="v-circ" '+V("pro","like posts",A("tg"))+' aria-label="Like">'+ic("like",15)+'</a>'})}).join("")||none)}
+ var rail=vis()?joinRail():card('<div class="cp"><div class="b">Search is a trust surface</div><p class="small muted">Verified results always come first. Paid placement is marked and never lifts above a verified result.</p></div>');
+ return page('<div class="l2"><div class="froot">'+(S.v2pre||"")+head+body+'</div><aside>'+rail+'</aside></div>',vis()?"":"home")};
+R["search-guests"]=function(a){return v10search(a||"","guests")};
+R["search-jobs"]=function(a){return v10search(a||"","jobs")};
+R["search-news"]=function(a){return v10search(a||"","news")};R["news-search"]=function(a){return v10search(a||"","news")};
+R["search-events"]=function(a){return v10search(a||"","events")};R["events-search"]=function(a){return v10search(a||"","events")};
+R["search-posts"]=function(a){return v10search(a||"","posts")};
+R["search-no-results-state"]=function(){return v10search("zzqx")};
+R["search-podblog"]=function(a){return v10search(a||"","news")};
+["shows","people","guests","news","events","jobs","podblog"].forEach(function(g){var f=g==="podblog"?"news":g;R["unified-search-"+g+"-group"]=function(a){return v10search(a||"the",f)};R["unified-search-"+g+"-empty"]=function(){return v10search("zzqx",f)}});
+function v2filterPanel(groups){return vCard("All filters","",'<div class="cp" style="padding-top:2px">'+groups.map(function(g){return '<div class="sec-t" style="margin-top:8px">'+g[0]+'</div><div class="v-pills" style="margin-top:6px">'+g[1].map(function(x,i){return '<span class="v-pill sm'+(i===0?" on":"")+'">'+x+'</span>'}).join("")+'</div>'}).join("")+'<div style="margin-top:14px;display:flex;gap:8px">'+btn("Show results",A("tg"))+'<a class="v-pill" '+A("tg")+'>Reset</a></div></div>')}
+R["search-guests-filter-panel"]=function(){S.v2pre=v2filterPanel([["Topic",["Any","Climate","Food","Health","Business"]],["Show size",["Any","Small","Medium","Large"]],["Location",["Anywhere","Remote","Chicago","Seattle"]],["Language",["Any","English","Spanish"]],["Appearances",["Any","Verified only","On video"]]]);var h=v10search("","guests");S.v2pre="";return h};
+R["search-people-filter-panel"]=function(){S.v2pre=v2filterPanel([["Role",["Any","Host","Producer","Editor","Sound engineer"]],["Works on",["Any show","The Long Table","Night Shift Radio"]],["Location",["Anywhere","Chicago","Brooklyn","Remote"]],["Open to work",["Any","Yes"]]]);var h=_v2search("|people");S.v2pre="";return h};
+R["jobs-filter-panel"]=function(){return v2jobs({pre:v2filterPanel([["Type",["Any","Full time","Part time","Contract"]],["Workplace",["Any","Remote","Hybrid","On site"]],["Role",["Any","Producer","Editor","Booking","Video"]],["Pay shown",["Always"]]])})};
+R["search-shows-dead-shows-toggle-state"]=function(){S.v2pre=vCard("Shows that stopped","",'<div class="cp" style="padding-top:2px"><div class="v-pills"><span class="v-pill sm on">'+ic("check",13)+'Include shows with no episode in 90 days</span></div><p class="small muted" style="margin-top:8px">Stopped shows are still public and still searchable. They rank after active ones.</p></div>');var h=_v2search("|shows");S.v2pre="";return h};
+/* slice 1's results view gains the pre slot too */
+var _v2s1=_v2search;_v2search=function(a,f){var h=_v2s1(a,f);if(!S.v2pre)return h;var i=h.indexOf('<div class="froot">');return i<0?h:h.slice(0,i+19)+S.v2pre+h.slice(i+19)};
+/* saved searches */
+var V2SAVED=[["the long table","shows",3],["producer remote","jobs",5],["climate","guests",1],["chicago podcast week","events",0]];
+R["saved-searches-list"]=function(){return page('<div class="l2"><div>'+vCard("Saved searches","We tell you when something new matches",V2SAVED.map(function(x){return vRow({pic:'<span class="v-chip" style="background:var(--navy)">'+ic("search",18)+'</span>',t:x[0],s:x[1][0].toUpperCase()+x[1].slice(1)+(x[2]?" · "+x[2]+" new":" · nothing new"),go:G("saved-search-alert-results-view",x[0]+"|"+x[1]),x:'<a class="v-pill sm o" '+G("search-all-results",x[0]+"|"+x[1])+'>Run</a>'})}).join(""))+'</div><aside>'+card('<div class="cp small muted">Saved searches run every morning. Turn alerts off in Settings.</div>')+'</aside></div>',"home")};
+R["saved-search-create-from-results"]=function(){S.v2pre=vCard("Save this search","",'<div class="cp" style="padding-top:2px">'+fld("Name",inp("Producer jobs, remote"))+'<div class="sec-t">Tell me</div><div class="v-pills" style="margin:6px 0 12px"><span class="v-pill sm on">Daily</span><span class="v-pill sm">Weekly</span><span class="v-pill sm">Never</span></div>'+btn("Save search",G("saved-searches-list"))+'</div>');var h=v10search("producer remote","jobs");S.v2pre="";return h};
+R["saved-search-alert-results-view"]=function(a){S.v2pre=bn("","<b>5 new since your last visit.</b> From your saved search.");var p=String(a||"producer remote|jobs").split("|");var h=["guests","jobs","news","events","posts"].indexOf(p[1])>=0?v10search(p[0],p[1]):_v2search(p[0]+"|"+(p[1]||"top"));S.v2pre="";return h};
+
+/* ---------------- 6b. browse and charts (the hub's See all links) ---------------- */
+function v2rankRows(keys){return keys.map(function(k,i){var s=SH[k];return '<div class="v-row v10li" '+G(v10showGo(),k)+'><span class="v-rk">'+(i+1)+'</span><div class="v-art">'+art(k,56,0)+'</div><div class="v-b"><div class="v-t">'+s.t+'</div><div class="v-s">Show · '+v10hostLine(k)+'</div><div class="v-s">'+v10cat(k)+' · '+fmt(s.fol)+' followers</div></div><div class="v-x">'+vFollowCirc(k)+'</div></div>'}).join("")}
+function v2browse(title,sub,inner,on){return pub('<div class="l2"><div>'+'<div class="v-card"><div class="v-shd"><h1 style="font-size:26px;margin:0 0 4px">'+title+'</h1><p class="muted" style="margin:0">'+sub+'</p></div></div>'+inner+'</div><aside>'+joinRail()+'</aside></div>',on||"shows-directory")}
+function v2catOf(a){var c=V10CATS.filter(function(x){return x[0].toLowerCase()===String(a||"").toLowerCase()||V10MAP[a]===x[0]})[0];return c?c[0]:"Arts"}
+R["browse-shows-by-category"]=function(){return v2browse("Browse shows by category","Every show sits in a category from its feed, mapped to the Apple Podcasts set.",vCard("All categories","",'<div class="v-tiles">'+V10CATS.map(function(c){var n=Object.keys(SH).filter(function(k){return v10cat(k)===c[0]}).length;return '<div class="v-tile" '+G("browse-shows-one-category",c[0])+'>'+v10chip(c[0])+'<span>'+c[0]+'<span class="small muted" style="display:block;font-weight:600">'+n+(n===1?" show":" shows")+'</span></span></div>'}).join("")+'</div>'))};
+R["browse-shows-one-category"]=function(a){var c=v2catOf(a);var keys=Object.keys(SH).filter(function(k){return v10cat(k)===c}).sort(function(x,y){return SH[y].fol-SH[x].fol});return v2browse(c,keys.length+" shows, most followed first",vShelf("Popular in "+c,"",keys.slice(0,8))+vCard("All "+c+" shows","",'<div>'+keys.map(function(k){return vShowRow(k,"Show · "+v10hostLine(k)+" · Updated "+v10upd(k),"v10li v10show")}).join("")+'</div>'))};
+R["show-category-page-public"]=function(){return R["browse-shows-one-category"]("Arts")};
+R["browse-shows-by-letter"]=function(a){var L=(a||"T").toUpperCase();var keys=Object.keys(SH).filter(function(k){return SH[k].t.replace(/^The /,"").toUpperCase()[0]===L}).sort(function(x,y){return SH[x].t.localeCompare(SH[y].t)});return v2browse("Shows A to Z","Every show, by the first letter of its name.",vCard("Letters","",'<div class="v-fbar">'+"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(function(l){return '<a class="v-pill sm'+(l===L?" on":"")+'" '+G("browse-shows-by-letter",l)+'>'+l+'</a>'}).join("")+'</div>')+vCard("Starting with "+L,keys.length+" shows",keys.map(function(k){return vShowRow(k,null,"v10li v10show")}).join("")||'<div class="cp muted">No shows start with '+L+'.</div>'))};
+R["browse-shows-one-letter"]=function(a){return R["browse-shows-by-letter"](a||"D")};
+R["top-shows-chart-public"]=function(){var keys=Object.keys(SH).sort(function(a,b){return SH[b].fol-SH[a].fol});return v2browse("Top shows this month","Most followed and most active, counted from follows and feed activity.",vCard("Top shows","Ranked",v2rankRows(keys)))};
+R["podcast-charts-by-category-public"]=function(a){var c=v2catOf(a||"Business");var keys=Object.keys(SH).filter(function(k){return v10cat(k)===c}).sort(function(x,y){return SH[y].fol-SH[x].fol});return v2browse("Charts by category","Top shows in each category.",vCard("Category","",'<div class="v-fbar">'+V10CATS.filter(function(x){return Object.keys(SH).some(function(k){return v10cat(k)===x[0]})}).map(function(x){return '<a class="v-pill sm'+(x[0]===c?" on":"")+'" '+G("podcast-charts-by-category-public",x[0])+'>'+x[0]+'</a>'}).join("")+'</div>')+vCard("Top "+c,"Ranked",v2rankRows(keys)))};
+R["new-shows-this-week-public"]=function(){var keys=Object.keys(SH).sort(function(a,b){return (+SH[b].since)-(+SH[a].since)});return v2browse("New shows","Newest shows on PodSubs, built from their feeds.",vCard("New this year and last","",'<div class="v-grid">'+keys.slice(0,12).map(function(k){return vShowCard(k)}).join("")+'</div>'))};
+R["shows-by-language-browse-public"]=function(a){var l=a||"Spanish";var langs=[];Object.keys(SH).forEach(function(k){if(langs.indexOf(SH[k].lang)<0)langs.push(SH[k].lang)});var keys=Object.keys(SH).filter(function(k){return SH[k].lang===l});return v2browse("Shows by language","Every show page states the language its feed declares.",vCard("Language","",'<div class="v-fbar">'+langs.map(function(x){return '<a class="v-pill sm'+(x===l?" on":"")+'" '+G("shows-by-language-browse-public",x)+'>'+x+'</a>'}).join("")+'</div>')+vCard(l+" shows",keys.length+" shows",keys.map(function(k){return vShowRow(k,null,"v10li v10show")}).join("")))};
+
+/* ---------------- 6c. the other show tabs and sub-pages ---------------- */
+/* The slice 1 hero, for any tab: rebuilt here so each tab keeps the show header and the pill tabs. */
+function v2showFrame(k,tab,o,body){o=o||{};k=SH[k]?k:"longtable";var full=v10showPage(k,"show-page-about-tab",o);var a=full.indexOf('<div class="v-card"><div class="v-hero">');var b=full.indexOf('<div class="card pcsec">',a);if(a<0||b<0)return full;
+ var hero=full.slice(a,b).replace(/(<a class="v-pill sm) on(" data-go="show-page-about-tab")/,"$1$2").replace(new RegExp('(<a class="v-pill sm)(" data-go="'+tab+'")'),"$1 on$2");
+ var railStart=full.indexOf('<aside class="lr2">');var rail=railStart>=0?full.slice(railStart,full.lastIndexOf("</aside>")+8):"";
+ return page('<div class="l2"><div>'+(o.pre||"")+hero+body+'</div>'+rail+'</div>',"home")}
+/* Cast and crew in IMDb order: Top Cast cards, then the full list by credit order, with a search field. */
+function v2cast(k,o){o=o||{};var L=[];try{L=pcPeople(k)}catch(e){L=[]}var order={cast:0,guests:2,crew:1};L=L.slice().sort(function(a,b){return order[a.g]-order[b.g]});
+ var top=L.filter(function(x){return x.g==="cast"}).concat(L.filter(function(x){return x.g==="crew"})).slice(0,8);
+ var nm=function(x){return x.k&&P[x.k]?P[x.k].n:x.n};var go=function(x){return x.k&&P[x.k]?G(vis()?"person-profile-public-limited-view":profFor(x.k),x.k):""};
+ return vCard("Top Cast",'PodCred. Every credit shows how we know it. <a '+G("credit-trust-tiers-explained")+'>What the marks mean</a>','<div class="v-cast">'+top.map(function(x){return '<div class="v-castc" '+go(x)+'><div class="v-cp">'+(x.k&&P[x.k]?av(x.k,112,0):'<div class="av" style="width:112px;height:112px;font-size:36px;background:var(--navy3);color:var(--navy)">'+ini(nm(x))+'</div>')+'</div><div class="v-cn">'+nm(x)+'</div><div class="v-cr">'+x.role+'</div></div>'}).join("")+'</div>',btn(ic("plus",14)+"Add a credit",A("pcStart","s:"+k),"sm"))+
+  vCard("Full cast and crew",L.length+" credits, in credit order",'<div class="v2castl">'+L.map(function(x){return vRow({cls:"v10li",round:1,pic:x.k&&P[x.k]?av(x.k,48,0):'<div class="av" style="width:48px;height:48px;font-size:16px;background:var(--navy3);color:var(--navy)">'+ini(nm(x))+'</div>',t:nm(x),s:x.role+" · "+{cast:"Cast",guests:"Guest",crew:"Crew"}[x.g],s2:pcBadge(x.b),go:go(x)})}).join("")+'</div>')+(o.noWho?"":pc6Who(k))}
+var _v2showPage2=showPage;
+showPage=function(k,tab,o){o=o||{};k=SH[k]?k:"longtable";if(tab==="show-page-about-tab"||tab==="show-page-episodes-tab"||!tab)return _v2showPage2(k,tab,o);PCCTX={show:k};
+ var body;
+ if(tab==="show-page-people-tab")body=v2cast(k)+(typeof pcBoard==="function"?pcBoard(k):"");
+ else if(tab==="show-page-posts-tab")body=postCard({id:"sp1",show:k,type:"Announcement",body:"We are recording live at Chicago Podcast Week on Nov 19. Two hundred seats, one long table, and a guest we cannot name yet.",time:"2d"})+postCard({id:"sp2",show:k,type:"Guest call",body:"Looking for a home cook who feeds a crowd every week. Remote or in Chicago, recording window Nov 30 to Dec 18.",time:"4d"});
+ else if(tab==="show-page-press-tab")body=vCard("Press","Stories about this show land here automatically",NEWS.slice(2,6).map(function(n){return vRow({pic:'<div class="art'+ph("news-"+n.id)+'" style="width:88px;height:50px;background:linear-gradient(150deg,'+n.c1+','+n.c2+')"></div>',t:n.t,s:"News · "+n.src,s2:n.d,go:G(vis()?"news-story-public-view":"news-story-page",n.id)})}).join(""));
+ else if(tab==="show-page-jobs-tab"){var j=JOBS.filter(function(x){return x.s===k});body=vCard("Open jobs","Posted from the Hiring Admin seat",j.length?j.map(function(x){return v2jobRow(x)}).join(""):'<div class="cp muted">No open jobs right now.</div>')}
+ else if(tab==="show-page-events-tab"){var ev=EV.filter(function(e){return e.s===k});if(!ev.length)ev=EV.slice(0,2);body=vCard("Events","",ev.map(function(e){return vRow({pic:'<div class="art'+ph("event-"+e.id)+'" style="width:88px;height:50px;background:linear-gradient(150deg,'+e.c1+','+e.c2+')"></div>',t:e.t,s:"Event · "+e.type,s2:e.d+" · "+e.place,go:G(vis()?"event-page-public-view":"event-page",e.id),x:'<a class="v-pill sm o" '+V("listener","RSVP",A("rsvp",e.id))+'>RSVP</a>'})}).join(""))}
+ else if(tab==="show-page-guest-brief-view")body=vCard("Guest brief","How this show books guests",'<div class="cp" style="padding-top:2px"><div class="sec-t">Topics wanted</div><div class="v-pills" style="margin:6px 0 12px">'+(V2SHOWTOPICS[k]||["Interviews"]).concat(["Family recipes","Restaurant work"]).map(function(t){return '<span class="v-pill sm info">'+t+'</span>'}).join("")+'</div><div class="sec-t">Never taken</div><div class="v-pills" style="margin:6px 0 12px">'+["Diet plans","Product pitches","Paid appearances"].map(function(t){return '<span class="v-pill sm info">'+t+'</span>'}).join("")+'</div>'+kv([["Format","Conversation, 50 to 65 minutes"],["Recording","Remote or in studio"],["Lead time","3 weeks"]])+'<div style="margin-top:14px">'+(o.guest&&o.cs!=="claimed"?'<span class="vb n">'+ic("lock",13)+'Booking opens when this show is claimed</span>':btn(ic("send",15)+"Pitch this show",V("guest","pitch shows",G("pitch-form"))))+'</div></div>');
+ else return _v2showPage2(k,tab,o);
+ return v2showFrame(k,tab,o,body)};
+R["show-page-unclaimed-guest-view"]=function(){return showPage("secondact","show-page-guest-brief-view",{guest:1,cs:"unclaimed"})};
+R["show-page-merged-duplicate-state"]=function(){return v2showFrame("smallbiz","show-page-about-tab",{pre:bn("","<b>This page was merged.</b> Two pages existed for Small Business Hours. Followers, subscribers, credits, and roles moved to this page.")},v2cast("smallbiz",{noWho:1}))};
+R["show-page-seasons-view"]=function(a){var k=SH[a]?a:"longtable";var l=feedList(k);var seasons=[["Season 4",l.slice(0,5)],["Season 3",l.slice(5,10)],["Earlier",l.slice(10)]];return v2showFrame(k,"show-page-about-tab",{},seasons.map(function(s){return s[1].length?vCard(s[0],s[1].length+" episodes",s[1].map(function(x){return v2epCard(k,x)}).join("")):""}).join(""))};
+R["episode-search-inside-a-show"]=function(a){var k=SH[a]?a:"longtable";return v2showFrame(k,"show-page-about-tab",{},vCard("Search "+SH[k].t,fmt(SH[k].eps)+" episodes, search them all",'<div class="v10eps">'+v10eps(k)+'</div>'))};
+R["show-similar-shows-rail-page"]=function(a){var k=SH[a]?a:"longtable";var keys=Object.keys(SH).filter(function(x){return x!==k}).sort(function(x,y){return (v10cat(y)===v10cat(k))-(v10cat(x)===v10cat(k))||SH[y].fol-SH[x].fol});return v2showFrame(k,"show-page-about-tab",{},vCard("You Might Also Like","From shared listeners, guests, and categories",'<div class="v-grid">'+keys.slice(0,12).map(function(x){return vShowCard(x)}).join("")+'</div>'))};
+R["show-page-about-this-show-data"]=function(a){var k=SH[a]?a:"longtable";var s=SH[k];return v2showFrame(k,"show-page-about-tab",{},v10info(k).replace(/<a class="cf"[^>]*>Show all show data<\/a>/,"")+vCard("From the feed","What the RSS feed declares",'<div class="cp" style="padding-top:2px">'+kv([["Feed source",s.feed],["First episode",s.since],["Rhythm",s.freq],["Language",s.lang],["City",s.city],["Episodes in the feed",fmt(s.eps)]])+'</div>'))};
+R["show-guest-history"]=function(a){var k=SH[a]?a:"longtable";var g=showGuests(k);return v2showFrame(k,"show-page-people-tab",{},vCard("Guest history",g.length+" guests from episode credits",'<div class="v2gh">'+g.map(function(x){var i=epIndex(k,x.n);return vRow({cls:"v10li",round:1,pic:av(x.g,48,0),t:P[x.g].n,s:"Guest · Episode "+x.n,s2:x.t,go:G(vis()?"person-profile-public-limited-view":profFor(x.g),x.g),x:vPlay(i)})}).join("")+'</div>'))};
+
+/* ---------------- 7. PodCred ---------------- */
+R["podcred-show-page-people-section"]=function(){PCSCROLL="";PCFORCE=1;var h=showPage("longtable","show-page-people-tab",{cs:"claimed"});PCFORCE=0;return h};
+R["podcred-person-profile-block"]=function(a){var k=P[a]?a:"aiko";return profile(k,{limited:vis()})};
+/* Your shows and Your credits, Product Hunt's Your products: what you claimed, listed and editable. */
+function v2mine(tab){tab=tab||"shows";var shows=[["longtable",claimed()?"Page Owner":"Claim in progress",claimed()?"g":"a"]];var cr=v2credits(me());
+ var tabs='<div class="v-pills"><a class="v-pill'+(tab==="shows"?" on":"")+'" '+G("my-shows")+'>Your shows '+shows.length+'</a><a class="v-pill'+(tab==="credits"?" on":"")+'" '+G("your-credits")+'>Your credits '+cr.length+'</a></div>';
+ var body=tab==="shows"?vCard("Your shows","Shows you own or help run. Claimed work is yours to edit.",shows.map(function(x){var s=SH[x[0]];return '<div class="v-prod">'+art(x[0],64,0)+'<div class="v-b"><div class="b" style="font-size:16px">'+s.t+'</div><div class="small muted">'+v10cat(x[0])+' · '+fmt(s.fol)+' followers · '+s.eps+' episodes</div><span class="v-tag '+x[2]+'">'+x[1]+'</span></div><a class="v-pill sm o" '+G(x[2]==="g"?"show-admin-edit-page":x[2]==="a"?"claim-under-review":"show-page-about-tab",x[0])+'>'+(x[2]==="g"?"Edit":x[2]==="a"?"View claim":"View")+'</a></div>'}).join("")+cf("Claim another show",G("claim-find-your-show")))
+  :vCard("Your credits","Every credit with your name on it. Confirm, correct, or share each one.",'<div class="v2mycr">'+cr.map(function(c){var s=SH[c.show];return '<div class="v-prod v10li">'+art(c.show,56,0)+'<div class="v-b"><div class="b">'+s.t+'</div><div class="small muted">'+c.role+(c.detail?" · "+c.detail:"")+'</div><div style="margin-top:4px">'+v2tierHtml(c.b)+'</div></div><a class="v-pill sm o" '+(c.b==="v"?A("pcShare",P[me()].n+"|"+c.role):G("credit-detail"))+'>'+(c.b==="v"?"Share":"Review")+'</a></div>'}).join("")+'</div>'+cf("Add a credit",A("pcStart","p:"+me())));
+ return page('<div class="l2"><div><div class="v-card"><div class="v-shd"><h1 style="font-size:26px;margin:0 0 10px">Your work</h1>'+tabs+'</div></div>'+body+'</div><aside>'+card('<div class="cp"><div class="b">Claimed work</div><p class="small muted">A claimed show or credit is listed here and editable by you. Unclaimed records stay public, built from feeds and credits, until someone claims them.</p></div>')+'</aside></div>',"me")}
+R["my-shows"]=function(){return v2mine("shows")};
+R["show-admin-my-shows-list"]=function(){return v2mine("shows")};
+R["your-credits"]=function(){return v2mine("credits")};
+META["your-credits"]={n:1216,title:"Your credits",purpose:"Every credit with your name on it, Product Hunt's Your products pattern (V10 slice 2)",tag:"v10"};
+(function(){for(var i=0;i<SECS.length;i++){var j=SECS[i].ids.indexOf("my-shows");if(j>=0){SECS[i].ids.splice(j+1,0,"your-credits");return}}})();
+
+/* ---------------- lists: credits, cast, and guest lists name themselves ---------------- */
+var _v2lpKind=lpKind;lpKind=function(first){var c=first.closest&&first.closest(".v-card");if(c){var h=c.querySelector("h2"),t=(h?h.textContent:"").toLowerCase();if(/credit|cast/.test(t))return [/cast/.test(t)?"people":"credits",/cast/.test(t)?"Search cast and crew":"Search credits"];if(/appearance/.test(t))return ["appearances","Search appearances"];if(/guest/.test(t))return ["guests","Search guests"];if(/people|everyone|producer|host|editor|open to work/.test(t))return ["people","Search people"]}return _v2lpKind(first)};
+
+/* ---------------- placement law: PodCred blocks sit under the first content, never on top ---------------- */
+/* The V9 hook looked for the first .card; V10 cards are .v-card, and jobs use the split view. */
+pc6After=function(){var el=document.getElementById("app");if(!el||el.querySelector(".pc6hub,.pc6blk"))return;
+ var hk=PC6HUB[CUR];var split=el.querySelector(".v-split");var col=el.querySelector("main.main .l2 > div, main.main .l2l > div");
+ if(split&&!col){if(hk){var fb=split.previousElementSibling;var hh=pc6HubCard(PC6HUBT[hk][0],PC6HUBT[hk][1]);if(fb)fb.insertAdjacentHTML("afterend",hh)}else{var d0=pc6Detail(CUR,ARG);var det=split.querySelector(".v-detcol");if(d0&&det)det.insertAdjacentHTML("beforeend",d0)}return}
+ if(!col)return;var first=col.querySelector(":scope > .card, :scope > .v-card");
+ if(hk){var h2=pc6HubCard(PC6HUBT[hk][0],PC6HUBT[hk][1]);if(first)first.insertAdjacentHTML("afterend",h2);else col.insertAdjacentHTML("afterbegin",h2);return}
+ var d=pc6Detail(CUR,ARG);if(d){if(first)first.insertAdjacentHTML("afterend",d);else col.insertAdjacentHTML("afterbegin",d)}};
+
+/* ---------------- 5b. VIDEO FIRST, everywhere an episode appears ---------------- */
+function v2epIdxBy(state){for(var i=0;i<EP.length;i++){if(state==="a"?!v2vidShow(EP[i].s):vstate(EP[i].s)===state)return i}return 0}
+R["episode-detail-full-player"]=function(a){var i=a!==""&&a!=null?a:v2epIdxBy("sp");S.vplay=i;return epPage(i)};
+R["episode-video-youtube-frame"]=function(a){var i=a!==""&&a!=null&&EP[+a]&&vstate(EP[+a].s)==="yt"?+a:v2epIdxBy("yt");S.vplay=i;return epPage(i)};
+R["episode-video-on-spotify"]=function(a){var i=a!==""&&a!=null&&EP[+a]&&vstate(EP[+a].s)==="sp"?+a:v2epIdxBy("sp");S.vplay=i;return epPage(i)};
+R["episode-audio-only"]=function(a){return epPage(a!==""&&a!=null?a:v2epIdxBy("a"))};
+function v2appsPage(k,title,sub){var ap=v2appearances(k);return page('<div class="l2"><div><div class="v-card"><div class="v-top" '+G(vis()?"person-profile-public-limited-view":profFor(k),k)+'>'+av(k,72,0)+'<div><div class="small muted">Guest appearances</div><div class="v-tt">'+P[k].n+'</div><div class="v-ts">'+ap.length+' appearances · video first</div></div></div></div>'+vCard(title,sub,'<div class="v2appl">'+ap.map(function(a){return v2epCard(a.s,a,{kick:SH[a.s].t,extra:a.st==="verified"?' '+vb("Verified appearance"):' '+vb("Waiting for the show","a")})}).join("")+'</div>')+'</div><aside>'+(vis()?joinRail():card(cf("Open the full profile",G(profFor(k),k))))+'</aside></div>',"me")}
+R["guest-appearances-with-video-states"]=function(){return v2appsPage("priya","Every appearance","A video version leads when one exists. Audio plays only where there is no video.")};
+R["guest-appearances-full-list"]=function(){return v2appsPage("priya","Every appearance","Newest first, video first")};
+R["guest-appearances-timeline"]=function(){return v2appsPage("priya","Appearances over time","Video first within each month")};
+
+/* ---------------- 3b. pitches: the detail, the confirmation, and the guest's own list ---------------- */
+function v2pitchDetail(k,o){o=o||{};k=P[k]?k:"priya";var x=V2PITCHES.filter(function(p){return p.g===k})[0]||V2PITCHES[0];var g=GDIR.filter(function(y){return y.k===k})[0]||{k:k,topics:["Food"],remote:1,inperson:0};
+ var note=vCard(o.sender?"Your pitch to The Long Table":"Pitch from "+P[k].n,x.about+" · "+x.t+" ago",'<div class="cp" style="padding-top:2px"><div class="v-note" style="font-size:15px;background:var(--navy4);border-radius:12px;padding:14px">'+ic("cmt",14)+' '+x.note+'</div><div class="v-match" style="margin-top:12px"><i style="width:'+x.m+'%"></i></div><div class="small muted" style="margin-top:4px">Match '+x.m+' of 100: shared topics, verified appearances, a complete pitch</div></div>'+
+  (o.sender?'<div class="v-formf"><span class="v-tag a">Waiting for the show</span><a class="v-pill" '+G("pitches-sent-list")+'>All your pitches</a></div>':'<div class="v-formf"><a class="v-pill" '+G("pitch-decline-with-a-reason",k)+'>Decline</a><span style="display:flex;gap:8px"><a class="v-pill o" '+A("tg")+'>'+ic("save",15)+'Shortlist</a><a class="btn" '+G("br-invite-a-guest",k)+'>'+ic("cal",15)+'Book</a></span></div>'));
+ return o.sender?page('<div class="l1">'+note+v2gcard(g)+'</div>',"home"):sadm(note+v2gcard(g))}
+R["pitch-detail-show-view"]=function(a){return v2pitchDetail(a||"priya")};
+R["pitch-detail-sender-view"]=function(){return v2pitchDetail("priya",{sender:1})};
+R["pitch-sent-confirmation"]=function(){return page('<div class="l1" style="padding-top:20px"><div class="v-sheet"><div class="v-grab"></div><div class="v-shb" style="text-align:center"><span class="v-chip" style="background:var(--green);width:56px;height:56px;border-radius:50%">'+ic("check",28)+'</span><h2 style="margin:12px 0 4px">Pitch sent to The Long Table</h2><p class="muted">The show sees your note first, then your verified appearances. We tell you when they open it.</p><div class="v-note" style="text-align:left;background:var(--navy4);border-radius:12px;padding:12px;margin-top:12px">'+ic("cmt",13)+' '+esc(S.v2note||"What a warmer world does to dinner, part two.")+'</div></div><div class="v-formf"><a class="v-pill" '+G("pitches-sent-list")+'>Your pitches</a><a class="btn" '+G("guests-directory-public")+'>Done</a></div></div></div>',"home")};
+function v2myPitches(){var l=[["longtable","Food and climate","Waiting","a","Opened yesterday"],["fieldnotes","A drier August","Booked","g","Recorded Oct 30"],["quiethour","Heat and sleep","Declined","n","The show said: not this season"]];
+ return page('<div class="l2"><div>'+vCard("Your pitches","Every pitch you sent, with where it stands",'<div class="v-rank">'+l.map(function(x,i){return '<div class="v-rc" '+G("pitch-detail-sender-view")+'>'+'<div style="aspect-ratio:16/9;line-height:0">'+art(x[0],320,0)+'</div><div class="v-rcb"><div class="v-rct">'+SH[x[0]].t+'</div><div class="v-rcs">'+x[1]+'</div><span class="v-tag '+x[3]+'">'+x[2]+'</span><div class="small muted" style="margin-top:6px">'+x[4]+'</div></div></div>'}).join("")+'</div>')+'</div><aside>'+card('<div class="cp"><div class="b">'+S.left+' pitches left this month</div><p class="small muted">Answering an open call never uses one.</p></div>')+'</aside></div>',"home")}
+R["pitches-sent-list"]=v2myPitches;R["my-pitches"]=v2myPitches;R["guest-pitch-history"]=v2myPitches;
+R["saved-guests-empty-state"]=function(){return v2guestsHub({title:"Saved guests",sub:"Nothing saved yet. Tap the bookmark on a guest card to keep it here.",list:[]})};
+
+/* ---------------- 6d. search entry states, on the slice 1 system ---------------- */
+R["global-search-entry-state"]=function(){if(!(S.recent||[]).length)S.recent=["the long table","priya nair","business","night shift"];return v10search("")};
+R["search-history-cleared"]=function(){S.recent=[];S.v2pre=bn("ok","Search history cleared.");var h=v10search("");S.v2pre="";return h};
+R["phone-search-sheet"]=function(){return v10search("")};
+R["search-people-by-show"]=function(){S.v2pre=bn("","People credited on <b>The Long Table</b>.");var h=_v2search("long table|people");S.v2pre="";return h};
+R["search-past-team-of-a-show"]=function(){S.v2pre=bn("","Past team of <b>The Long Table</b>, as the show confirmed them.");var h=_v2search("|people");S.v2pre="";return h};
+R["search-within-connections"]=function(){S.v2pre=bn("","Searching within your connections.");var h=_v2search("|people");S.v2pre="";return h};
+
+/* ---------------- 4b. jobs: closed job, application status, empty ---------------- */
+R["job-detail-closed-state"]=function(){return v2jobs({sel:2,pre:bn("","<b>This job is closed.</b> Booking producer at Night Shift Radio stopped taking applications. Similar jobs are below.")})};
+R["my-jobs-application-status-detail"]=function(){var j=JOBS[0];return v2jobs({on:"my-jobs-applied",detailFirst:1,detail:vCard("Your application",j.t+" · "+SH[j.s].t,'<div class="cp" style="padding-top:2px">'+[["Sent","Nov 2"],["Viewed by the show","Nov 3"],["In review","Now"],["Decision","Not yet"]].map(function(x,i){return '<div style="display:flex;gap:12px;align-items:center;padding:8px 0"><span class="v-chip" style="width:26px;height:26px;border-radius:50%;background:'+(i<3?"var(--navy)":"var(--line2)")+'">'+ic("check",14)+'</span><b style="flex:1">'+x[0]+'</b><span class="small muted">'+x[1]+'</span></div>'}).join("")+'<div style="margin-top:10px">'+btn("Withdraw",G("withdraw-an-application-confirm"),"o sm")+'</div></div>')+v2jobDetail(j)})};
+R["my-jobs-empty-state"]=function(){return v2jobs({on:"my-jobs-applied",detailFirst:1,detail:vCard("My jobs","",'<div class="cp muted">You have not applied to anything yet. Jobs you apply to show here with where they stand.</div>')})};
+/* V10 slice 2 additions end */
+
 
 document.getElementById("fav").href=LOGOM;
 boot();
