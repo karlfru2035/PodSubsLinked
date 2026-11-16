@@ -1264,6 +1264,67 @@ body:has(.pbar:not(.static)) .main{padding-bottom:84px}
 .pc6ln{display:flex;gap:10px;padding:5px 0;font-size:14px}
 .pc6ln b{flex:none;width:52px;color:var(--ink2);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}
 @media (min-width:1021px) and (max-width:1180px){.ni a{min-width:60px}.ni a .lb2{white-space:nowrap}}
+
+/* ================================================================
+   V12, the professional layer (Karl 2026-11-16). Pieces the V11
+   system did not have yet, drawn in it: degree badges, the guest
+   rating strip, the overflow menu, entries, dashed suggestion cards,
+   People you may know cards, the messaging split, the home feed's
+   three columns, the reserved ad slot. Scoped to body.v11.
+   ================================================================ */
+body.v11 #app .v12-deg{color:#6b6b6b;font-weight:400;font-size:13px;white-space:nowrap}
+body.v11 #app .v12-strip{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:13px;color:#6b6b6b}
+body.v11 #app .v12-strip b{color:#111;font-weight:600}
+body.v11 #app .v12-avail{display:flex;align-items:center;gap:8px}
+body.v11 #app .v12-feat{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:#111}
+body.v11 #app .v12-pen{position:absolute;right:16px;top:16px}
+body.v11 #app .v12-pen2{float:right;margin-top:8px}
+body.v11 #app .v12-menu{margin-top:16px;background:#fff;border:1px solid #e3e3e3;border-radius:12px;max-width:380px;padding:8px}
+body.v11 #app .v12-mi{display:flex;gap:12px;align-items:flex-start;padding:8px;border-radius:12px;color:#111;text-decoration:none!important}
+body.v11 #app .v12-mi:hover{background:#f4f4f4}
+body.v11 #app .v12-mi>span{display:flex;flex-direction:column}
+body.v11 #app .v12-mi b{font-weight:600}
+body.v11 #app .v12-ent{display:flex;gap:16px;padding:16px 0;border-top:1px solid #ebebeb;align-items:flex-start}
+body.v11 #app .v12-ent:first-child{border-top:0}
+body.v11 #app .v12-ent .v-b{flex:1;min-width:0}
+body.v11 #app .v12-tile{border-radius:12px;background:#f4f4f4;color:#111;display:flex;align-items:center;justify-content:center;font-weight:600;flex:none}
+body.v11 #app .v12-d{margin:8px 0 0;color:#111;white-space:normal}
+body.v11 #app .v12-media{display:flex;align-items:center;gap:8px;margin-top:8px}
+body.v11 #app .v12-feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+body.v11 #app .v12-fc{cursor:pointer;min-width:0}
+body.v11 #app .v12-fc .art{width:100%!important;height:auto!important;aspect-ratio:1/1}
+body.v11 #app .v12-dash{border:1px dashed #cfcfcf;border-radius:12px;padding:16px;margin-bottom:32px}
+body.v11 #app .v12-dash p{margin:4px 0 12px}
+body.v11 #app .v12-an{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+body.v11 #app .v12-an a{display:flex;flex-direction:column;gap:4px;background:#f4f4f4;border-radius:12px;padding:16px;text-decoration:none!important;color:#111}
+body.v11 #app .v12-pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+body.v11 #app .v12-pc{position:relative;background:#f4f4f4;border-radius:12px;padding:24px 16px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;min-width:0}
+body.v11 #app .v12-x{position:absolute;right:8px;top:8px;color:#6b6b6b;line-height:0}
+body.v11 #app .v12-why{font-size:13px;color:#6b6b6b;line-height:1.4}
+body.v11 #app .v12-why svg{vertical-align:-2px}
+body.v11 #app .v12-rl{display:flex;align-items:center;gap:12px;padding:8px 0;color:#111;text-decoration:none!important}
+body.v11 #app .v12-rl span:nth-child(2){flex:1}
+body.v11 #app .v12-msg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:32px;align-items:start}
+body.v11 #app .v12-3col{display:grid;grid-template-columns:225px minmax(0,1fr) 300px;gap:32px;align-items:start}
+body.v11 #app .v12-mini{text-align:left}
+body.v11 #app .v12-mini .av{margin-top:-36px;border:4px solid #f4f4f4}
+body.v11 #app .v12-mini .v-cover{border-radius:12px;margin:-20px -20px 0;background:#e9e9e9!important}
+body.v11 #app .v12-post{margin-bottom:32px}
+body.v11 #app .v12-post .v-row{border-top:0;padding-top:0}
+body.v11 #app .v12-mark{display:flex;align-items:center;gap:6px;font-size:13px;color:#6b6b6b;margin-bottom:8px}
+body.v11 #app .v12-img{width:100%;aspect-ratio:16/9;border-radius:12px;background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#f4f4f4;margin-top:12px}
+body.v11 #app .v12-react{margin:12px 0 8px}
+body.v11 #app .v12-ad{border:1px dashed #cfcfcf;border-radius:12px;padding:16px;margin-bottom:32px;color:#6b6b6b;display:flex;gap:8px;align-items:center}
+body.v11 #app .v12-comp{margin-bottom:16px}
+body.v11 #app .v12-comp .lsb{color:#6b6b6b;padding:10px 16px;text-decoration:none!important}
+body.v11 #app .v12-sheet{margin:0 auto 32px;max-width:560px}
+body.v11 #app label.v-row input{flex:none;margin-top:4px}
+body.v11 #app .v12-onb{max-width:560px;margin:32px auto}
+body.v11 #app .v11-link{font-weight:600}
+@media(max-width:1000px){body.v11 #app .v12-3col{grid-template-columns:minmax(0,1fr) 280px}body.v11 #app .v12-3col>aside:first-child{display:none}}
+@media(max-width:760px){body.v11 #app .v12-3col,body.v11 #app .v12-msg{grid-template-columns:minmax(0,1fr)}body.v11 #app .v12-an{grid-template-columns:1fr 1fr}}
+body.v11 #app .v12-pgrid>.lp-bar,body.v11 #app .v12-pgrid>.lp-foot,body.v11 #app .v12-pgrid>.lp-none{grid-column:1/-1}
+body.v11 #app .v12-dash h2{margin:0}
 </style></head><body>
 <div id="app"></div>
 <button class="pt-btn" onclick="document.getElementById('ptp').classList.toggle('op')">Prototype</button>
@@ -4944,6 +5005,487 @@ function v11(){var a=document.getElementById("app");if(!a)return;
 var _v11render=render;
 render=function(id){_v11render(id);try{v11()}catch(e){console.error("v11",e)}};
 /* V11 restyle end */
+/* V12 professional layer start */
+/* ================================================================
+   V12, the LinkedIn professional layer (Karl, 2026-11-16). Built on
+   the V11 restyle, drawn only with the V10 components so the V11
+   system applies. Shows, credits, and PodCred stay the core; this is
+   the professional machinery underneath:
+   1. the person profile, professional sections, owner view
+   2. connections, degrees, invitations, My Network, messaging gates,
+      warm introductions
+   3. guest ratings (the KAR-154 rule: an average only from 5)
+   4. availability, services, sign-up onboarding, the home feed
+   Every person, count and rating here is sample data, labelled Sample.
+   ================================================================ */
+
+/* ---------------- sample data ---------------- */
+var V12NOW={y:2026,m:11};
+/* the connection graph: each pair is a mutual Connect edge */
+var V12E=[["dana","maya"],["dana","lena"],["dana","omar"],["dana","tom"],["dana","ruth"],["dana","hana"],
+ ["maya","jonah"],["maya","priya"],["maya","leo"],["maya","nia"],["lena","aiko"],["lena","sofia"],["omar","sofia"],["omar","kwame"],
+ ["tom","nia"],["tom","johnb"],["ruth","priya"],["jonah","grace"],["priya","rosa"],["aiko","elena"],["kwame","johnk"],["sofia","will"],
+ ["grace","iris"],["rosa","marcus"],["elena","ben"],["hana","elena"]];
+var V12ORG={halfmoon:{n:"Halfmoon Audio",members:48},longtable:{n:"The Long Table",members:9},pubradio:{n:"Lone Star Public Radio",members:31},ut:{n:"University of Texas at Austin",members:212},emerson:{n:"Emerson College",members:167},nyu:{n:"New York University",members:244}};
+var V12FALLBACKJOIN={sofia:"March 2024",dana:"January 2024",priya:"May 2024",omar:"April 2024",theo:"Not joined, held from feeds"};
+var V12PRO={
+ sofia:{about:"I run production at Halfmoon Audio. Twelve years making narrative and interview shows, the last six leading teams of producers, editors, and engineers. I care about clean tape, kind edits, and deadlines people can keep.",
+  featured:[{kind:"Appearance",t:"How a show finds its second season",s:"Guest on The Edit Bay · 42 min",show:"editbay"},{kind:"Show",t:"Night Shift Radio",s:"Head of production since 2022",show:"nightshift"},{kind:"Clip",t:"Cutting a ninety minute interview to forty",s:"Clip from The Edit Bay · 3 min",show:"editbay"}],
+  exp:[{t:"Head of production",org:"halfmoon",type:"Full-time",s:[2022,3],e:null,loc:"Detroit, Michigan",lt:"Hybrid",d:"Leads production for Night Shift Radio and The Edit Bay. Hires and runs a team of nine. Sets the house style for edits and mixes.",media:"nightshift",skills:["Team leadership","Show development","Editorial judgment"]},
+   {t:"Senior producer",org:"halfmoon",type:"Full-time",s:[2019,6],e:[2022,2],loc:"Detroit, Michigan",lt:"On-site",d:"Produced The Edit Bay from its pilot to 140 episodes.",media:"editbay",skills:["Interview production","Scripting"]},
+   {cb:1,t:"Career break",why:"Caregiving",s:[2018,8],e:[2019,5],d:"Full-time care for a parent. Kept a weekly practice of cutting tape for friends' shows."},
+   {t:"Producer",org:"pubradio",type:"Full-time",s:[2014,9],e:[2018,7],loc:"Austin, Texas",lt:"On-site",d:"Daily news features and a weekly local history show.",skills:["News production","Field recording"]}],
+  edu:[{sch:"emerson",deg:"BA, Journalism",s:2010,e:2014,d:"Radio track. Ran the student station's overnight block."}],
+  lic:[{n:"Audio editing for broadcast, level 2",by:"Lone Star Public Radio",d:"Issued Jun 2016",id:"LSPR-2016-118"}],
+  skills:[{n:"Show development",top:1,e:["omar","lena","will"],cr:{omar:"editbay"}},{n:"Team leadership",top:1,e:["omar","will"],cr:{}},{n:"Interview production",top:1,e:["lena"],cr:{lena:"nightshift"}},{n:"Editorial judgment",e:["omar"],cr:{omar:"editbay"}},{n:"Scripting",e:[]},{n:"Field recording",e:[]},{n:"News production",e:[]}],
+  recs:{rec:[{by:"omar",rel:"Omar worked with Sofia on the same show",role:"Head of production at Halfmoon Audio",d:"Sep 2026",t:"Sofia makes the call nobody else wants to make, and she makes it early. Our edits got shorter and kinder the year she took over."},
+   {by:"will",rel:"Sofia managed Will directly",role:"Head of production at Halfmoon Audio",d:"Jun 2026",t:"The best producer I have worked under. Clear notes, fair deadlines, and she reads every script before it records."}],
+   giv:[{to:"will",rel:"Sofia managed Will directly",role:"Video producer at Halfmoon Audio",d:"Jul 2026",t:"Will turned our video versions from an afterthought into a reason people find the show."}]},
+  vol:[{org:"Detroit Public Library",role:"Audio workshop lead",cause:"Education",s:[2023,1],e:null,d:"Teaches a free monthly class on recording oral histories.",media:"localground"}],
+  lang:[["English","Native or bilingual"],["Spanish","Professional working"]],
+  interests:{shows:["editbay","nightshift","quiethour"],people:["omar","kwame"],orgs:["halfmoon","emerson"]},
+  services:[{n:"Production audit",d:"A written review of one episode: structure, tape, edit, mix. Delivered in 5 days.",r:"$450 per episode"},{n:"Showrunner coaching",d:"Four one hour calls for a new showrunner.",r:null}],
+  open:["Advising","Mentoring"],avail:"Taking advising work from January",feature:0,conn:312,fol:1204,joined:"March 2024",idv:1},
+ omar:{about:"Senior editor at Halfmoon Audio. I cut interview and narrative shows, and I teach the house style to new editors.",
+  featured:[{kind:"Show",t:"The Edit Bay",s:"Senior editor since 2021",show:"editbay"}],
+  exp:[{t:"Senior editor",org:"halfmoon",type:"Full-time",s:[2021,4],e:null,loc:"Detroit, Michigan",lt:"Hybrid",d:"Edits The Edit Bay and Night Shift Radio.",media:"editbay",skills:["Dialogue editing","Story structure"]}],
+  edu:[{sch:"nyu",deg:"MA, Journalism",s:2012,e:2014,d:""}],lic:[],
+  skills:[{n:"Dialogue editing",top:1,e:["sofia","tom"],cr:{sofia:"editbay"}},{n:"Story structure",top:1,e:["sofia"],cr:{}},{n:"Mixing",e:["tom"],cr:{tom:"editbay"}}],
+  recs:{rec:[],giv:[{to:"sofia",rel:"Omar worked with Sofia on the same show",role:"Head of production at Halfmoon Audio",d:"Sep 2026",t:"Sofia makes the call nobody else wants to make, and she makes it early."}]},vol:[],lang:[["English","Native or bilingual"],["Arabic","Native or bilingual"]],interests:{shows:["editbay","nightshift"],people:["sofia"],orgs:["halfmoon","nyu"]},
+  services:[],open:["Work"],avail:"",feature:0,conn:402,fol:1530,joined:"April 2024",idv:1},
+ dana:{about:"Producer and editor for interview shows. I cut for story first and for time second.",
+  featured:[{kind:"Show",t:"The Long Table",s:"Producer since 2023",show:"longtable"}],
+  exp:[{t:"Producer and editor",org:"longtable",type:"Freelance",s:[2023,2],e:null,loc:"Austin, Texas",lt:"Remote",d:"Produces and edits the weekly episode.",media:"longtable",skills:["Editing","Interview production"]},
+   {t:"Associate producer",org:"pubradio",type:"Full-time",s:[2020,8],e:[2023,1],loc:"Austin, Texas",lt:"On-site",d:"Morning show segments.",skills:["News production"]}],
+  edu:[],lic:[],
+  skills:[{n:"Editing",top:1,e:["omar","tom"],cr:{omar:"editbay"}},{n:"Interview production",top:1,e:["maya"],cr:{maya:"longtable"}},{n:"News production",e:[]}],
+  recs:{rec:[],giv:[]},vol:[],lang:[["English","Native or bilingual"]],interests:{shows:["longtable","editbay"],people:["omar"],orgs:["pubradio"]},
+  services:[],open:["Work"],avail:"",feature:0,conn:186,fol:640,joined:"January 2024",idv:1},
+ priya:{about:"Climate scientist. I talk about food, water, and heat in plain words, on shows that want the science without the lecture.",
+  featured:[{kind:"Appearance",t:"Heat, sleep, and the night shift",s:"Guest on Night Shift Radio · 36 min",show:"nightshift"}],
+  exp:[{t:"Research scientist",org:"ut",type:"Full-time",s:[2019,9],e:null,loc:"Seattle, Washington",lt:"Hybrid",d:"Studies how heat changes what small farms can grow.",skills:["Climate science","Public speaking"]}],
+  edu:[{sch:"ut",deg:"PhD, Hydrology",s:2013,e:2019,d:""}],lic:[],
+  skills:[{n:"Public speaking",top:1,e:["maya","ruth"],cr:{maya:"longtable",ruth:"fieldnotes"}},{n:"Climate science",top:1,e:["ruth"],cr:{ruth:"fieldnotes"}}],
+  recs:{rec:[],giv:[]},vol:[],lang:[["English","Native or bilingual"],["Malayalam","Native or bilingual"]],interests:{shows:["fieldnotes","longtable"],people:["ruth"],orgs:["ut"]},
+  services:[{n:"Guest appearance",d:"A recorded interview on climate, food, or water. Remote or in person in Seattle.",r:null},{n:"Talk for a live taping",d:"A 20 minute talk and a Q and A.",r:"$800 plus travel"}],
+  open:["Guesting","Bookings"],avail:"Booking into December",feature:1,conn:228,fol:5480,joined:"May 2024",idv:1}
+};
+/* guest ratings: given only by hosts and shows the guest appeared on; each names the episode */
+var V12GR={priya:[["maya","longtable","The heat on a small farm",5,"Came prepared, stayed generous. Our listeners wrote in for days.","published"],["ruth","fieldnotes","Counting the rivers that run dry",5,"Explained a hard paper without talking down to anyone.","published"],["lena","nightshift","Heat, sleep, and the night shift",5,"","published"],["marcus","smallbiz","Small farms in a hotter year",4,"Strong on the science. Ran a little long.","published"],["kwame","deepsignal","The data behind dry rivers",5,"","published"],["elena","quiethour","Sleep in a warmer city",5,"Easy to book, easy to talk to.","pending"]],
+ iris:[["elena","quiethour","What a flight surgeon learned about sleep",5,"A natural storyteller.","published"],["lena","nightshift","The nurse who learned to sleep at noon",4,"","published"],["grace","morningpages","Night work",5,"","published"]],
+ sofia:[["omar","editbay","How a show finds its second season",5,"Gave our listeners a whole method in forty minutes.","published"]]};
+/* invitations waiting for the viewer */
+var V12RECV=[{k:"will",note:"Hi Dana, we both cut video versions for Halfmoon shows. Would be good to compare notes.",d:"2 days ago"},{k:"nia",note:"",d:"4 days ago"},{k:"elena",note:"I loved your edit on the Long Table episode with Leo.",d:"1 week ago"}];
+/* the activity stream for a profile: [kind, text, by, time, reactions] */
+var V12ACT={sofia:{posts:[["post","We are hiring a second editor for The Edit Bay. Part time, remote friendly. Write to me if you cut interviews and like notes.","sofia","3d",48],["post","Five things I check before any episode leaves the building. Number one is still the first ninety seconds.","sofia","2w",212]],
+ comments:[["comment","Agree. A cold open earns the next ten minutes.","sofia","5d",12,"omar"]],images:[["image","Our studio after the rebuild. Two booths, one very good couch.","sofia","1mo",96]]}};
+
+/* ---------------- the graph: degrees by shortest path ---------------- */
+function v12st(){S.v12=S.v12||{c:{},sent:{},recv:V12RECV.map(function(x){return x.k}),ign:{},wd:{},blk:{},dis:{},intro:{},end:{},recReq:{},recOk:{},menu:0,note:0,act:"posts",open:null,feature:null,enq:1,skills:null,mtab:"all",itab:"received",rtab:"rec",rate:{},onb:{}};return S.v12}
+function v12me(){return vis()?null:(ME[S.user]||"dana")}
+function v12adj(k){var st=v12st(),o=[];V12E.forEach(function(e){if(e[0]===k)o.push(e[1]);else if(e[1]===k)o.push(e[0])});
+ var m=v12me();if(m){if(k===m)Object.keys(st.c).forEach(function(x){if(st.c[x]&&o.indexOf(x)<0)o.push(x)});else if(st.c[k]&&o.indexOf(m)<0)o.push(m)}
+ return o.filter(function(x){return !(m&&(x===m&&st.blk[k]||k===m&&st.blk[x]))})}
+function v12deg(k){var m=v12me();if(!m||k===m)return 0;var seen={},q=[[m,0]];seen[m]=1;
+ while(q.length){var c=q.shift();if(c[1]>=3)continue;var n=v12adj(c[0]);for(var i=0;i<n.length;i++){var x=n[i];if(seen[x])continue;if(x===k)return c[1]+1;seen[x]=1;q.push([x,c[1]+1])}}return 4}
+function v12mutual(k){var m=v12me();if(!m)return [];var mine=v12adj(m),theirs=v12adj(k);return mine.filter(function(x){return theirs.indexOf(x)>=0})}
+function v12degLabel(d){return d===1?"1st":d===2?"2nd":d===3?"3rd":"3rd+"}
+function v12badge(k){var d=v12deg(k);return d?'<span class="v12-deg">· '+v12degLabel(d)+'</span>':""}
+function v12mutualLine(k){var mu=v12mutual(k);if(!mu.length)return "";var nm=mu.slice(0,2).map(function(x){return P[x].n});return mu.length+(mu.length===1?" mutual connection: ":" mutual connections: ")+nm.join(" and ")+(mu.length>2?" and "+(mu.length-2)+" more":"")}
+function v12sample(){return ' <span class="v-sample">Sample</span>'}
+function v12pro(k){var d=V12PRO[k];if(d)return d;var w=(PWORKS[k]||[]);return {about:P[k].h+".",featured:[],exp:w.slice(0,1).map(function(s){return {t:(PROLE[k]||["Contributor"])[0],org:null,orgName:SH[s].t,type:"Freelance",s:[2023,1],e:null,loc:P[k].loc,lt:"Remote",d:"",media:s,skills:[]}}),edu:[],lic:[],skills:[],recs:{rec:[],giv:[]},vol:[],lang:[["English","Native or bilingual"]],interests:{shows:w,people:[],orgs:[]},services:[],open:[],avail:"",feature:0,conn:80+v10hash(k)%300,fol:200+v10hash(k)%900,joined:V12FALLBACKJOIN[k]||"2024",idv:V2VERIFIED.indexOf(k)>=0}}
+var V12MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function v12dur(s,e){var en=e||[V12NOW.y,V12NOW.m];var mo=(en[0]-s[0])*12+(en[1]-s[1])+1;var y=Math.floor(mo/12),m=mo%12;
+ return V12MON[s[1]-1]+" "+s[0]+" to "+(e?V12MON[e[1]-1]+" "+e[0]:"now")+" · "+(y?y+(y===1?" yr":" yrs"):"")+(y&&m?" ":"")+(m?m+(m===1?" mo":" mos"):"")}
+function v12orgName(x){return x.org&&V12ORG[x.org]?V12ORG[x.org].n:(x.orgName||"")}
+/* the person's go-to address, for the viewer */
+function v12go(k){return G(vis()?"person-profile-public-limited-view":"pro-profile",k)}
+function v12chip(t,on){return '<span class="v-pill sm'+(on?" on":"")+'">'+t+'</span>'}
+function v12sheet(title,body,foot){return '<div class="v-sheet v12-sheet" role="dialog" aria-label="'+esc(title)+'"><div class="v-grab"></div><div class="v-shb"><h2>'+title+'</h2>'+body+'</div>'+(foot?'<div class="v-formf">'+foot+'</div>':"")+'</div>'}
+function v12card(title,sub,body,see,id){return '<div'+(id?' id="'+id+'"':"")+'>'+vCard(title,sub,body,see||"")+'</div>'}
+function v12page(body,on,rail){return page('<div class="l2"><div>'+body+'</div><aside>'+(rail||"")+'</aside></div>',on)}
+
+/* ---------------- 1. the person profile ---------------- */
+function v12orgTile(x,s){s=s||48;if(x.media&&SH[x.media]&&!x.org)return art(x.media,s,0);var n=x.cb?"":v12orgName(x)||x.sch&&V12ORG[x.sch].n||"";var ini=n.split(/\s+/).map(function(w){return w[0]}).join("").slice(0,2)||"·";
+ return '<div class="v12-tile" style="width:'+s+'px;height:'+s+'px" aria-hidden="true">'+(x.cb?ic("clock",18):ini)+'</div>'}
+function v12guestStats(k){var r=(V12GR[k]||[]).filter(function(x){return x[5]==="published"});if(!r.length)return "";var n=r.length;var ap=v2appearances(k).length;
+ var avg=n>=RATING_MIN?(r.reduce(function(a,x){return a+x[3]},0)/n).toFixed(1):null;
+ return '<div class="v12-strip">'+(avg?'<span><b>★ '+avg+'</b> guest rating</span><span>'+n+' ratings</span>':'<span><b>'+n+'</b> '+(n===1?"rating":"ratings")+'</span>')+(ap?'<span><b>'+ap+'</b> appearances</span>':"")+'<span><b>'+fmt(v12pro(k).fol)+'</b> followers</span>'+v12sample()+'</div>'}
+var RATING_MIN=5;
+function v12acts(k,o){var st=v12st(),deg=v12deg(k),p=P[k],first=p.n.split(" ")[0];
+ if(o.own)return '<a class="btn" '+G("pro-open-to")+'>Open to</a><a class="v-pill" '+G("pro-add-section")+'>'+ic("plus",16)+'Add section</a><a class="v-pill" '+G("profile-qr-and-share-card")+'>'+ic("send",16)+'Share</a>';
+ var f=!vis()&&S.follows[k];
+ var follow='<a class="v-pill'+(f?" on":"")+'" '+V("pro","follow "+p.n,A("follow",k))+'>'+(f?ic("check",16)+"Following":ic("plus",16)+"Follow")+'</a>';
+ var connect=deg===1?'<a class="v-pill" '+G("net-connections")+'>'+ic("check",16)+'Connected</a>':st.sent[k]?'<a class="v-pill" '+G("pro-profile-menu",k)+'>'+ic("clock",16)+'Pending</a>':
+  st.wd[k]?'<a class="v-pill" '+G("net-withdraw-locked",k)+'>'+ic("lock",16)+'Connect</a>':'<a class="btn" '+V("pro","connect with "+p.n,G("net-connect-sheet",k))+'>'+ic("net",16)+'Connect</a>';
+ var msg='<a class="v-pill" '+V("pro","message "+p.n,G(deg===1?"msg-thread":"msg-gated",k))+'>'+ic("msg",16)+'Message</a>';
+ return follow+connect+msg+'<a class="v-circ" '+V("pro","see more about "+p.n,G("pro-profile-menu",k))+' aria-label="More actions for '+esc(p.n)+'">'+ic("more",18)+'</a>'}
+function v12head(k,o){var d=v12pro(k),p=P[k],st=v12st(),own=o.own;var cur=d.exp.filter(function(x){return !x.e&&!x.cb})[0];
+ var openTo=own&&st.open?st.open:d.open;var feat=own&&st.feature!=null?st.feature:d.feature;
+ var mu=v12mutualLine(k);
+ return '<div class="v-card"><div class="v-cover" style="position:relative">'+(own?'<a class="v-circ v12-pen" '+G("pro-edit-intro")+' aria-label="Edit banner">'+ic("edit",16)+'</a>':"")+'</div>'+
+  '<div class="v-phead"><div class="v-pav">'+av(k,128,0)+'</div>'+(own?'<a class="v-circ v12-pen2" '+G("pro-edit-intro")+' aria-label="Edit intro">'+ic("edit",16)+'</a>':"")+
+  '<h1>'+p.n+(d.idv&&!o.unclaimed?" "+vbadge():"")+(own?"":' '+v12badge(k))+'</h1>'+
+  '<div class="v-head2">'+(o.unclaimed?p.h:p.h)+'</div>'+
+  '<div class="v-place">'+(cur?v12orgName(cur)+' · ':"")+p.loc+' · <a '+G("pro-contact-info",k)+'>Contact info</a></div>'+
+  (o.unclaimed?"":'<div class="v-stats"><a '+G(own?"net-connections":"pro-profile",k)+'><b>'+fmt(d.conn)+'</b>connections</a>'+(v12guestStats(k)?"":'<span><b>'+fmt(d.fol)+'</b>followers</span>')+v12sample()+'</div>')+
+  (mu&&!own?'<div class="v-place">'+mu+'</div>':"")+
+  v12guestStats(k)+
+  (d.avail&&!o.unclaimed?'<div class="v-place v12-avail">'+ic("cal",14)+' '+d.avail+'</div>':"")+
+  ((openTo||[]).length&&!o.unclaimed?'<div class="v-pills" style="margin-top:12px"><span class="small muted">Open to</span>'+openTo.map(function(x){return v12chip(x)}).join("")+(feat?' <span class="v12-feat">'+ic("spark",14)+'Featured to hosts this week</span>':"")+'</div>':"")+
+  (o.unclaimed?'<div class="v-acts" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><a class="btn" '+G("pro-claim-landing",k)+'>Is this you? Claim this profile</a>'+'<a class="v-pill" '+A("follow",k)+'>'+ic("plus",16)+'Follow</a></div>':
+  '<div class="v-acts" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">'+v12acts(k,o)+'</div>')+
+  (o.menu?v12menu(k):"")+
+  '</div></div>'}
+/* the overflow menu, LinkedIn's order; a pending request joins it */
+function v12menu(k){var st=v12st(),p=P[k],first=p.n.split(" ")[0];var items=[];
+ if(st.sent[k])items.push([ic("clock",18),"Pending","Withdraw your invitation to "+first,A("v12withdraw",k)]);
+ items=items.concat([[ic("send",18),"Send profile in a message","Share "+first+"'s profile with a connection",G("new-message")],
+  [ic("link",18),"Share profile","Copy the link or share it",G("profile-qr-and-share-card")],
+  [ic("info",18),"Contact info","Profile link and public links",G("pro-contact-info",k)],
+  [ic("write",18),"Personalize invite","Add a note to your invitation",G("net-connect-sheet",k+"|note")],
+  [ic("flag",18),"Report or block","Tell us what is wrong, or block "+first,G("pro-report-block",k)],
+  [ic("user",18),"About this member","Joined date and verification",G("pro-about-member",k)]]);
+ return '<div class="v12-menu" role="menu" aria-label="More actions">'+items.map(function(x){return '<a class="v12-mi" role="menuitem" '+x[3]+'>'+x[0]+'<span><b>'+x[1]+'</b><span class="small muted">'+x[2]+'</span></span></a>'}).join("")+'</div>'}
+function v12about(k,o){var d=v12pro(k);if(!d.about&&!o.own)return "";return v12card("About","",'<p>'+esc(d.about)+'</p>',o.own?v12pen("pro-edit-intro"):"")}
+function v12pen(go){return '<a class="v-circ" '+G(go)+' aria-label="Edit">'+ic("edit",16)+'</a>'}
+function v12featured(k,o){var f=v12pro(k).featured;if(!f.length)return o.own?v12dash("Featured","Show your best appearance, a show, or a clip first. Hosts look here before they book.","Add featured"):"";
+ return v12card("Featured","",'<div class="v12-feat-grid">'+f.map(function(x){return '<div class="v12-fc" '+G(x.kind==="Show"?v10showGo():"episode-page",x.kind==="Show"?x.show:7)+'>'+art(x.show,180,0)+'<div class="small muted" style="margin-top:8px">'+x.kind+'</div><div class="v-t">'+esc(x.t)+'</div><div class="small muted">'+esc(x.s)+'</div></div>'}).join("")+'</div>')}
+function v12services(k,o){var d=v12pro(k),st=v12st();var en=o.own?st.enq:1;if(!d.services.length)return o.own?v12dash("Services","List what you offer, what is delivered, and a rate if you want to state one.","Add a service"):"";
+ return v12card("Services",o.own?(en?"Anyone can message you about your services.":"Only connections can message you about your services."):"Ask about a service. It reaches "+P[k].n.split(" ")[0]+" as a message request.",
+  '<div>'+d.services.map(function(s){return '<div class="v-row v12-svc" style="cursor:default"><div class="v-b"><div class="v-t">'+esc(s.n)+'</div><div class="v-s" style="white-space:normal">'+esc(s.d)+'</div><div class="v-s">'+(s.r?esc(s.r):"Rate on request")+'</div></div>'+(o.own?"":'<div class="v-x"><a class="v-pill sm" '+V("host","ask about a service",G("msg-request-sent",k+"|service"))+'>Ask</a></div>')+'</div>'}).join("")+
+  (o.own?'<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Let anyone message me about services</div><div class="v-s" style="white-space:normal">Members who are not connections can send a service enquiry. It lands in Message requests.</div></div><div class="v-x"><a class="v-pill sm'+(en?" on":"")+'" '+A("v12enq","")+' role="switch" aria-checked="'+(en?"true":"false")+'">'+(en?"On":"Off")+'</a></div></div>':"")+'</div>')}
+function v12activity(k,o){var a=V12ACT[k],p=P[k],first=p.n.split(" ")[0];var posts=a?a.posts:[];
+ return v12card("Activity",fmt(v12pro(k).fol)+" followers"+v12sample(),
+  '<div class="v-pills" style="margin-bottom:8px">'+["Posts","Comments","Images"].map(function(t,i){return '<a class="v-pill sm'+(i===0?" on":"")+'" '+G("pro-activity",k+"|"+t.toLowerCase())+'>'+t+'</a>'}).join("")+'</div>'+
+  (posts.length?posts.slice(0,2).map(function(x){return v12actRow(x)}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">'+first+' has not posted yet. Posts '+first+' shares will show here.</div></div>'),
+  '<a class="v11-link" '+G("pro-activity",k+"|posts")+'>Show all activity</a>')}
+function v12actRow(x){var who=P[x[2]];return vRow({cls:"v10li",round:1,pic:av(x[2],40,0),t:who.n+' '+v12badge(x[2])+' <span class="small muted">· '+x[3]+'</span>',s:(x[0]==="comment"?"Commented on "+P[x[5]].n+"'s post · ":"")+esc(x[1]),s2:x[4]+" reactions"+v12sample()})}
+function v12exp(k,o){var d=v12pro(k);if(!d.exp.length)return o.own?v12dash("Experience","Add the shows and companies you work for. Hosts and recruiters search by them.","Add experience"):"";
+ return v12card("Experience","",'<div>'+d.exp.map(function(x){
+  if(x.cb)return '<div class="v12-ent v10li">'+v12orgTile(x)+'<div class="v-b"><div class="v-t">Career break</div><div class="v-s">'+x.why+'</div><div class="v-s">'+v12dur(x.s,x.e)+'</div>'+(x.d?'<p class="v12-d">'+esc(x.d)+'</p>':"")+'</div></div>';
+  return '<div class="v12-ent v10li">'+v12orgTile(x)+'<div class="v-b"><div class="v-t">'+x.t+'</div><div class="v-s">'+v12orgName(x)+' · '+x.type+'</div><div class="v-s">'+v12dur(x.s,x.e)+'</div><div class="v-s">'+x.loc+' · '+x.lt+'</div>'+(x.d?'<p class="v12-d">'+esc(x.d)+'</p>':"")+
+   (x.media&&SH[x.media]?'<div class="v12-media">'+art(x.media,64,0)+'<span class="small muted">'+SH[x.media].t+'</span></div>':"")+
+   (x.skills&&x.skills.length?'<div class="v-pills" style="margin-top:8px">'+x.skills.map(function(s){return v12chip(s)}).join("")+'</div>':"")+'</div></div>'}).join("")+'</div>',o.own?'<a class="v-circ" '+G("pro-add-experience")+' aria-label="Add experience">'+ic("plus",16)+'</a>':"")}
+function v12edu(k,o){var d=v12pro(k);if(!d.edu.length)return o.own?v12dash("Education","Add a school. Members who studied there can find you, and it helps People you may know.","Add education"):"";
+ return v12card("Education","",'<div>'+d.edu.map(function(x){return '<div class="v12-ent v10li">'+v12orgTile(x)+'<div class="v-b"><div class="v-t">'+V12ORG[x.sch].n+'</div><div class="v-s">'+x.deg+'</div><div class="v-s">'+x.s+' to '+x.e+'</div>'+(x.d?'<p class="v12-d">'+esc(x.d)+'</p>':"")+'</div></div>'}).join("")+'</div>')}
+function v12lic(k,o){var d=v12pro(k);if(!d.lic.length)return o.own?v12dash("Licenses and certifications","Add a certificate you hold, with the issuer and an ID if it has one.","Add a license"):"";
+ return v12card("Licenses and certifications","",'<div>'+d.lic.map(function(x){return '<div class="v12-ent v10li">'+v12orgTile({orgName:x.by})+'<div class="v-b"><div class="v-t">'+x.n+'</div><div class="v-s">'+x.by+'</div><div class="v-s">'+x.d+' · Credential ID '+x.id+'</div></div></div>'}).join("")+'</div>')}
+function v12skills(k,o){var d=v12pro(k),st=v12st(),deg=v12deg(k),first=P[k].n.split(" ")[0];if(!d.skills.length)return o.own?v12dash("Skills","Add skills. Your connections can endorse them, and each endorsement can name the credit it rests on.","Add skills"):"";
+ var list=d.skills.map(function(s,i){return {s:s,i:i}});if(o.own&&st.skills)list=st.skills.map(function(i){return {s:d.skills[i],i:i}});
+ return v12card("Skills",o.own?"Your top skills show first. Reorder them in edit.":deg===1?"You can endorse "+first+"'s skills. Only 1st-degree connections can.":"Only 1st-degree connections can endorse.",
+  '<div>'+list.map(function(x,j){var s=x.s;var e=s.e.slice();var mine=st.end[k+"|"+x.i];if(mine&&e.indexOf(v12me())<0)e.unshift(v12me());
+   var crs=Object.keys(s.cr||{}).filter(function(by){return e.indexOf(by)>=0}).map(function(by){return P[by].n.split(" ")[0]+"'s credit on "+SH[s.cr[by]].t});if(mine&&mine!==1)crs.unshift("your credit on "+SH[mine].t);
+   return '<div class="v-row v10li" style="cursor:default"><div class="v-b"><div class="v-t">'+s.n+(s.top||(o.own&&st.skills&&j<3)?' <span class="small muted">· Top skill</span>':"")+'</div>'+
+    (e.length?'<div class="v-s">Endorsed by '+P[e[0]].n+(e.length>1?" and "+(e.length-1)+(e.length===2?" other":" others"):"")+'</div>':'<div class="v-s">No endorsements yet</div>')+
+    (crs.length?'<div class="v-s">'+ic("shield",12)+' Rests on '+crs.join(", ")+'</div>':"")+'</div>'+
+    (!o.own&&deg===1?'<div class="v-x">'+(mine?'<span class="v-pill sm on">'+ic("check",14)+'Endorsed</span>':'<a class="v-pill sm" '+G("pro-endorse",k+"|"+x.i)+'>Endorse</a>')+'</div>':"")+'</div>'}).join("")+'</div>',
+  o.own?'<a class="v-circ" '+G("pro-skills-edit")+' aria-label="Edit skills">'+ic("edit",16)+'</a>':"")}
+function v12recs(k,o){var d=v12pro(k),st=v12st(),deg=v12deg(k),first=P[k].n.split(" ")[0];var tab=st.rtab;
+ var rec=d.recs.rec.slice();if(st.recOk[k])rec.unshift(st.recOk[k]);var giv=d.recs.giv;
+ if(!rec.length&&!giv.length&&!o.own&&deg!==1)return "";
+ var list=tab==="giv"?giv:rec;
+ var ask=!o.own&&deg===1?(st.recReq[k]?'<div class="v-place">Your request to '+first+' is open. One open request per connection.</div>':'<div class="v-pills" style="margin-top:8px"><a class="v-pill sm" '+G("pro-rec-request",k)+'>Ask '+first+' for a recommendation</a><a class="v-pill sm" '+G("write-a-recommendation",k)+'>Recommend '+first+'</a></div>'):"";
+ return v12card("Recommendations",o.own?"Shown only after you approve them.":"",
+  '<div class="v-pills">'+[["rec","Received"],["giv","Given"]].map(function(t){return '<a class="v-pill sm'+(tab===t[0]?" on":"")+'" '+A("v12rtab",t[0])+'>'+t[1]+'</a>'}).join("")+'</div>'+
+  (list.length?list.map(function(r){var who=tab==="giv"?r.to:r.by;return '<div class="v12-ent v10li">'+av(who,48,0)+'<div class="v-b"><div class="v-t">'+P[who].n+' '+v12badge(who)+'</div><div class="v-s">'+P[who].h+'</div><div class="v-s">'+r.d+', '+r.rel+' · '+r.role+'</div><p class="v12-d">'+esc(r.t)+'</p></div></div>'}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">'+(tab==="giv"?(o.own?"You have":first+" has")+" not written a recommendation yet.":(o.own?"You have":first+" has")+" no recommendations yet.")+'</div></div>')+ask+
+  (o.own&&st.recPending?'<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Waiting for your approval</div><div class="v-s">'+P.omar.n+' wrote you a recommendation.</div></div><div class="v-x"><a class="v-pill sm" '+G("pro-rec-approve")+'>Review</a></div></div>':""))}
+function v12rating(k,o){var all=V12GR[k];if(!all)return "";var r=all.filter(function(x){return x[5]==="published"}),n=r.length,first=P[k].n.split(" ")[0];
+ var avg=n>=RATING_MIN?r.reduce(function(a,x){return a+x[3]},0)/n:null;var held=all.length-n;
+ var by=[0,0,0,0,0];r.forEach(function(x){by[5-x[3]]++});
+ var top=avg!==null?'<div class="v-rate"><div class="v-avg"><b>'+avg.toFixed(1)+'</b><span>out of 5</span></div><div class="v-hist">'+by.map(function(c,i){return '<div class="v-hr"><span>'+"★".repeat(5-i)+'</span><div class="v-bar"><i style="width:'+Math.round(c/n*100)+'%"></i></div></div>'}).join("")+'</div></div><div class="v-cnt">'+n+' ratings'+v12sample()+'</div>'
+  :'<p class="muted">'+n+(n===1?" rating":" ratings")+' so far. The average shows once '+first+' has 5 ratings.'+v12sample()+'</p>';
+ var written=r.filter(function(x){return x[4]});
+ return v12card("Guest rating","From hosts and shows "+first+" appeared on. Each rating names the episode.",top+
+  (written.length?'<div class="v-revs">'+written.map(function(x){return '<div class="v-rev"><div class="v-rt">'+P[x[0]].n+'</div><div class="v-rm"><span>'+vStars(x[3])+'</span><span>'+SH[x[1]].t+'</span></div><div class="v-cred">Rated after "'+esc(x[2])+'"</div><p>'+esc(x[4])+'</p></div>'}).join("")+'</div>':"")+
+  (held?'<div class="v-place">'+held+(held===1?" written review is":" written reviews are")+' waiting for moderation and do not show yet.</div>':"")+
+  (!o.own&&S.user==="host"?'<div class="v-pills" style="margin-top:8px"><a class="v-pill sm" '+G("pro-rate-guest",k)+'>Rate '+first+' as a guest</a></div>':""),"","v12-rating")}
+function v12vol(k,o){var d=v12pro(k);if(!d.vol.length)return o.own?v12dash("Volunteering","Add the causes you give time to.","Add volunteering"):"";
+ return v12card("Volunteering","",'<div>'+d.vol.map(function(x){return '<div class="v12-ent v10li">'+v12orgTile({orgName:x.org})+'<div class="v-b"><div class="v-t">'+x.role+'</div><div class="v-s">'+x.org+'</div><div class="v-s">'+v12dur(x.s,x.e)+' · '+x.cause+'</div><p class="v12-d">'+esc(x.d)+'</p>'+(x.media&&SH[x.media]?'<div class="v12-media">'+art(x.media,64,0)+'</div>':"")+'</div></div>'}).join("")+'</div>')}
+function v12lang(k,o){var d=v12pro(k);if(!d.lang.length)return "";return v12card("Languages","",'<div>'+d.lang.map(function(x){return '<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">'+x[0]+'</div><div class="v-s">'+x[1]+'</div></div></div>'}).join("")+'</div>')}
+function v12interests(k,o){var d=v12pro(k).interests;var rows=(d.shows||[]).map(function(s){return vRow({pic:art(s,48,0),t:SH[s].t,s:fmt(SH[s].fol||1000)+" followers",go:G(v10showGo(),s)})}).concat((d.people||[]).map(function(x){return vRow({round:1,pic:av(x,48,0),t:P[x].n+' '+v12badge(x),s:P[x].h,go:v12go(x)})})).concat((d.orgs||[]).map(function(x){return vRow({pic:v12orgTile({orgName:V12ORG[x].n}),t:V12ORG[x].n,s:V12ORG[x].members+" members on PodSubs"})}));
+ if(!rows.length)return "";return v12card("Interests","Shows, people, and organisations "+(o.own?"you follow":P[k].n.split(" ")[0]+" follows"),'<div>'+rows.join("")+'</div>')}
+function v12also(k){var pool=["lena","omar","kwame","will","tom","aiko","elena"].filter(function(x){return x!==k&&x!==v12me()}).slice(0,4);
+ return v12card("People also viewed","",'<div>'+pool.map(function(x){return vRow({round:1,pic:av(x,48,0),t:P[x].n+' '+v12badge(x),s:P[x].h,s2:v12mutualLine(x),go:v12go(x),x:v12deg(x)===1?"":'<a class="v-pill sm" '+V("pro","connect",G("net-connect-sheet",x))+'>Connect</a>'})}).join("")+'</div>')}
+/* owner: a dashed suggestion card for an empty section */
+function v12dash(title,why,add){return '<div class="v12-dash"><h2>'+title+'</h2><p class="small muted">'+why+'</p><a class="v-pill sm" '+G("pro-add-section")+'>'+ic("plus",14)+add+'</a></div>'}
+function v12suggest(k){var d=v12pro(k),st=v12st();var steps=[["Photo",1],["Headline",1],["About",!!d.about],["Experience",d.exp.length>0],["Education",d.edu.length>0],["Skills",d.skills.length>=3],["Open to",(st.open||d.open).length>0]];
+ var done=steps.filter(function(s){return s[1]}).length,pct=Math.round(done/steps.length*100);var next=steps.filter(function(s){return !s[1]})[0];
+ var lvl=pct>=100?"All-star":pct>=70?"Advanced":pct>=40?"Intermediate":"Beginner";
+ return v12card("Suggested for you",ic("eye",14)+" Private to you",'<div class="v12-meter"><div class="v-t">'+lvl+'</div><div class="v-prog"><i style="width:'+pct+'%"></i></div><div class="v-stepl"><span>'+done+' of '+steps.length+' done</span><span>'+pct+'%</span></div></div>'+
+  (next?'<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Next: add your '+next[0].toLowerCase()+'</div><div class="v-s" style="white-space:normal">'+(next[0]==="Education"?"Members with a school show up for alumni and in more searches.":next[0]==="Open to"?"Hosts filter by Open to. Set it so they can find you.":"Hosts and recruiters read this first.")+'</div></div><div class="v-x"><a class="v-pill sm" '+G(next[0]==="Open to"?"pro-open-to":"pro-add-section")+'>Add</a></div></div>':'<p class="muted">Every section is filled in.</p>'))}
+function v12analytics(k){return v12card("Analytics",ic("eye",14)+" Private to you",'<div class="v12-an"><a '+G("profile-analytics")+'><b>214</b><span class="small muted">profile views this month</span></a><a '+G("profile-analytics-appearance-sources")+'><b>1,032</b><span class="small muted">search appearances</span></a></div><p class="small muted">'+v12sample()+'</p>')}
+function v12profile(k,o){o=o||{};k=P[k]?k:"sofia";var st=v12st();PAGE_TITLE=P[k].n+" | PodSubs";
+ if(st.blk[k]&&!o.own)return v12page(v12card("This profile is not available","",'<p class="muted">You blocked '+P[k].n+'. You are not connected, and recommendations and endorsements between you were removed.</p><a class="v-pill" '+A("v12unblock",k)+'>Unblock</a>'),"net");
+ var body=(o.pre||"")+v12head(k,o)+(o.own?v12suggest(k)+v12analytics(k):"")+v12about(k,o)+v12services(k,o)+v12featured(k,o)+(o.unclaimed?v12held(k):v12activity(k,o))+v12exp(k,o)+v12edu(k,o)+v12lic(k,o)+v12skills(k,o)+v12recs(k,o)+v12rating(k,o)+v12vol(k,o)+v12lang(k,o)+v12interests(k,o)+(o.own?"":v12also(k));
+ return v12page(body,o.own?"me":"net",vis()?joinRail():"")}
+/* unclaimed: public sections from held data, professional sections empty */
+function v12held(k){var cr=v2credits(k);return v12card("From the feeds","Held data. Every line comes from a show's own feed.",
+ '<div>'+(cr.length?cr.slice(0,5).map(function(c){return vRow({cls:"v10li",pic:art(c.show,48,0),t:SH[c.show].t,s:c.role+(c.detail?" · "+c.detail:""),s2:v2tierHtml(c.b)})}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Named in 23 episodes across 4 shows</div><div class="v-s">Producer, as the feeds state it</div></div></div>')+'</div>'+
+ '<p class="small muted" style="margin-top:8px">Experience, education, skills, and recommendations start empty. They fill in when '+P[k].n.split(" ")[0]+' claims this profile.</p>')}
+
+/* ---------------- 1. profile screens ---------------- */
+function v12k(a,d){var k=String(a||"").split("|")[0];return P[k]?k:(d||"sofia")}
+R["pro-profile"]=function(a){return v12profile(v12k(a),{})};
+R["pro-profile-menu"]=function(a){return v12profile(v12k(a),{menu:1})};
+R["pro-profile-pending"]=function(a){var st=v12st(),k=v12k(a);if(!st.sent[k])st.sent[k]={note:"",d:"Today"};return v12profile(k,{menu:1})};
+R["pro-profile-connected"]=function(a){return v12profile(v12k(a,"omar"),{})};
+R["pro-profile-third"]=function(a){return v12profile(v12k(a,"grace"),{})};
+R["pro-owner"]=function(){return v12profile(v12me()||"dana",{own:1})};
+R["pro-unclaimed"]=function(a){return v12profile(v12k(a,"theo"),{unclaimed:1})};
+R["pro-claim-landing"]=function(a){var k=v12k(a,"theo");return v12profile(k,{own:1,pre:bn("",'<div><b>You claimed this profile.</b> Your credits from the feeds stay as they were. The professional sections start empty. Fill them in one step at a time.</div>')})};
+R["pro-guest-rating"]=function(a){return v12profile(v12k(a,"priya"),{})};
+R["pro-guest-rating-few"]=function(a){return v12profile(v12k(a,"iris"),{})};
+R["pro-contact-info"]=function(a){var k=v12k(a),p=P[k],deg=v12deg(k);
+ var rows=[["Profile","podsubs.com/in/"+(p.slug||k)],["Website",(p.slug||k)+".com"],["Podcast",SH[(PWORKS[k]||["editbay"])[0]].t+" on PodSubs"]];if(deg===1)rows.push(["Email",(p.slug||k).split("-")[0]+"@example.com"]);
+ return v12page(v12sheet(p.n+"'s contact info",kv(rows.map(function(r){return [r[0],r[1]]}))+'<p class="small muted" style="margin-top:12px">'+(deg===1?"You are connected, so you see "+p.n.split(" ")[0]+"'s email.":"Email and phone show only to 1st-degree connections. You see the profile link and public links.")+v12sample()+'</p>','<a class="v-pill" '+G("pro-profile",k)+'>Done</a>'),"net")};
+R["pro-about-member"]=function(a){var k=v12k(a),d=v12pro(k);return v12page(v12sheet("About "+P[k].n,kv([["Joined",d.joined],["Identity",d.idv?"Verified":"Not verified"]])+'<p class="small muted" style="margin-top:12px">'+(d.idv?"PodSubs checked a government ID against this member's name. The check proves who they are, not what they have done.":"This member has not verified their identity.")+v12sample()+'</p>','<a class="v-pill" '+G("pro-profile",k)+'>Done</a>'),"net")};
+R["pro-report-block"]=function(a){var k=v12k(a),first=P[k].n.split(" ")[0];var why=["Something in their profile is wrong","They are pretending to be someone else","Spam or a scam","Harassment","Something else"];
+ return v12page(v12sheet("Report or block","<p class=\"muted\">Why are you reporting "+first+"? We do not tell them who reported.</p>"+'<div>'+why.map(function(w,i){return '<label class="v-row" style="cursor:pointer"><input type="radio" name="v12why"'+(i===0?" checked":"")+'><div class="v-b"><div class="v-t">'+w+'</div></div></label>'}).join("")+'</div>'+
+  '<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Block '+first+'</div><div class="v-s" style="white-space:normal">Ends your connection and removes recommendations between you.</div></div><div class="v-x"><a class="v-pill sm" '+G("pro-block-confirm",k)+'>Block</a></div></div>',
+  '<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12report",k)+'>Report</a>'),"net")};
+R["pro-block-confirm"]=function(a){var k=v12k(a),first=P[k].n.split(" ")[0];return v12page(v12sheet("Block "+P[k].n+"?",'<p>Blocking ends your connection with '+first+'. Recommendations and endorsements between you are removed. Neither of you can see the other\'s profile or send a message.</p><p class="muted">'+first+' is not told.</p>','<a class="v-pill" '+G("pro-report-block",k)+'>Back</a><a class="btn" '+A("v12block",k)+'>Block</a>'),"net")};
+R["pro-open-to"]=function(){var st=v12st(),d=v12pro(v12me()||"dana");var on=st.open||d.open.slice();var feat=st.feature!=null?st.feature:d.feature;
+ return v12page(v12sheet("Open to",'<p class="muted">Pick what you are open to. The chips show on your profile, and hosts and recruiters can filter by them.</p><div class="v-pills" style="margin:12px 0">'+["Guesting","Work","Bookings","Mentoring","Advising"].map(function(x){return '<a class="v-pill'+(on.indexOf(x)>=0?" on":"")+'" '+A("v12open",x)+'>'+(on.indexOf(x)>=0?ic("check",14):"")+x+'</a>'}).join("")+'</div>'+
+  '<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">Feature me</div><div class="v-s" style="white-space:normal">For seven days, hosts looking for guests see you near the top of their results. You can turn it off any time.</div></div><div class="v-x"><a class="v-pill sm'+(feat?" on":"")+'" '+A("v12feature","")+' role="switch" aria-checked="'+(feat?"true":"false")+'">'+(feat?"On":"Off")+'</a></div></div>',
+  '<a class="btn" '+G("pro-owner")+'>Save</a>'),"me")};
+R["pro-add-section"]=function(){var groups=[["Core",["About","Experience","Education","Services"]],["Recommended",["Featured","Licenses and certifications","Skills","Recommendations"]],["Additional",["Volunteering","Languages","Interests"]]];
+ return v12page(v12sheet("Add to profile",groups.map(function(g){return '<div class="v-place" style="margin-top:12px">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="v-row" '+G(x==="Experience"?"pro-add-experience":x==="Skills"?"pro-skills-edit":x==="Recommendations"?"pro-rec-request":"pro-owner",x==="Recommendations"?"omar":null)+'><div class="v-b"><div class="v-t">Add '+x.toLowerCase()+'</div></div><div class="v-x">'+ic("plus",16)+'</div></a>'}).join("")}).join("")),"me")};
+R["pro-add-experience"]=function(){var types=["Full-time","Part-time","Self-employed","Freelance","Contract","Internship","Apprenticeship","Seasonal","Career break"];
+ return v12page(v12sheet("Add experience",'<label class="small muted">Type</label><div class="v-pills" style="margin:8px 0 16px">'+types.map(function(t,i){return v12chip(t,i===3)}).join("")+'</div>'+
+  [["Title","Producer"],["Show or company","The Long Table"],["Location","Austin, Texas"],["Location type","Remote"],["Start","Feb 2023"],["End","I work here now"],["Description",""]].map(function(f){return '<label class="small muted">'+f[0]+'</label><input class="inp" value="'+esc(f[1])+'" aria-label="'+f[0]+'" style="margin:4px 0 12px">'}).join("")+
+  '<label class="small muted">Skills used in this role</label><div class="v-pills" style="margin:8px 0">'+["Editing","Interview production"].map(function(s){return v12chip(s,1)}).join("")+'<a class="v-pill sm">'+ic("plus",14)+'Add skill</a></div>'+
+  '<p class="small muted">A career break is its own type: pick it to add time away, with a reason if you want to give one.</p>','<a class="v-pill" '+G("pro-owner")+'>Cancel</a><a class="btn" '+G("pro-owner")+'>Save</a>'),"me")};
+R["pro-skills-edit"]=function(){var st=v12st(),d=v12pro(v12me()||"dana");var order=st.skills||d.skills.map(function(s,i){return i});
+ return v12page(v12sheet("Reorder your skills",'<p class="muted">Your first three are your top skills. They show first on your profile.</p><div>'+order.map(function(i,j){return '<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-t">'+d.skills[i].n+(j<3?' <span class="small muted">· Top skill</span>':"")+'</div><div class="v-s">'+d.skills[i].e.length+' endorsements'+v12sample()+'</div></div><div class="v-x">'+(j?'<a class="v-circ" '+A("v12skill",j+"|-1")+' aria-label="Move up">'+ic("up",16)+'</a>':"")+(j<order.length-1?'<a class="v-circ" '+A("v12skill",j+"|1")+' aria-label="Move down">'+ic("down",16)+'</a>':"")+'</div></div>'}).join("")+'</div><p class="small muted">PodSubs has no skill tests. Endorsements come from your 1st-degree connections, and each can name the credit it rests on.</p>','<a class="btn" '+G("pro-owner")+'>Done</a>'),"me")};
+R["pro-edit-intro"]=function(){var k=v12me()||"dana",p=P[k];return v12page(v12sheet("Edit intro",[["First name",p.n.split(" ")[0]],["Last name",p.n.split(" ")[1]],["Headline",p.h],["Location",p.loc]].map(function(f){return '<label class="small muted">'+f[0]+'</label><input class="inp" value="'+esc(f[1])+'" aria-label="'+f[0]+'" style="margin:4px 0 12px">'}).join(""),'<a class="v-pill" '+G("pro-owner")+'>Cancel</a><a class="btn" '+G("pro-owner")+'>Save</a>'),"me")};
+R["pro-endorse"]=function(a){var x=String(a||"sofia|0").split("|"),k=v12k(x[0]),i=+x[1]||0,s=v12pro(k).skills[i],first=P[k].n.split(" ")[0];var mine=(PWORKS[v12me()||"dana"]||[]);var shared=mine.filter(function(w){return (PWORKS[k]||[]).indexOf(w)>=0});var opts=shared.length?shared:mine.slice(0,2);
+ return v12page(v12sheet("Endorse "+first+" for "+s.n,'<p class="muted">An endorsement on PodSubs can name the credit it rests on. Pick the show you worked on together, or endorse without one.</p><div>'+opts.map(function(w,j){return '<label class="v-row" style="cursor:pointer"><input type="radio" name="v12cr" value="'+w+'"'+(j===0?" checked":"")+'>'+art(w,40,0)+'<div class="v-b"><div class="v-t">Your credit on '+SH[w].t+'</div><div class="v-s">'+(shared.indexOf(w)>=0?"You both have credits on this show":"Your credit")+'</div></div></label>'}).join("")+'<label class="v-row" style="cursor:pointer"><input type="radio" name="v12cr" value=""><div class="v-b"><div class="v-t">No credit</div></div></label></div>',
+  '<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12endorse",k+"|"+i)+'>Endorse</a>'),"net")};
+R["pro-rec-request"]=function(a){var k=v12k(a,"omar"),st=v12st(),first=P[k].n.split(" ")[0],me=v12me()||"dana";
+ if(v12deg(k)!==1)return v12page(v12sheet("Ask for a recommendation",'<p>Only 1st-degree connections can write a recommendation. Connect with '+first+' first.</p>','<a class="btn" '+G("net-connect-sheet",k)+'>Connect</a>'),"me");
+ if(st.recReq[k])return v12page(v12sheet("Request sent",'<p>Your request to '+first+' is open. You can have one open request per connection.</p><p class="muted">When '+first+' writes it, you approve it before it shows on your profile.</p>','<a class="v-pill" '+G("pro-profile",k)+'>Back to '+first+'</a>'),"me");
+ var rels=[first+" managed you directly","You reported directly to "+first,first+" was senior to you but did not manage you","You were senior to "+first+" but did not manage them","You worked on the same show","You worked on different shows",first+" was a client of yours","You were a client of "+first,first+" mentored you"];
+ var roles=v12pro(me).exp.filter(function(x){return !x.cb}).map(function(x){return x.t+" at "+v12orgName(x)});
+ return v12page(v12sheet("Ask "+first+" for a recommendation",'<label class="small muted">How do you know '+first+'?</label><select class="inp" aria-label="Relationship" style="margin:4px 0 12px">'+rels.map(function(r,i){return '<option'+(i===4?" selected":"")+'>'+esc(r)+'</option>'}).join("")+'</select><label class="small muted">Which role should it cover?</label><select class="inp" aria-label="Role" style="margin:4px 0 12px">'+roles.map(function(r){return '<option>'+esc(r)+'</option>'}).join("")+'</select><label class="small muted">A note to '+first+'</label><textarea class="inp" style="height:96px;margin-top:4px">Would you write a few lines about our work on The Edit Bay?</textarea>',
+  '<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12recreq",k)+'>Send request</a>'),"me")};
+R["pro-rec-approve"]=function(){var st=v12st();st.recPending=st.recPending==null?1:st.recPending;return v12page(v12sheet("Omar Haddad recommended you",'<div class="v-rev"><div class="v-rt">'+P.omar.n+' '+v12badge("omar")+'</div><div class="v-cred">Nov 2026, Omar worked with Dana on the same show · Producer and editor at The Long Table</div><p>Dana cuts for story first. Every episode we sent her came back shorter and clearer.</p></div><p class="muted" style="margin-top:12px">It shows on your profile only if you approve it. You can hide it later.</p>'+v12sample(),
+ '<a class="v-pill" '+A("v12recHide","")+'>Not now</a><a class="btn" '+A("v12recApprove","")+'>Show on profile</a>'),"me")};
+R["pro-activity"]=function(a){var x=String(a||"sofia|posts").split("|"),k=v12k(x[0]),tab=x[1]||"posts",first=P[k].n.split(" ")[0];var list=(V12ACT[k]||{})[tab]||[];
+ return v12page(v12card(P[k].n+"'s activity",fmt(v12pro(k).fol)+" followers"+v12sample(),'<div class="v-pills" style="margin-bottom:8px">'+["posts","comments","images"].map(function(t){return '<a class="v-pill sm'+(tab===t?" on":"")+'" '+G("pro-activity",k+"|"+t)+'>'+t[0].toUpperCase()+t.slice(1)+'</a>'}).join("")+'</div>'+
+  (list.length?list.map(v12actRow).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">'+first+' has not '+(tab==="comments"?"commented on anything":tab==="images"?"shared images":"posted")+' yet. '+(tab==="comments"?"Comments":tab==="images"?"Images":"Posts")+' '+first+' shares will show here.</div></div>')),"net")};
+R["pro-activity-empty"]=function(){return R["pro-activity"]("grace|posts")};
+R["pro-rate-guest"]=function(a){var k=v12k(a,"priya"),st=v12st(),first=P[k].n.split(" ")[0],me=v12me()||"maya";var eps=(V12GR[k]||[]).filter(function(x){return x[0]===me||x[1]==="longtable"});var stars=st.rateStars||0;
+ return v12page(v12sheet("Rate "+first+" as a guest",'<p class="muted">Only hosts and shows '+first+' appeared on can rate. Your rating names the episode.</p><label class="small muted">Episode</label><select class="inp" aria-label="Episode" style="margin:4px 0 12px">'+(eps.length?eps:[["maya","longtable","The heat on a small farm"]]).map(function(x){return '<option>'+SH[x[1]].t+': '+esc(x[2])+'</option>'}).join("")+'</select>'+
+  '<div class="v-tap" style="border:0;padding:0 0 12px"><span>Your rating</span><span class="v-stars">'+[1,2,3,4,5].map(function(n){return '<a '+A("v12stars",n)+' aria-label="'+n+' stars">'+(n<=stars?"★":"☆")+'</a>'}).join("")+'</span></div><label class="small muted">Written review, optional</label><textarea class="inp" style="height:96px;margin-top:4px" placeholder="What was '+first+' like to book and to interview?"></textarea><p class="small muted">A written review is held for moderation before it shows, like show reviews.</p>',
+  '<a class="v-pill" '+G("pro-guest-rating",k)+'>Cancel</a><a class="btn" '+A("v12rate",k)+'>Save rating</a>'),"me")};
+
+/* ---------------- 2. My Network, invitations, introductions ---------------- */
+var V12PYMK=[["sofia",""],["aiko","show:longtable"],["kwame",""],["jonah","show:longtable"],["johnk","school:ut"],["will","activity"],["johnb",""],["leo",""]];
+function v12reason(k,r){if(r.indexOf("show:")===0)return ic("rss",14)+" You both have credits on "+SH[r.slice(5)].t;if(r.indexOf("school:")===0)return ic("book",14)+" You both studied at "+V12ORG[r.slice(7)].n;if(r==="activity")return ic("spark",14)+" Based on your activity: you both commented on Sofia Marin's post";
+ var mu=v12mutual(k);if(mu.length)return ic("net",14)+" "+P[mu[0]].n+(mu.length>1?" and "+(mu.length-1)+" more are mutual connections":" is a mutual connection");return ic("user",14)+" Works at a company you follow"}
+function v12pymkCard(x){var k=x[0],p=P[k],st=v12st(),deg=v12deg(k);return '<div class="v12-pc v10li">'+'<a class="v12-x" '+A("v12dismiss",k)+' aria-label="Dismiss '+esc(p.n)+'">'+ic("x",16)+'</a>'+av(k,72,0)+'<div class="v-t" '+v12go(k)+' style="cursor:pointer">'+p.n+'</div><div class="v-s">'+p.h+'</div><div class="v12-why">'+v12reason(k,x[1])+'</div>'+
+ (st.sent[k]?'<span class="v-pill sm">'+ic("clock",14)+'Pending</span>':deg===1?'<span class="v-pill sm on">Connected</span>':'<a class="v-pill sm" '+G("net-connect-sheet",k)+'>'+ic("net",14)+'Connect</a>')+(deg===2&&!st.sent[k]?'<a class="v11-link small" '+G("net-intro-request",k)+'>Request an introduction</a>':"")+'</div>'}
+function v12rail(){var me=v12me()||"dana",d=v12pro(me);var items=[["net","Connections",d.conn,"net-connections"],["user","Contacts",412,"net-contacts"],["eye","Following and followers",d.fol,"net-following"],["user","Groups",3,null],["cal","Events",2,"podcasting-events-public-hub"],["grid","Pages",12,"net-following"],["mail","Newsletters",4,"newsletter-home"]];
+ return '<div class="card"><div class="v-t" style="margin-bottom:8px">Manage my network</div>'+items.map(function(x){return '<a class="v12-rl" '+(x[3]?G(x[3]):'aria-disabled="true"')+'>'+ic(x[0],18)+'<span>'+x[1]+'</span><span class="small muted">'+fmt(x[2])+'</span></a>'}).join("")+'<p class="small muted">'+v12sample()+'</p></div>'}
+function v12invRows(){var st=v12st();var list=V12RECV.filter(function(x){return st.recv.indexOf(x.k)>=0});
+ return list.length?list.map(function(x){var p=P[x.k];return '<div class="v12-ent v10li">'+av(x.k,56,0)+'<div class="v-b"><div class="v-t" '+v12go(x.k)+' style="cursor:pointer">'+p.n+' '+v12badge(x.k)+'</div><div class="v-s">'+p.h+'</div><div class="v-s">'+(v12mutualLine(x.k)||"No mutual connections")+' · '+x.d+'</div>'+(x.note?'<p class="v12-d">"'+esc(x.note)+'"</p>':"")+'</div><div class="v-x"><a class="v-pill sm" '+A("v12ignore",x.k)+'>Ignore</a><a class="v-pill sm o" '+A("v12accept",x.k)+'>Accept</a></div></div>'}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">No invitations waiting.</div></div>'}
+R["net-home"]=function(){var st=v12st();var n=st.recv.length;var pymk=V12PYMK.filter(function(x){return !st.dis[x[0]]&&v12deg(x[0])!==1&&!st.blk[x[0]]});
+ var body=v12card("Invitations"+(n?" ("+n+")":""),"",'<div>'+v12invRows()+'</div>','<a class="v11-link" '+G("net-invitations","received")+'>Manage invitations</a>')+
+  v12card("People you may know","Every suggestion says why it is here."+v12sample(),'<div class="v12-pgrid">'+(pymk.length?pymk.map(v12pymkCard).join(""):'<p class="muted">No more suggestions right now.</p>')+'</div>')+
+  v12card("Add your contacts","",'<p>Upload your address book to see who is already on PodSubs. You choose who to connect to. Nobody is invited automatically.</p><a class="v-pill" '+G("net-contacts")+'>'+ic("user",16)+'Add contacts</a>');
+ return v12page(body,"net",v12rail())};
+R["net-invitations"]=function(a){var st=v12st(),tab=a==="sent"?"sent":"received";var sent=Object.keys(st.sent);
+ var inner=tab==="received"?v12invRows():(sent.length?sent.map(function(k){var p=P[k];return '<div class="v12-ent v10li">'+av(k,56,0)+'<div class="v-b"><div class="v-t">'+p.n+' '+v12badge(k)+'</div><div class="v-s">'+p.h+'</div><div class="v-s">Sent '+st.sent[k].d.toLowerCase()+(st.sent[k].note?' · with a note':' · no note')+'</div></div><div class="v-x"><a class="v-pill sm" '+A("v12withdrawList",k)+'>Withdraw</a></div></div>'}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">No sent invitations waiting.</div></div>');
+ return v12page(v12card("Invitation manager","",'<div class="v-pills" style="margin-bottom:8px"><a class="v-pill'+(tab==="received"?" on":"")+'" '+G("net-invitations","received")+'>Received '+st.recv.length+'</a><a class="v-pill'+(tab==="sent"?" on":"")+'" '+G("net-invitations","sent")+'>Sent '+sent.length+'</a></div><div>'+inner+'</div>'+
+  '<p class="small muted" style="margin-top:12px">'+(tab==="received"?"Ignoring is silent. The sender is never told.":"Withdrawing means you cannot invite that person again for three weeks.")+' <a '+G("net-invite-quality")+'>How invitations stay useful</a></p>'),"net",v12rail())};
+R["net-connect-sheet"]=function(a){var x=String(a||"sofia").split("|"),k=v12k(x[0]),st=v12st(),first=P[k].n.split(" ")[0];var note=x[1]==="note"||st.note;
+ if(st.wd[k])return R["net-withdraw-locked"](k);
+ return v12page(v12sheet("Invite "+P[k].n+" to connect",'<p class="muted">Connections are mutual. You both follow each other, you can message freely, and you can endorse and recommend each other.</p>'+
+  (note?'<label class="small muted" for="v12note">Add a note</label><textarea class="inp" id="v12note" maxlength="300" style="height:120px;margin-top:4px" oninput="this.nextElementSibling.textContent=this.value.length+\' of 300\'">Hi '+first+', </textarea><div class="v-cc">'+("Hi "+first+", ").length+' of 300</div>':'<p>Add a note to say how you know '+first+'. A note makes it more likely '+first+' accepts.</p>'),
+  note?'<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12send",k)+'>Send</a>':'<a class="v-pill" '+G("net-connect-sheet",k+"|note")+'>Add a note</a><a class="btn" '+A("v12send",k)+'>Send without a note</a>'),"net")};
+R["net-withdraw-locked"]=function(a){var k=v12k(a),st=v12st(),first=P[k].n.split(" ")[0];if(!st.wd[k])st.wd[k]="Dec 7";
+ return v12page(v12sheet("You withdrew your invitation","<p>You can invite "+first+" again after "+st.wd[k]+". The wait stops repeat invitations from piling up.</p><p class=\"muted\">You can still follow "+first+" now.</p>",'<a class="v-pill" '+A("follow",k)+'>Follow '+first+'</a><a class="btn" '+G("pro-profile",k)+'>Back to profile</a>'),"net")};
+R["net-invite-quality"]=function(){return v12page(v12card("How invitations stay useful","",'<p>When people accept your invitations, you can keep sending them. When many go unanswered, or people say they do not know you, you can send fewer for a while.</p><p class="muted">There is no published number. The limit moves with how people answer.</p>'+
+ kv([["Your last 20 invitations","14 accepted"],["Ignored","2"],["Waiting","4"]])+'<p class="small muted">'+v12sample()+'</p>')+
+ v12card("When you reach the limit","",'<div class="bn">'+ic("info",18)+'<div>You have sent a lot of invitations this week. You can send more next week. Following people has no limit.</div></div>'),"net",v12rail())};
+R["net-contacts"]=function(){return v12page(v12card("Add your contacts","",'<p>We look up the addresses in your contact list to find people already on PodSubs. You pick who to connect with. We never send invitations for you.</p><div>'+["aiko","kwame","johnk"].map(function(k){return vRow({round:1,pic:av(k,48,0),t:P[k].n+' '+v12badge(k),s:P[k].h,s2:"In your contacts"+v12sample(),x:'<a class="v-pill sm" '+G("net-connect-sheet",k)+'>Connect</a>'})}).join("")+'</div><p class="small muted">You can remove uploaded contacts at any time in Settings.</p>'),"net",v12rail())};
+R["net-connections"]=function(){var me=v12me()||"dana";var c=v12adj(me);return v12page(v12card("Connections",c.length+" connections"+v12sample(),'<div>'+c.map(function(k){return vRow({cls:"v10li",round:1,pic:av(k,56,0),t:P[k].n+' '+v12badge(k),s:P[k].h,go:v12go(k),x:'<a class="v-pill sm" '+G("msg-thread",k)+'>Message</a>'})}).join("")+'</div>'),"net",v12rail())};
+R["net-following"]=function(){var me=v12me()||"dana";var f=Object.keys(S.follows||{}).filter(function(k){return S.follows[k]&&P[k]}).concat(["kwame","elena"]).filter(function(x,i,a){return a.indexOf(x)===i});
+ return v12page(v12card("Following and followers","Following is one way and needs no approval. Connections follow each other automatically.",'<div>'+f.map(function(k){return vRow({cls:"v10li",round:1,pic:av(k,48,0),t:P[k].n+' '+v12badge(k),s:P[k].h,go:v12go(k),x:'<a class="v-pill sm on" '+A("follow",k)+'>Following</a>'})}).join("")+'</div>'),"net",v12rail())};
+R["net-intro-request"]=function(a){var k=v12k(a),first=P[k].n.split(" ")[0],mu=v12mutual(k);
+ if(!mu.length)return v12page(v12sheet("No mutual connection",'<p>An introduction needs someone you both know. You and '+first+' have none yet.</p>','<a class="btn" '+G("net-connect-sheet",k)+'>Connect instead</a>'),"net");
+ return v12page(v12sheet("Request an introduction to "+P[k].n,'<p class="muted">Pick a mutual connection. They write a line and bring you both into one thread. '+first+' sees the introduction only if they send it.</p><div>'+mu.map(function(m,i){return '<label class="v-row" style="cursor:pointer"><input type="radio" name="v12via" value="'+m+'"'+(i===0?" checked":"")+'>'+av(m,40,0)+'<div class="v-b"><div class="v-t">'+P[m].n+' '+v12badge(m)+'</div><div class="v-s">'+P[m].h+'</div></div></label>'}).join("")+'</div><label class="small muted">Why you want to meet '+first+'</label><textarea class="inp" style="height:96px;margin-top:4px">I am producing a new interview show and would value '+first+'\'s view on staffing it.</textarea>',
+  '<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12introAsk",k)+'>Send to your connection</a>'),"net")};
+function v12introSteps(k){var st=v12st(),i=st.intro[k]||{state:"asked",via:"lena"};var order=["asked","intro","connected"];var at=order.indexOf(i.state);
+ return '<div>'+[["You asked "+P[i.via].n+" for an introduction","asked"],[P[i.via].n+" introduces you in a group thread","intro"],["You and "+P[k].n+" connect","connected"]].map(function(x,j){return '<div class="v-row" style="cursor:default"><div class="v-art round">'+(j<=at?ic("check",18):ic("clock",18))+'</div><div class="v-b"><div class="v-t">'+x[0]+'</div><div class="v-s">'+(j<=at?"Done":"Waiting")+'</div></div></div>'}).join("")+'</div>'}
+R["net-intro-sent"]=function(a){var k=v12k(a),st=v12st();if(!st.intro[k])st.intro[k]={via:"lena",state:"asked"};var via=st.intro[k].via;
+ return v12page(v12card("Introduction requested","",v12introSteps(k)+'<p class="muted">'+P[via].n+' decides whether to make the introduction. If they do not, nobody is told.</p><a class="v-pill" '+A("v12introWrite",k)+' data-go="net-intro-thread" data-garg="'+k+'">Prototype: '+P[via].n.split(" ")[0]+' writes the introduction</a>'),"net",v12rail())};
+R["net-intro-thread"]=function(a){var k=v12k(a),st=v12st();if(!st.intro[k])st.intro[k]={via:"lena",state:"intro"};var i=st.intro[k],via=i.via,me=v12me()||"dana";
+ var msgs=[[via,"Dana, meet Sofia. Sofia runs production at Halfmoon and has staffed four new shows. Sofia, Dana is producing a new interview show and asked for your view. I think you two should talk."],[k,"Thanks Lena. Happy to help. Dana, what kind of show is it?"]];
+ return v12page(v12card("You, "+P[via].n+", and "+P[k].n,"A group thread started by "+P[via].n,'<div>'+msgs.map(function(m){return vRow({round:1,pic:av(m[0],40,0),t:P[m[0]].n+' '+v12badge(m[0]),s:esc(m[1])})}).join("")+'</div><textarea class="inp" style="height:72px;margin-top:12px" placeholder="Write a message"></textarea><div class="v-pills" style="margin-top:12px">'+(v12deg(k)===1?'<span class="v-pill on">'+ic("check",14)+'Connected</span>':'<a class="btn" '+A("v12introConnect",k)+'>Connect with '+P[k].n.split(" ")[0]+'</a>')+'<a class="v-pill">Send</a></div>'),"msg")};
+R["net-intro-connected"]=function(a){var k=v12k(a),st=v12st();st.intro[k]={via:(st.intro[k]||{}).via||"lena",state:"connected"};st.c[k]=1;S.follows[k]=1;
+ return v12page(v12card("You and "+P[k].n+" are connected","",v12introSteps(k)+vRow({round:1,pic:av(k,56,0),t:P[k].n+' '+v12badge(k),s:P[k].h,go:v12go(k),x:'<a class="v-pill sm" '+G("msg-thread",k)+'>Message</a>'})+'<p class="small muted">You now follow each other. Your thread with '+P[st.intro[k].via].n+' stays where it is.</p>'),"net",v12rail())};
+
+/* ---------------- 2. messaging: who can reach whom ---------------- */
+var V12THREADS=[["omar","Sounds good. Send the cut when it is ready.","2h",1],["lena","Can you take a booking call on Thursday?","1d",0],["maya","Episode 214 is up.","3d",0],["tom","Mix notes attached.","1w",0]];
+var V12REQS=[{id:"r1",k:"kwame",via:"Fellow member of the Podcast Producers group",t:"Saw your post in the group about loudness targets. Could I ask a follow up?"},{id:"r2",k:"grace",via:"You both attend Audio Craft Live",t:"Looking forward to your panel. Would you have five minutes after?"},{id:"r3",k:"rosa",via:"Service enquiry: Production audit",t:"Could you audit our pilot episode before launch?"}];
+function v12inboxList(tab){var st=v12st();var rows=V12THREADS.filter(function(x){return !st.blk[x[0]]&&(tab!=="unread"||x[3])});
+ return rows.map(function(x){return vRow({round:1,pic:av(x[0],48,0),t:P[x[0]].n+' '+v12badge(x[0])+' <span class="small muted">· '+x[2]+'</span>',s:(x[3]?"<b>":"")+esc(x[1])+(x[3]?"</b>":""),go:G("msg-thread",x[0])})}).join("")}
+function v12msgShell(left,right,on){return page('<div class="v12-msg"><div>'+left+'</div><div>'+right+'</div></div>',"msg")}
+function v12msgTabs(on){var st=v12st();var n=V12REQS.filter(function(r){return !st["req_"+r.id]}).length;return '<div class="v-pills" style="margin-bottom:8px">'+[["all","All","msg-inbox"],["unread","Unread","msg-inbox"],["conn","My connections","msg-inbox"],["req","Message requests "+n,"msg-requests"]].map(function(t){return '<a class="v-pill sm'+(on===t[0]?" on":"")+'" '+(t[0]==="req"?G(t[2]):A("v12mtab",t[0]))+'>'+t[1]+'</a>'}).join("")+'</div>'}
+R["msg-inbox"]=function(){var st=v12st(),tab=st.mtab||"all";return v12msgShell(vCard("Messaging","",v12msgTabs(tab)+'<div>'+v12inboxList(tab)+'</div>'),vCard("Who can message you","",'<p>Your 1st-degree connections message you freely. Anyone else reaches you as a message request: a fellow group member, someone attending the same event, a service or booking enquiry, or an introduction from a mutual connection.</p><p class="muted">There is no paid way to message a member. Blocking stops messages in both directions.</p>'))};
+R["msg-requests"]=function(){var st=v12st();var list=V12REQS.filter(function(r){return !st["req_"+r.id]});
+ return v12msgShell(vCard("Message requests","From people you are not connected to. They do not see that you read a request.",v12msgTabs("req")+'<div>'+(list.length?list.map(function(r){return '<div class="v12-ent v10li">'+av(r.k,48,0)+'<div class="v-b"><div class="v-t">'+P[r.k].n+' '+v12badge(r.k)+'</div><div class="v-s">'+r.via+'</div><p class="v12-d">'+esc(r.t)+'</p></div><div class="v-x"><a class="v-pill sm" '+A("v12req",r.id+"|decline")+'>Decline</a><a class="v-pill sm o" '+A("v12req",r.id+"|accept")+'>Accept</a></div></div>'}).join(""):'<div class="v-row" style="cursor:default"><div class="v-b muted">No message requests.</div></div>')+'</div>'),
+  vCard("Why these reached you","",'<p>Each request names its route: a shared group, a shared event, a service enquiry, or an introduction. Accepting opens the conversation. Declining is silent.</p>'))};
+R["msg-thread"]=function(a){var k=v12k(a,"omar"),st=v12st();if(st.blk[k])return R["msg-blocked"](k);
+ if(v12deg(k)!==1)return R["msg-gated"](k);
+ return v12msgShell(vCard("Messaging","",v12msgTabs(st.mtab||"all")+'<div>'+v12inboxList("all")+'</div>'),vCard(P[k].n+' '+v12badge(k),P[k].h,'<div>'+[[k,"Did the new cut land?"],[v12me()||"dana","Yes. Sending notes tonight."],[k,"Sounds good. Send the cut when it is ready."]].map(function(m){return vRow({round:1,pic:av(m[0],36,0),t:P[m[0]].n,s:esc(m[1])})}).join("")+'</div><textarea class="inp" style="height:72px;margin-top:12px" placeholder="Write a message"></textarea><div class="v-pills" style="margin-top:12px"><a class="btn">Send</a></div>'))};
+R["msg-gated"]=function(a){var k=v12k(a),first=P[k].n.split(" ")[0],deg=v12deg(k),d=v12pro(k);var routes=[];
+ routes.push(['<a class="btn" '+G("net-connect-sheet",k)+'>Connect</a>',"Once you are connected you can message "+first+" freely."]);
+ if(deg===2)routes.push(['<a class="v-pill sm" '+G("net-intro-request",k)+'>Request an introduction</a>',v12mutualLine(k)+". One of them can bring you both into a thread."]);
+ routes.push(['<span class="v-pill sm info">Groups</span>',"If you are both in a group, you can send a message request from the group."]);
+ routes.push(['<a class="v-pill sm" '+G("podcasting-events-public-hub")+'>Your events</a>',"If you are both attending an event, you can send a message request from the event."]);
+ if(d.services.length)routes.push(['<a class="v-pill sm" '+G("msg-request-sent",k+"|service")+'>Ask about a service</a>',first+" accepts service enquiries from anyone."]);
+ return v12page(v12card("Message "+P[k].n,first+" is a "+v12degLabel(deg)+"-degree connection. You can message only your 1st-degree connections directly.",'<div>'+routes.map(function(r){return '<div class="v-row" style="cursor:default"><div class="v-b"><div class="v-s" style="white-space:normal">'+r[1]+'</div></div><div class="v-x">'+r[0]+'</div></div>'}).join("")+'</div><p class="small muted" style="margin-top:12px">There is no paid way to message someone you are not connected to.</p>'),"msg")};
+R["msg-request-sent"]=function(a){var k=v12k(a),first=P[k].n.split(" ")[0];return v12page(v12sheet("Ask "+first+" about a service",'<label class="small muted">Service</label><select class="inp" aria-label="Service" style="margin:4px 0 12px">'+v12pro(k).services.map(function(s){return '<option>'+esc(s.n)+'</option>'}).join("")+'</select><label class="small muted">Your message</label><textarea class="inp" style="height:96px;margin-top:4px">Hi '+first+', could you tell me more about this?</textarea><p class="small muted">It reaches '+first+' as a message request, marked as a service enquiry.</p>','<a class="v-pill" '+G("pro-profile",k)+'>Cancel</a><a class="btn" '+A("v12enquire",k)+'>Send request</a>'),"msg")};
+R["msg-blocked"]=function(a){var k=v12k(a,"grace");return v12page(v12card("Conversation unavailable","",'<p>You blocked '+P[k].n+'. Neither of you can message the other, and this conversation is hidden for both of you.</p><p class="muted">'+P[k].n.split(" ")[0]+' is not told.</p><a class="v-pill" '+A("v12unblock",k)+'>Unblock</a>'),"msg")};
+
+/* ---------------- search rows with degrees ---------------- */
+R["search-people-degrees"]=function(a){var q=(a||"producer").toLowerCase();var keys=Object.keys(PROLE).filter(function(k){return k!==v12me()&&(P[k].n+" "+P[k].h+" "+(PROLE[k]||[]).join(" ")).toLowerCase().indexOf(q)>=0});
+ keys.sort(function(x,y){return (v12deg(x)||5)-(v12deg(y)||5)});
+ return v12page(v2hubHead("People",keys.length+' results for "'+esc(q)+'"',"Search people","search-people-degrees",["1st","2nd","3rd+"].map(function(x){return '<a class="v-pill sm">'+x+'</a>'}).join(""))+
+  vCard("Results","Closest connections first",'<div>'+keys.map(function(k){var deg=v12deg(k);return vRow({cls:"v10li",round:1,pic:av(k,56,0),t:P[k].n+' '+v12badge(k),s:P[k].h+" · "+P[k].loc,s2:v12mutualLine(k),go:v12go(k),x:deg===1?'<a class="v-pill sm" '+G("msg-thread",k)+'>Message</a>':'<a class="v-pill sm" '+G("net-connect-sheet",k)+'>Connect</a>'})}).join("")+'</div>'),"net")};
+
+/* ---------------- 4. sign-up onboarding, LinkedIn's web order ---------------- */
+var V12ONB=["onb-name","onb-account","onb-location","onb-role","onb-employment","onb-intent","onb-findable"];
+function v12onb(id,title,body,writes,o){o=o||{};var at=V12ONB.indexOf(id);if(at<0)at=4;var n=at+1,tot=V12ONB.length;var next=o.next||V12ONB[at+1]||"pro-owner",back=o.back||V12ONB[at-1];
+ return pub('<div class="v12-onb">'+vCard(title,o.sub||"",'<div class="v-steps" style="padding:0 0 16px"><div class="v-prog"><i style="width:'+Math.round(n/tot*100)+'%"></i></div><div class="v-stepl"><span>Step '+n+' of '+tot+'</span><span>'+Math.round(n/tot*100)+'%</span></div></div>'+body+
+  (writes?'<p class="small muted" style="margin-top:12px">'+ic("user",12)+' Writes to your profile: '+writes+'</p>':"")+
+  '<div class="v-formf" style="padding:16px 0 0">'+(back?'<a class="v-pill" '+G(back)+'>Back</a>':'<span></span>')+'<a class="btn" '+G(next)+'>'+(o.cta||"Continue")+'</a></div>')+'</div>',"")}
+function v12field(l,v,t){return '<label class="small muted">'+l+'</label><input class="inp" type="'+(t||"text")+'" value="'+esc(v||"")+'" aria-label="'+l+'" style="margin:4px 0 16px">'}
+R["onb-name"]=function(){return v12onb("onb-name","Make the most of your professional life",v12field("First name","Dana")+v12field("Last name","Reyes"),"Name",{sub:"Join PodSubs. It is free."})};
+R["onb-account"]=function(){return v12onb("onb-account","Your sign-in",v12field("Email","dana@example.com","email")+v12field("Password","longpassword","password")+'<p class="small muted">Your email is private. It never shows on your profile.</p>',"")};
+R["onb-location"]=function(){return v12onb("onb-location","Where are you based?",v12field("Country or region","United States")+v12field("City","Austin, Texas"),"Location",{sub:"Hosts and recruiters search by place."})};
+R["onb-role"]=function(){return v12onb("onb-role","Your most recent role",v12field("Most recent job title","Podcast producer")+'<div class="bn">'+ic("net",18)+'<div>1,240 members near Austin, Texas hold a title like this one.'+v12sample()+'</div></div>',"Headline and Experience",{sub:"This becomes your headline. You can change it later."})};
+R["onb-employment"]=function(){return v12onb("onb-employment","Where do you work?",'<label class="small muted">Employment type</label><select class="inp" aria-label="Employment type" style="margin:4px 0 16px">'+["Full-time","Part-time","Self-employed","Freelance","Contract","Internship","Apprenticeship","Seasonal"].map(function(t){return '<option'+(t==="Freelance"?" selected":"")+'>'+t+'</option>'}).join("")+'</select>'+v12field("Most recent show or company","Halfmoon Audio")+'<div class="bn">'+ic("user",18)+'<div>48 members on PodSubs work at Halfmoon Audio.'+v12sample()+'</div></div><p style="margin-top:16px"><a class="v11-link" '+G("onb-student")+'>I am a student</a></p>',"Experience")};
+R["onb-student"]=function(){return v12onb("onb-student","Your school",v12field("School or university","University of Texas at Austin")+v12field("Start year","2023")+v12field("End year, or expected","2027")+'<div class="bn">'+ic("book",18)+'<div>212 members studied here.'+v12sample()+'</div></div>',"Education",{next:"onb-intent",back:"onb-employment"})};
+R["onb-intent"]=function(){var st=v12st();var on=st.onb.intent||"Looking for work";return v12onb("onb-intent","What brings you to PodSubs?",'<div>'+["Looking for work","Booking guests for my show","Finding guest spots","Hiring for a show","Following shows and people"].map(function(x){return '<a class="v-row" '+A("v12intent",x)+'><div class="v-art round">'+(on===x?ic("check",18):ic("plus",18))+'</div><div class="v-b"><div class="v-t">'+x+'</div></div></a>'}).join("")+'</div><p class="small muted">'+ic("lock",12)+' Private. Only you see this. We use it to choose what to show you first.</p>',"Open to settings, private")};
+R["onb-findable"]=function(){var miss=[["Add a photo","pro-edit-intro"],["Add three skills","pro-skills-edit"],["Set what you are open to","pro-open-to"]];
+ return v12onb("onb-findable","Can hosts and recruiters find you?",'<div class="v12-meter"><div class="v-t">Not yet</div><div class="v-prog"><i style="width:40%"></i></div><div class="v-stepl"><span>Findability</span><span>40%</span></div></div><p>Your profile does not show up in host and recruiter searches yet. Finish these steps:</p><div>'+miss.map(function(m){return '<a class="v-row" '+G(m[1])+'><div class="v-art round">'+ic("clock",18)+'</div><div class="v-b"><div class="v-t">'+m[0]+'</div></div><div class="v-x">'+ic("right",16)+'</div></a>'}).join("")+'</div>',"",{cta:"Go to my profile"})};
+
+/* ---------------- 4. the home feed ---------------- */
+function v12feedItem(o){return '<div class="v-card v12-post">'+(o.ctx?'<div class="v12-mark">'+o.ctx+'</div>':"")+
+ vRow({round:!o.square,pic:o.pic,t:o.t,s:o.s,go:o.go||""})+'<p>'+esc(o.body)+'</p>'+(o.img?'<div class="ph '+o.img+' v12-img" role="img" aria-label="'+esc(o.alt||"")+'"></div>':"")+
+ '<div class="v12-react small muted">'+o.r+' reactions · '+o.c+' comments'+v12sample()+'</div><div class="v-pills"><a class="v-pill sm">'+ic("like",14)+'Like</a><a class="v-pill sm">'+ic("cmt",14)+'Comment</a><a class="v-pill sm">'+ic("rep",14)+'Repost</a><a class="v-pill sm">'+ic("send",14)+'Send</a></div></div>'}
+R["home-feed"]=function(){var me=v12me()||"dana",d=v12pro(me),st=v12st();
+ var left='<div class="card v12-mini"><div class="v-cover" style="height:56px"></div>'+av(me,72,0)+'<div class="v-t" '+G("pro-owner")+' style="cursor:pointer">'+P[me].n+'</div><div class="small muted">'+P[me].h+'</div><div class="v12-rl"><span class="small muted">Profile viewers</span><b>214</b></div><div class="v12-rl"><span class="small muted">Post impressions</span><b>1,980</b></div><div class="v12-rl"><span class="small muted">Connections</span><b>'+fmt(d.conn)+'</b></div><p class="small muted">'+v12sample()+'</p></div>';
+ var comp='<div class="v-card v12-comp"><div style="display:flex;gap:12px;align-items:center">'+av(me,48,0)+'<a class="lsb" style="flex:1;cursor:pointer" '+G("composer-post-type-picker")+'>Start a post</a></div><div class="v-pills" style="margin-top:12px"><a class="v-pill sm">'+ic("video",14)+'Video</a><a class="v-pill sm">'+ic("photo",14)+'Photo</a><a class="v-pill sm">'+ic("write",14)+'Write article</a></div></div>';
+ var sort='<div class="small muted" style="margin-bottom:16px">Sorted by relevance · <a '+G("home-feed-sort-by-recent")+'>Recent</a></div>';
+ var items=v12feedItem({ctx:ic("like",14)+" Lena Brooks likes this",pic:av("omar",48,0),t:P.omar.n+' '+v12badge("omar"),s:P.omar.h+" · 3h",go:v12go("omar"),body:"Cut a ninety minute interview to forty today and nobody will miss a word. Notes on how in the comments.",r:88,c:14})+
+  v12feedItem({ctx:ic("spark",14)+" Trending in podcasting · from beyond your network",pic:av("kwame",48,0),t:P.kwame.n+' '+v12badge("kwame"),s:P.kwame.h+" · 1d",go:v12go("kwame"),body:"Video versions now bring in a third of our new listeners. Here is what we changed in the studio to get there.",img:"p-hero-studio",alt:"A studio set up for video",r:1204,c:96})+
+  v12feedItem({ctx:ic("book",14)+" News",square:1,pic:'<div class="v12-tile" style="width:48px;height:48px">N</div>',t:"PodSubs News",s:"Today",go:G("podcasting-news-public-hub"),body:"Hosting platforms agree on one way to move a feed without losing followers.",img:"p-news-1",alt:"News photo",r:410,c:38})+
+  '<div class="v12-ad" role="note">'+ic("info",16)+' Reserved ad position. No ads run here yet. When they do, this slot is labelled Promoted.</div>'+
+  v12feedItem({ctx:ic("cal",14)+" Event · from beyond your network",square:1,pic:'<div class="v12-tile" style="width:48px;height:48px">'+ic("cal",18)+'</div>',t:"Audio Craft Live",s:"Dec 4 · Detroit and online",go:G("podcasting-events-public-hub"),body:"A day of edit, mix, and booking sessions. 340 attending.",img:"p-event-1",alt:"Event photo",r:96,c:12})+
+  v12feedItem({ctx:ic("cmt",14)+" Omar Haddad commented on this",pic:av("sofia",48,0),t:P.sofia.n+' '+v12badge("sofia"),s:P.sofia.h+" · 3d",go:v12go("sofia"),body:V12ACT.sofia.posts[0][1],r:48,c:9});
+ var right=v12card("People you may know","",'<div>'+V12PYMK.filter(function(x){return !st.dis[x[0]]&&v12deg(x[0])!==1}).slice(0,3).map(function(x){return vRow({round:1,pic:av(x[0],44,0),t:P[x[0]].n+' '+v12badge(x[0]),s:v12reason(x[0],x[1]),go:v12go(x[0])})}).join("")+'</div>','<a class="v11-link" '+G("net-home")+'>Show all</a>')+
+  v12card("PodSubs News","Top stories",'<div>'+["Hosting platforms agree on feed moves","Video versions keep growing","A new guild for podcast editors","Ad rates hold steady this quarter"].map(function(t,i){return '<a class="v-row" '+G("podcasting-news-public-hub")+'><div class="v-b"><div class="v-t">'+t+'</div><div class="v-s">'+(i+1)+'h ago · '+(1200-i*230)+' readers'+v12sample()+'</div></div></a>'}).join("")+'</div>');
+ return app('<div class="v12-3col"><aside>'+left+'</aside><div>'+comp+sort+items+'</div><aside>'+right+'</aside></div>',"home")};
+
+/* ---------------- actions ---------------- */
+ACT.v12send=function(k){var st=v12st(),t=document.getElementById("v12note");st.sent[k]={note:t?t.value:"",d:"Today"};st.note=0;S.toast="Invitation sent to "+P[k].n;return {go:"pro-profile",arg:k}};
+ACT.v12withdraw=function(k){var st=v12st();delete st.sent[k];st.wd[k]="Dec 7";S.toast="Invitation withdrawn. You can invite "+P[k].n.split(" ")[0]+" again after Dec 7";return {go:"pro-profile",arg:k}};
+ACT.v12withdrawList=function(k){var st=v12st();delete st.sent[k];st.wd[k]="Dec 7";S.toast="Withdrawn. You can invite "+P[k].n.split(" ")[0]+" again after Dec 7";NOSCROLL=1;return 1};
+ACT.v12accept=function(k){var st=v12st();st.recv=st.recv.filter(function(x){return x!==k});st.c[k]=1;S.follows[k]=1;S.toast="You and "+P[k].n+" are connected. You now follow each other";NOSCROLL=1;return 1};
+ACT.v12ignore=function(k){var st=v12st();st.recv=st.recv.filter(function(x){return x!==k});st.ign[k]=1;S.toast="Ignored. "+P[k].n.split(" ")[0]+" is not told";NOSCROLL=1;return 1};
+ACT.v12dismiss=function(k){v12st().dis[k]=1;NOSCROLL=1;return 1};
+ACT.v12enq=function(){var st=v12st();st.enq=st.enq?0:1;NOSCROLL=1;return 1};
+ACT.v12rtab=function(t){v12st().rtab=t;NOSCROLL=1;return 1};
+ACT.v12mtab=function(t){v12st().mtab=t;return {go:"msg-inbox"}};
+ACT.v12open=function(x){var st=v12st();var cur=st.open||v12pro(v12me()||"dana").open.slice();var i=cur.indexOf(x);if(i>=0)cur.splice(i,1);else cur.push(x);st.open=cur;NOSCROLL=1;return 1};
+ACT.v12feature=function(){var st=v12st();var cur=st.feature!=null?st.feature:v12pro(v12me()||"dana").feature;st.feature=cur?0:1;NOSCROLL=1;return 1};
+ACT.v12skill=function(a){var st=v12st(),p=a.split("|"),j=+p[0],dlt=+p[1];var d=v12pro(v12me()||"dana");var o=st.skills||d.skills.map(function(s,i){return i});var t=o[j];o[j]=o[j+dlt];o[j+dlt]=t;st.skills=o;NOSCROLL=1;return 1};
+ACT.v12endorse=function(a){var st=v12st(),p=a.split("|");var r=document.querySelector('input[name="v12cr"]:checked');st.end[p[0]+"|"+p[1]]=r&&r.value?r.value:1;S.toast="Endorsed"+(r&&r.value?". It names your credit on "+SH[r.value].t:"");return {go:"pro-profile",arg:p[0]}};
+ACT.v12recreq=function(k){v12st().recReq[k]=1;S.toast="Request sent to "+P[k].n;return {go:"pro-rec-request",arg:k}};
+ACT.v12recApprove=function(){var st=v12st();st.recPending=0;st.recOk[v12me()||"dana"]={by:"omar",rel:"Omar worked with Dana on the same show",role:"Producer and editor at The Long Table",d:"Nov 2026",t:"Dana cuts for story first. Every episode we sent her came back shorter and clearer."};S.toast="Shown on your profile";return {go:"pro-owner"}};
+ACT.v12recHide=function(){v12st().recPending=0;S.toast="Not shown. You can show it later from your recommendations";return {go:"pro-owner"}};
+ACT.v12report=function(k){S.toast="Thanks. Our team reviews every report. "+P[k].n.split(" ")[0]+" is not told who reported";return {go:"pro-profile",arg:k}};
+ACT.v12block=function(k){var st=v12st();st.blk[k]=1;st.c[k]=0;delete st.sent[k];st.recv=st.recv.filter(function(x){return x!==k});S.follows[k]=0;S.toast="Blocked. "+P[k].n.split(" ")[0]+" is not told";return {go:"pro-profile",arg:k}};
+ACT.v12unblock=function(k){delete v12st().blk[k];S.toast="Unblocked. You are not connected. Invite "+P[k].n.split(" ")[0]+" again if you want to";NOSCROLL=1;return 1};
+ACT.v12introAsk=function(k){var r=document.querySelector('input[name="v12via"]:checked');v12st().intro[k]={via:r?r.value:v12mutual(k)[0],state:"asked"};S.toast="Sent to "+P[r?r.value:v12mutual(k)[0]].n;return {go:"net-intro-sent",arg:k}};
+ACT.v12introWrite=function(k){var st=v12st();st.intro[k]=st.intro[k]||{via:"lena"};st.intro[k].state="intro";return 0};
+ACT.v12introConnect=function(k){return {go:"net-intro-connected",arg:k}};
+ACT.v12stars=function(n){v12st().rateStars=+n;NOSCROLL=1;return 1};
+ACT.v12rate=function(k){var st=v12st();st.rate[k]=st.rateStars||5;st.rateStars=0;S.toast="Rating saved. A written review waits for moderation before it shows";return {go:"pro-guest-rating",arg:k}};
+ACT.v12req=function(a){var p=a.split("|"),st=v12st();st["req_"+p[0]]=p[1];S.toast=p[1]==="accept"?"Accepted. The conversation is open":"Declined. The sender is not told";NOSCROLL=1;return 1};
+ACT.v12enquire=function(k){S.toast="Sent. It reaches "+P[k].n.split(" ")[0]+" as a service enquiry in Message requests";return {go:"pro-profile",arg:k}};
+ACT.v12intent=function(x){v12st().onb.intent=x;NOSCROLL=1;return 1};
+
+/* ---------------- registration ---------------- */
+var V12SCREENS=[
+ ["pro-profile","Person profile, visitor view","Header with Follow, Connect, Message and the overflow; every professional section in order","pro"],
+ ["pro-profile-menu","Profile overflow menu","LinkedIn's order: send, share, contact info, personalize invite, report or block, about this member","pro"],
+ ["pro-profile-pending","Profile, invitation pending","Pending joins the overflow menu; the Connect slot reads Pending","pro"],
+ ["pro-profile-connected","Profile, 1st-degree connection","Connected; Endorse and recommendation requests open","pro"],
+ ["pro-profile-third","Profile, 3rd-degree","No mutual connections; Message leads to the gated routes","pro"],
+ ["pro-contact-info","Contact info","A non-connection sees the profile link and public links, never email or phone","pro"],
+ ["pro-about-member","About this member","Joined date and identity verification state","pro"],
+ ["pro-report-block","Report or block","The reason sheet, with Block","pro"],
+ ["pro-block-confirm","Block confirmation","Blocking ends the connection and removes recommendations between the pair","pro"],
+ ["pro-owner","Your profile, owner view","Pencils, Open to, Add section, Suggested for you with the meter, dashed cards, private Analytics","pro"],
+ ["pro-open-to","Open to","Guesting, Work, Bookings, Mentoring, Advising, and Feature me","pro"],
+ ["pro-add-section","Add section","Core, recommended, and additional sections","pro"],
+ ["pro-add-experience","Add experience","Employment type including Career break, location type, skills per role","pro"],
+ ["pro-skills-edit","Reorder skills","Top skills first; no skill tests","pro"],
+ ["pro-edit-intro","Edit intro","Name, headline, location","pro"],
+ ["pro-endorse","Endorse a skill","1st-degree only; the endorsement can name the credit it rests on (KAR-158)","pro"],
+ ["pro-rec-request","Ask for a recommendation","Relationship and role; 1st-degree only; one open request per connection","pro"],
+ ["pro-rec-approve","Approve a recommendation","It shows only after the recipient approves it","pro"],
+ ["pro-activity","Activity","Posts, Comments, Images; degree badges on rows","pro"],
+ ["pro-activity-empty","Activity, empty","The empty state names the person","pro"],
+ ["pro-guest-rating","Guest rating, 5 or more","Average, histogram, written reviews, a held review","pro"],
+ ["pro-guest-rating-few","Guest rating, under 5","Count only; no average until 5 ratings","pro"],
+ ["pro-rate-guest","Rate a guest","Hosts of verified appearances only; the rating names the episode","host"],
+ ["pro-unclaimed","Unclaimed profile","Public sections from held data; professional sections empty","pro"],
+ ["pro-claim-landing","After the claim","The owner lands on the completion prompts","pro"],
+ ["net-home","My Network","Invitations on top, People you may know with a reason on every card, Manage my network, contacts","pro"],
+ ["net-invitations","Invitation manager","Received and Sent; Accept, silent Ignore, Withdraw","pro"],
+ ["net-connect-sheet","Connect","Send without a note, or Add a note up to 300 characters","pro"],
+ ["net-withdraw-locked","Withdrawn, re-invite locked","A wait before inviting the same person again","pro"],
+ ["net-invite-quality","How invitations stay useful","Acceptance and ignore signals; a limit with no published number","pro"],
+ ["net-contacts","Add contacts","The member chooses who to connect to","pro"],
+ ["net-connections","Connections","1st-degree list with Message","pro"],
+ ["net-following","Following and followers","One way, no approval","pro"],
+ ["net-intro-request","Request an introduction","Name the mutual connection (KAR-156)","pro"],
+ ["net-intro-sent","Introduction requested","The ask, the intro, the connection as states","pro"],
+ ["net-intro-thread","The introduction thread","The mutual brings both into one thread","pro"],
+ ["net-intro-connected","Connected through an introduction","The resulting connection","pro"],
+ ["msg-inbox","Messaging","Filter chips, a Message requests folder, degree badges","pro"],
+ ["msg-requests","Message requests","Group members, event attendees, service enquiries","pro"],
+ ["msg-thread","A conversation","1st-degree connections message freely","pro"],
+ ["msg-gated","Messaging a non-connection","The exception routes; no paid bypass","pro"],
+ ["msg-request-sent","Service enquiry","Reaches the member as a message request","pro"],
+ ["msg-blocked","Blocked conversation","Blocking severs messages in both directions","pro"],
+ ["search-people-degrees","People search with degrees","Degree badges and mutual counts on every row","pro"],
+ ["onb-name","Sign up: name","LinkedIn's web order, step 1","visitor"],
+ ["onb-account","Sign up: email and password","Step 2","visitor"],
+ ["onb-location","Sign up: location","Step 3","visitor"],
+ ["onb-role","Sign up: most recent role","Live social proof of similar titles nearby","visitor"],
+ ["onb-employment","Sign up: employment","Employment type, organisation with a member count, the student branch","visitor"],
+ ["onb-student","Sign up: student","The school branch","visitor"],
+ ["onb-intent","Sign up: what brings you here","A private intent question","visitor"],
+ ["onb-findable","Sign up: findability","Names the steps that make a profile findable","visitor"],
+ ["home-feed","Home feed","Composer, rails, ranked stream with trending and discovery markers, a reserved ad slot (KAR-164)","pro"]];
+V12SCREENS.forEach(function(x,i){META[x[0]]={n:1218+i,title:x[1],purpose:x[2]+" (V12)",tag:"new"};WHO[x[0]]=x[3];if(x[3]==="visitor")VOK.push(x[0])});
+SECS.push({n:44,name:"Professional layer (V12)",ids:V12SCREENS.map(function(x){return x[0]})});
+/* the existing entry points now land on the V12 surfaces */
+R["profile-visitor-view-professional"]=function(a){return v12profile(P[a]&&a!=="priya"&&a!=="iris"&&a!=="dana"?a:"sofia",{})};
+R["profile-own-view-professional"]=function(){return v12profile("dana",{own:1})};
+R["my-network-home"]=function(){return R["net-home"]()};
+R["home-professional"]=function(){return R["home-feed"]()};
+var _v12Panel=panel;
+panel=function(){_v12Panel();var p=document.getElementById("ptp");if(!p)return;p.insertAdjacentHTML("beforeend",'<div class="bar"><a class="btn o sm" '+G("pro-profile","sofia")+'>V12 profile</a><a class="btn o sm" '+G("net-home")+'>My Network</a><a class="btn o sm" '+G("home-feed")+'>Home feed</a></div>')};
+/* V12 professional layer end */
 
 
 document.getElementById("fav").href=LOGOM;
