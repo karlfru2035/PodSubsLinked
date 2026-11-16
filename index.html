@@ -1325,6 +1325,82 @@ body.v11 #app .v11-link{font-weight:600}
 @media(max-width:760px){body.v11 #app .v12-3col,body.v11 #app .v12-msg{grid-template-columns:minmax(0,1fr)}body.v11 #app .v12-an{grid-template-columns:1fr 1fr}}
 body.v11 #app .v12-pgrid>.lp-bar,body.v11 #app .v12-pgrid>.lp-foot,body.v11 #app .v12-pgrid>.lp-none{grid-column:1/-1}
 body.v11 #app .v12-dash h2{margin:0}
+
+/* ================================================================
+   V13, Karl's review corrections (2026-11-16). The landing's first two
+   viewports, the professional profile header, the PodCred record as
+   work history. Scoped to body.v11. Navy is not used on the landing's
+   first view: the three doors carry equal weight by composition.
+   ================================================================ */
+/* the first view: a large left-aligned headline, the photo set to the right and lower, three doors across the foot */
+body.v11 #app .v11-first{display:none}
+body.v11 #app .v13-first{background:#fff}
+body.v11 #app .v13-fg{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"text photo" "doors doors" "after after";column-gap:56px;padding:56px 0 24px}
+body.v11 #app .v13-ft{grid-area:text;align-self:start;padding-top:8px}
+body.v11 #app .v13-fp{grid-area:photo;align-self:end;margin-top:48px}
+body.v11 #app .v13-fp .l2-frame{border-radius:12px;background-color:#f4f4f4;background-size:contain!important;background-repeat:no-repeat;background-position:center}
+body.v11 #app .v13-eye{font-size:13px!important;color:#6b6b6b;margin:0 0 24px;display:flex;align-items:center;gap:8px}
+body.v11 #app .v13-eye:before{content:"";width:24px;height:1px;background:#111;display:inline-block}
+body.v11 #app .v13-ft h1{font-size:68px!important;line-height:.98!important;letter-spacing:-.045em!important;font-weight:700!important;margin:0 0 24px;max-width:640px}
+body.v11 #app .v13-ft p.v13-sub{font-size:21px!important;line-height:1.45;color:#3d3d3d;margin:0;max-width:460px}
+/* the doors: three equal panels on the grey ground, each with real artwork or faces, a count, and its line */
+body.v11 #app .v13-doors{grid-area:doors;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
+body.v11 #app .v13-door{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:12px;background:#f4f4f4;color:#111!important;text-decoration:none!important;min-height:200px}
+body.v11 #app .v13-door:hover{background:#ececec}
+body.v11 #app .v13-door:hover .v13-go{border-color:#111}
+body.v11 #app .v13-pics{display:flex;margin-bottom:16px}
+body.v11 #app .v13-pic{position:relative;line-height:0;margin-right:-10px;border:3px solid #f4f4f4;border-radius:12px}
+body.v11 #app .v13-pic .av{border-radius:50%!important}
+body.v11 #app .v13-pic:has(.av){border-radius:50%}
+body.v11 #app .v13-dl{font-size:21px!important;font-weight:700;letter-spacing:-.015em}
+body.v11 #app .v13-dn{font-size:15px!important;color:#3d3d3d}
+body.v11 #app .v13-dn b{font-weight:600;color:#111;font-variant-numeric:tabular-nums}
+body.v11 #app .v13-dd{font-size:13px!important;color:#6b6b6b;max-width:260px}
+body.v11 #app .v13-go{position:absolute;right:20px;top:20px;width:32px;height:32px;border-radius:50%;border:1px solid #d6d6d6;background:#fff;display:inline-flex;align-items:center;justify-content:center}
+body.v11 #app .v13-after{grid-area:after;margin-top:16px}
+body.v11 #app .v13-credit{display:inline-flex;align-items:center;gap:6px;font-size:15px!important;font-weight:500;color:#3d3d3d!important;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c4c4c4;cursor:pointer}
+body.v11 #app .v13-credit:hover{color:#111!important}
+/* the second viewport: the one-account line leads, the search sits wide, the paths read as an editorial grid */
+body.v11 #app .v13-rest{padding:48px 0 16px;border-top:1px solid #ebebeb}
+body.v11 #app .v13-rest .l2g{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:none;row-gap:32px}
+body.v11 #app .v13-rest .l2g>*{grid-area:auto!important}
+body.v11 #app .v13-lead .oneacc{font-size:21px!important;line-height:1.35;color:#111;max-width:760px;margin:0}
+body.v11 #app .v13-lead .oneacc svg{display:none}
+body.v11 #app .v13-lead .oneacc a{font-size:15px!important}
+body.v11 #app .v13-rest .l2-search{margin:0;display:flex;flex-direction:column;gap:16px}
+body.v11 #app .v13-rest .lsb{max-width:640px}
+body.v11 #app .v13-rest .lx{display:flex;gap:24px;flex-wrap:wrap}
+body.v11 #app .v13-rest .l2-paths{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:8px 0 0}
+body.v11 #app .v13-rest .l2-path{display:flex;flex-direction:column;align-items:flex-start;gap:8px;background:transparent!important;padding:0;max-width:none;border-top:1px solid #111!important;border-radius:0!important;padding-top:16px}
+body.v11 #app .v13-rest .l2-path:hover{background:transparent!important}
+body.v11 #app .v13-rest .l2-th{width:100%;border-radius:12px;background-size:contain!important;background-repeat:no-repeat;background-position:center;background-color:#f4f4f4}
+body.v11 #app .v13-rest .l2-pb b{font-size:15px!important;font-weight:600}
+body.v11 #app .v13-rest .l2-pb span{font-size:13px!important;color:#6b6b6b}
+body.v11 #app .v13-rest .l2-path .btn{margin-top:4px}
+@media(max-width:1000px){body.v11 #app .v13-ft h1{font-size:52px!important}body.v11 #app .v13-rest .l2-paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ body.v11 #app .v13-fg{grid-template-columns:minmax(0,1fr);grid-template-areas:"text" "doors" "after" "photo";padding:40px 0 16px}
+ body.v11 #app .v13-ft h1{font-size:40px!important}
+ body.v11 #app .v13-ft p.v13-sub{font-size:17px!important}
+ body.v11 #app .v13-doors{grid-template-columns:minmax(0,1fr);margin-top:32px;gap:8px}
+ body.v11 #app .v13-door{min-height:0;padding:16px;display:grid;grid-template-columns:auto 1fr;column-gap:32px;row-gap:2px;align-items:center}
+ body.v11 #app .v13-pics{grid-row:1/4;margin:0}
+ body.v11 #app .v13-pic{margin-right:-18px}
+ body.v11 #app .v13-pic .art,body.v11 #app .v13-pic .av{width:36px!important;height:36px!important}
+ body.v11 #app .v13-go{display:none}
+ body.v11 #app .v13-fp{margin-top:32px}
+ body.v11 #app .v13-rest .l2-paths{grid-template-columns:minmax(0,1fr)}
+}
+/* the profile: one action row, never wrapped into a menu */
+body.v11 #app .v13-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+/* the PodCred record: work history, grouped by role, tier marks only */
+body.v11 #app .v13-why{display:flex;gap:8px;align-items:flex-start;color:#3d3d3d;margin:0 0 16px}
+body.v11 #app .v13-why svg{flex:none;margin-top:3px}
+body.v11 #app .v13-role{margin-top:24px}
+body.v11 #app .v13-role h3{margin:0 0 4px}
+body.v11 #app .v13-rec .lp-bar{display:none!important}
+body.v11 #app .v13-sq{display:block;width:44px;height:44px;border-radius:12px;background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#e9e9e9}
+@media(max-width:760px){body.v11 #app .v13-sq{width:36px;height:36px}}
 </style></head><body>
 <div id="app"></div>
 <button class="pt-btn" onclick="document.getElementById('ptp').classList.toggle('op')">Prototype</button>
@@ -5486,6 +5562,162 @@ R["home-professional"]=function(){return R["home-feed"]()};
 var _v12Panel=panel;
 panel=function(){_v12Panel();var p=document.getElementById("ptp");if(!p)return;p.insertAdjacentHTML("beforeend",'<div class="bar"><a class="btn o sm" '+G("pro-profile","sofia")+'>V12 profile</a><a class="btn o sm" '+G("net-home")+'>My Network</a><a class="btn o sm" '+G("home-feed")+'>Home feed</a></div>')};
 /* V12 professional layer end */
+/* V13 review corrections start */
+/* ================================================================
+   V13, Karl's review corrections (2026-11-16). They override the V11
+   and V12 briefs where they conflict.
+   1. Landing first view: three equal find doors (Find a show, Find
+      people, Find a guest); Add a credit becomes a quiet text action
+      below them. The approved lead line, supporting line, and the
+      whole hero photo stay.
+   2. Landing feel: the first two viewports rebuilt (scale, asymmetry,
+      specific content in the doors, an editorial paths grid).
+   3. Person profile: a professional header (name, headline, workplace
+      and location, connections, followers); Follow, Connect, Message,
+      and the overflow always visible; no credit numbers in any header.
+   4. Credits: the PodCred record sits under the professional sections
+      as work history, grouped by the person's real roles; guest work
+      only under Guest appearances; tier marks, no counts; no search box
+      on profile credit lists; one plain line on verification.
+   5. Guest profiles: Book and Pitch in the action row.
+   Show pages are not touched.
+   ================================================================ */
+
+/* ---------------- 1 and 2. the landing ---------------- */
+var V13_DOORS=[
+ ["shows-directory","Find a show","486,212","shows","Every show, built from its feed.","art",["longtable","nightshift","fieldnotes"]],
+ ["people-directory-public","Find people","38,410","people","Everyone who makes the hour, verified by their shows.","av",["dana","omar","aiko"]],
+ ["guests-directory-public","Find a guest","12,960","guests","Every appearance approved by the show.","av",["priya","grace","leo"]]];
+function v13door(d){var pics=d[6].map(function(k,i){return '<span class="v13-pic" style="z-index:'+(3-i)+'">'+(d[5]==="art"?'<span class="v13-sq'+ph("show-"+k)+'" role="img" aria-label="'+esc(SH[k].t)+'"></span>':av(k,44,0))+'</span>'}).join("");
+ return '<a class="v13-door" '+G(d[0])+'><span class="v13-pics" aria-hidden="true">'+pics+'</span><span class="v13-dl">'+d[1]+'</span><span class="v13-dn"><b>'+d[2]+'</b> '+d[3]+'</span><span class="v13-dd">'+d[4]+'</span><span class="v13-go" aria-hidden="true">'+v11Arrow()+'</span></a>'}
+function v13Landing(a){
+ if(a.querySelector(".v13-first"))return;
+ var hero=a.querySelector("section.l2h");if(!hero)return;
+ var text=hero.querySelector(".l2-text"),photo=hero.querySelector(".l2-photo");if(!text||!photo)return;
+ var h1=text.querySelector("h1"),sub=text.querySelector(".lh-sub"),ref=text.querySelector(".lref");
+ var first=document.createElement("section");first.className="v13-first";
+ first.innerHTML='<div class="wrap"><div class="v13-fg"><div class="v13-ft"></div><div class="v13-fp"></div><div class="v13-doors" role="navigation" aria-label="Find on PodSubs">'+V13_DOORS.map(v13door).join("")+'</div><div class="v13-after"><a class="v13-credit" data-act="pcStart" data-arg="">'+ic("plus",16)+'Add a credit</a></div></div></div>';
+ var ft=first.querySelector(".v13-ft");
+ var eye=document.createElement("p");eye.className="v13-eye";
+ if(ref){eye.textContent=ref.textContent;ref.parentNode.removeChild(ref)}else eye.textContent=V11_EYEBROW;
+ ft.appendChild(eye);ft.appendChild(h1);if(sub){sub.className="v13-sub";ft.appendChild(sub)}
+ first.querySelector(".v13-fp").appendChild(photo);
+ text.parentNode.removeChild(text);
+ /* the three quick find links now live in the doors, and Add a credit below them */
+ var lq=hero.querySelector(".lq");if(lq)lq.parentNode.removeChild(lq);
+ var pc=hero.querySelector(".lqpc");if(pc)pc.parentNode.removeChild(pc);
+ /* the second viewport: the one-account line leads, then the search, then the paths as an editorial grid */
+ hero.classList.add("v13-rest");
+ var one=hero.querySelector(".oneacc"),srch=hero.querySelector(".l2-search");
+ if(one&&srch){var lead=document.createElement("div");lead.className="v13-lead";srch.parentNode.insertBefore(lead,srch);lead.appendChild(one)}
+ hero.parentNode.insertBefore(first,hero);
+}
+v11Landing=v13Landing;
+
+/* ---------------- 3 to 5. the person profile ---------------- */
+function v13isGuest(k,o){return !!(V12GR[k]||(o&&o.guestView)||GDIR.some(function(g){return g.k===k}))}
+function v13topic(k){var g=GDIR.filter(function(x){return x.k===k})[0];return g&&g.topics&&g.topics[0]?g.topics[0]:"Climate"}
+function v13acts(k,o){var st=v12st(),deg=v12deg(k),p=P[k],first=p.n.split(" ")[0];
+ if(o.own)return v12acts(k,o);
+ var guest=v13isGuest(k,o)&&!o.unclaimed;
+ var f=!vis()&&S.follows[k];
+ var follow='<a class="v-pill'+(f?" on":"")+'" '+V("pro","follow "+p.n,A("follow",k))+'>'+(f?ic("check",16)+"Following":ic("plus",16)+"Follow")+'</a>';
+ /* the navy action: Book for someone who is mainly a guest, Connect for everyone else */
+ var mainlyGuest=guest&&(GDIR.some(function(g){return g.k===k})||!PROLE[k]);
+ var cls=mainlyGuest||o.unclaimed?"v-pill":"btn";
+ var connect=o.unclaimed?'<a class="v-pill" '+G("pro-unclaimed-reach",k)+'>'+ic("net",16)+'Connect</a>':
+  deg===1?'<a class="v-pill" '+G("net-connections")+'>'+ic("check",16)+'Connected</a>':st.sent[k]?'<a class="v-pill" '+G("pro-profile-menu",k)+'>'+ic("clock",16)+'Pending</a>':
+  st.wd[k]?'<a class="v-pill" '+G("net-withdraw-locked",k)+'>'+ic("lock",16)+'Connect</a>':'<a class="'+cls+'" '+V("pro","connect with "+p.n,G("net-connect-sheet",k))+'>'+ic("net",16)+'Connect</a>';
+ var msg='<a class="v-pill" '+V("pro","message "+p.n,G(o.unclaimed?"pro-unclaimed-reach":deg===1?"msg-thread":"msg-gated",k))+'>'+ic("msg",16)+'Message</a>';
+ var more='<a class="v-circ" '+V("pro","see more about "+p.n,G("pro-profile-menu",k))+' aria-label="More actions for '+esc(p.n)+'">'+ic("more",18)+'</a>';
+ var work=guest?'<a class="'+(mainlyGuest?"btn":"v-pill")+'" '+V("host","book "+p.n,G("br-invite-a-guest",k))+'>'+ic("cal",16)+'Book</a><a class="v-pill" '+V("host","pitch "+p.n,G("pitch-a-guest",k+"|"+v13topic(k)))+'>'+ic("send",16)+'Pitch</a>':"";
+ var claim=o.unclaimed?'<a class="btn" '+G("pro-claim-landing",k)+'>Is this you? Claim this profile</a>':"";
+ return claim+work+follow+connect+msg+more}
+function v13head(k,o){var d=v12pro(k),p=P[k],st=v12st(),own=o.own;var cur=d.exp.filter(function(x){return !x.e&&!x.cb})[0];
+ var openTo=own&&st.open?st.open:d.open;var feat=own&&st.feature!=null?st.feature:d.feature;var mu=own?"":v12mutualLine(k);
+ var work=cur?v12orgName(cur):((PWORKS[k]||[])[0]&&SH[PWORKS[k][0]]?SH[PWORKS[k][0]].t:"");
+ return '<div class="v-card v13-head"><div class="v-cover" style="position:relative">'+(own?'<a class="v-circ v12-pen" '+G("pro-edit-intro")+' aria-label="Edit banner">'+ic("edit",16)+'</a>':"")+'</div>'+
+  '<div class="v-phead"><div class="v-pav">'+av(k,128,0)+'</div>'+(own?'<a class="v-circ v12-pen2" '+G("pro-edit-intro")+' aria-label="Edit intro">'+ic("edit",16)+'</a>':"")+
+  '<h1>'+p.n+(d.idv&&!o.unclaimed?" "+vbadge():"")+(own?"":' '+v12badge(k))+'</h1>'+
+  '<div class="v-head2">'+p.h+'</div>'+
+  '<div class="v-place">'+(work?work+' · ':"")+p.loc+' · <a '+G("pro-contact-info",k)+'>Contact info</a></div>'+
+  '<div class="v-stats">'+(o.unclaimed?'<span class="small muted">Not claimed yet. Held from the shows\' feeds.</span>':'<a '+G(own?"net-connections":"pro-profile",k)+'><b>'+fmt(d.conn)+'</b>connections</a><span><b>'+fmt(d.fol)+'</b>followers</span>'+v12sample())+'</div>'+
+  (mu?'<div class="v-place">'+mu+'</div>':"")+
+  (d.avail&&!o.unclaimed?'<div class="v-place v12-avail">'+ic("cal",14)+' '+d.avail+'</div>':"")+
+  ((openTo||[]).length&&!o.unclaimed?'<div class="v-pills" style="margin-top:12px"><span class="small muted">Open to</span>'+openTo.map(function(x){return v12chip(x)}).join("")+(feat?' <span class="v12-feat">'+ic("spark",14)+'Featured to hosts this week</span>':"")+'</div>':"")+
+  '<div class="v-acts v13-acts">'+v13acts(k,o)+'</div>'+
+  (o.menu?v12menu(k):"")+'</div></div>'}
+/* the PodCred record: work history under the professional sections, grouped by real roles */
+var V13_ROLE_ORDER=["Host","Co-host","Producer","Editor","Sound designer","Sound engineer","Mix engineer","Videographer","Writer","Booker","Marketer","Community manager"];
+function v13record(k,o){var cr=v2credits(k),first=P[k].n.split(" ")[0];var ap=v2appearances(k);
+ var roles={};cr.forEach(function(c){if(c.role==="Guest")return;(roles[c.role]=roles[c.role]||[]).push(c)});
+ var names=Object.keys(roles).sort(function(a,b){var i=V13_ROLE_ORDER.indexOf(a),j=V13_ROLE_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)});
+ var guestCr=cr.filter(function(c){return c.role==="Guest"});
+ var groups=names.map(function(r){return '<div class="v13-role"><h3>'+esc(r)+'</h3><div class="v13-list">'+roles[r].map(function(c){var s=SH[c.show];return vRow({cls:"v10li",pic:art(c.show,48,0),t:s.t,s:(c.detail?c.detail+" · ":"")+s.cat,s2:v2tierHtml(c.b),go:G(c.i!=null?"episode-page":v10showGo(),c.i!=null?c.i:c.show)})}).join("")+'</div></div>'}).join("");
+ var guest="";
+ if(guestCr.length||ap.length){guest='<div class="v13-role"><h3>Guest appearances</h3><div class="v13-list">'+(ap.length?ap.map(function(a){return v2epCard(a.s,a,{kick:SH[a.s].t,extra:a.st==="verified"?' '+vb("Verified appearance"):' '+vb("Waiting for the show","a")})}).join(""):guestCr.map(function(c){var s=SH[c.show];return vRow({cls:"v10li",pic:art(c.show,48,0),t:s.t,s:(c.detail||"Guest")+" · "+s.cat,s2:v2tierHtml(c.b)})}).join(""))+'</div></div>'}
+ var empty=!groups&&!guest;
+ return '<div id="v13-record" class="v13-rec">'+vCard("PodCred record",o.unclaimed?"Held from the shows' own feeds until "+first+" claims this profile.":"Work history. Each credit carries its mark: Verified, Feed-stated, or Inferred.",
+  '<p class="v13-why">'+ic("shield",14)+' A credit is verified when two independent people who were there confirm it. <a '+G("credit-trust-tiers-explained")+'>What the marks mean</a></p>'+
+  (empty?'<p class="muted">No credits yet.</p>':groups+guest)+(o.own?'<p style="margin-top:16px"><a class="v11-link" '+G("podcred-owner-view")+'>Open your PodCred desk</a></p>':""))+'</div>'}
+function v13profile(k,o){o=o||{};k=P[k]?k:"sofia";var st=v12st();PAGE_TITLE=P[k].n+" | PodSubs";
+ if(st.blk[k]&&!o.own)return v12page(v12card("This profile is not available","",'<p class="muted">You blocked '+P[k].n+'. You are not connected, and recommendations and endorsements between you were removed.</p><a class="v-pill" '+A("v12unblock",k)+'>Unblock</a>'),"net");
+ var guest=v13isGuest(k,o);
+ var body=(o.pre||"")+v13head(k,o)+(o.own?v12suggest(k)+v12analytics(k):"")+v12about(k,o)+v12services(k,o)+v12featured(k,o)+(o.unclaimed?"":v12activity(k,o))+
+  v12exp(k,o)+v12edu(k,o)+v12lic(k,o)+v12skills(k,o)+v12recs(k,o)+(guest||V12GR[k]?v12rating(k,o):"")+v12vol(k,o)+v12lang(k,o)+v12interests(k,o)+
+  v13record(k,o)+(o.post||"")+(o.own?"":v12also(k));
+ return v12page(body,o.own?"me":vis()?"people-directory-public":"net",vis()?joinRail():"")}
+var _v13prevProfile=profile;
+profile=function(k,o){try{return v13profile(k,o)}catch(e){console.error("v13profile",e);return _v13prevProfile(k,o)}};
+v12profile=function(k,o){return v13profile(k,o)};
+R["pro-unclaimed-reach"]=function(a){var k=v12k(a,"theo"),first=P[k].n.split(" ")[0];
+ return v12page(v12sheet("Connect with "+P[k].n,'<p>'+first+' has not claimed this profile yet, so there is nobody to accept an invitation or read a message.</p><p class="muted">Follow the profile now. When '+first+' claims it, you can connect and message.</p>','<a class="v-pill" '+A("follow",k)+'>Follow '+first+'</a><a class="btn" '+G("pro-unclaimed",k)+'>Back to profile</a>'),"net")};
+R["pro-guest-working"]=function(a){return v13profile(v12k(a,"priya"),{})};
+
+/* ---------------- no credit numbers outside work history ---------------- */
+/* Counts of credits or appearances are taken out of the text that carries them:
+   header stats, guest cards, directory and search lines, the apply flow, list counts.
+   Not touched: show pages (approved as they are), review credibility lines (ratings
+   and reviews stay as built), and the operator and team queues, where a number is
+   work waiting, not a score. */
+var V13_KEEP_SECS=[7,8,16,17,38];
+var V13_RX=/\d[\d,]*\s*(?:verified\s+|feed[- ]stated\s+|inferred\s+|community\s+)?(?:credits?|appearances?)\b/i;
+function v13keep(id){if(/^(show-page|podcred-show-page|podcred-pending-verifications-board|show-admin|admin-home|appearance-dispute|dispute)/.test(id))return true;
+ for(var i=0;i<SECS.length;i++)if(SECS[i].ids.indexOf(id)>=0&&V13_KEEP_SECS.indexOf(SECS[i].n)>=0)return true;return false}
+function v13scrubText(t){var o=t;
+ t=t.replace(/(\s*·\s*)\d[\d,]*\s*(?:verified\s+|feed[- ]stated\s+|inferred\s+|community\s+)?(?:credits?|appearances?)\b/gi,"");
+ t=t.replace(/^\s*\d[\d,]*\s*(?:verified\s+|feed[- ]stated\s+|inferred\s+|community\s+)?(?:credits?|appearances?)\s*·\s*/i,"");
+ t=t.replace(/,\s*\d[\d,]*\s*credits?\b/gi,"");
+ t=t.replace(/^\s*\d[\d,]*\s*credits?,\s*(\w)/i,function(m,c){return c.toUpperCase()});
+ t=t.replace(/^\s*\d[\d,]*\s*appearances?\s+on this topic\b/i,"Appearances on this topic");
+ return t===o?null:t}
+function v13scrub(a){if(v13keep(CUR))return;
+ a.querySelectorAll("*").forEach(function(el){if(el.closest(".v-cred,.v-rev,.sdd,.pt-pan,input,textarea"))return;
+  var t=el.textContent;if(!V13_RX.test(t))return;
+  /* an element that is only a count, like "25 credits" or <b>25</b>credits: drop it */
+  if(/^\s*\d[\d,]*\s*(?:verified\s+|feed[- ]stated\s+|inferred\s+|community\s+)?(?:credits?|appearances?)\s*$/i.test(t)&&el.children.length<=2){el.parentNode&&el.parentNode.removeChild(el);return}
+  [].forEach.call(el.childNodes,function(n){if(n.nodeType!==3)return;var r=v13scrubText(n.textContent);if(r!==null)n.textContent=r})})}
+var _v13render=render;
+render=function(id){_v13render(id);try{var a=document.getElementById("app");v13scrub(a);a.querySelectorAll(".v13-rec .lp-bar").forEach(function(b){b.style.display="none"})}catch(e){console.error("v13",e)}};
+
+/* the landing's first view keeps its own type scale (Karl: type with character); everywhere else the V11 tiers hold */
+var _v13Type=v11Type;
+v11Type=function(root){_v13Type(root);var r=root&&root.querySelectorAll?root:document;r.querySelectorAll(".v13-first *").forEach(function(e){e.style.removeProperty("font-size")})};
+/* a list's count line is rewritten when the list pages or filters; keep credit numbers out of it */
+(function(){var app=document.getElementById("app");if(!app||!window.MutationObserver)return;
+ new MutationObserver(function(ms){if(v13keep(CUR))return;ms.forEach(function(m){var t=m.target.nodeType===3?m.target.parentNode:m.target;var c=t&&t.closest?t.closest(".lp-count"):null;if(c&&V13_RX.test(c.textContent)){var r=v13scrubText(c.textContent);c.textContent=r===null?"":r}})}).observe(app,{subtree:true,childList:true,characterData:true})})();
+
+/* organisation tiles: initials from the capitalised words ("University of Texas at Austin" reads UT) */
+v12orgTile=function(x,s){s=s||48;if(x.media&&SH[x.media]&&!x.org)return art(x.media,s,0);var n=x.cb?"":v12orgName(x)||x.sch&&V12ORG[x.sch].n||"";
+ var ini=n.split(/\s+/).filter(function(w){return /^[A-Z0-9]/.test(w)}).map(function(w){return w[0]}).join("").slice(0,2)||"·";
+ return '<div class="v12-tile" style="width:'+s+'px;height:'+s+'px" aria-hidden="true">'+(x.cb?ic("clock",18):ini)+'</div>'};
+
+/* ---------------- registration ---------------- */
+var V13SCREENS=[["pro-guest-working","Guest profile, the working surface","Book and Pitch in the action row beside Follow, Connect, and Message; services, availability, the guest rating (V13)","host"],
+ ["pro-unclaimed-reach","Connect or message an unclaimed profile","Explains that nobody can accept until the profile is claimed; Follow works now (V13)","pro"]];
+V13SCREENS.forEach(function(x,i){META[x[0]]={n:1271+i,title:x[1],purpose:x[2],tag:"new"};WHO[x[0]]=x[3]});
+SECS.push({n:45,name:"Review corrections (V13)",ids:V13SCREENS.map(function(x){return x[0]})});
+/* V13 review corrections end */
 
 
 document.getElementById("fav").href=LOGOM;
