@@ -2,7 +2,7 @@
 
 The PodSubs app prototype. One self-contained file, `index.html`, published with GitHub Pages from `main`.
 
-Current version: V18 (2026-11-17). 1,321 screens.
+Current version: V19 (2026-11-18). 1,321 screens. V19 swaps the landing page for the approved round 7 landing; every other screen is unchanged.
 
 ## Checks
 
