@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <title>PodSubs, the professional network for podcasting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #182852;
+        --navy-deep: #101c3a;
+        --navy-tint: #e8ecf5;
+        --amber: #e9a13b;
+        --amber-deep: #c77f1a;
+        --cream: #f4f1ea;
+        --cream-deep: #ece7db;
+        --white: #ffffff;
+        --ink: rgba(0, 0, 0, 0.9);
+        --ink-2: rgba(0, 0, 0, 0.65);
+        --ink-3: rgba(0, 0, 0, 0.55);
+        --line: rgba(0, 0, 0, 0.14);
+        --pill-line: rgba(0, 0, 0, 0.55);
+        --rust: #7c4a3a;
+        --green: #1d7a4f;
+        --radius-pill: 999px;
+        --shadow-card: 0 4px 24px rgba(24, 40, 82, 0.14), 0 1px 4px rgba(24, 40, 82, 0.1);
+        --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+        --font-display: "Inter Tight", "Inter", -apple-system, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--ink);
+        background: var(--white);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      img { max-width: 100%; }
+      a { color: inherit; }
+      button { font-family: inherit; cursor: pointer; }
+      :focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; border-radius: 6px; }
+
+      .wrap { max-width: 1128px; margin: 0 auto; padding: 0 20px; }
+
+      /* ---------- Header ---------- */
+      .site-header {
+        position: sticky; top: 0; z-index: 60;
+        background: var(--white);
+        border-bottom: 1px solid transparent;
+      }
+      .site-header.scrolled { border-bottom-color: var(--line); }
+      .header-in {
+        max-width: 1128px; margin: 0 auto; padding: 0 20px;
+        min-height: 64px; display: flex; align-items: center; gap: 20px;
+      }
+      .brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; flex: none; }
+      .brand img { height: 34px; width: auto; display: block; }
+      .header-spacer { flex: 1; }
+      .top-nav { display: flex; align-items: stretch; gap: 4px; }
+      .top-nav a {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 2px; min-width: 64px; min-height: 52px; padding: 4px 6px;
+        text-decoration: none; color: var(--ink-2);
+        font-size: 12px; font-weight: 500; border-radius: 8px;
+      }
+      .top-nav a svg { width: 22px; height: 22px; fill: var(--ink-2); }
+      .top-nav a:hover { color: var(--ink); }
+      .top-nav a:hover svg { fill: var(--ink); }
+      .header-divider { width: 1px; align-self: stretch; margin: 10px 6px; background: var(--line); flex: none; }
+      .join-link {
+        display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+        font-size: 16px; font-weight: 600; color: var(--ink); text-decoration: none; border-radius: var(--radius-pill);
+        white-space: nowrap;
+      }
+      .join-link:hover { background: rgba(0, 0, 0, 0.06); text-decoration: underline; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        border-radius: var(--radius-pill); font-size: 16px; font-weight: 600;
+        padding: 12px 26px; min-height: 48px; text-decoration: none; border: 1.5px solid transparent;
+        transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        white-space: nowrap;
+      }
+      .btn-navy { background: var(--navy); color: #fff; }
+      .btn-navy:hover { background: var(--navy-deep); box-shadow: 0 4px 14px rgba(24, 40, 82, 0.3); }
+      .btn-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+      .btn-outline:hover { background: var(--navy-tint); box-shadow: inset 0 0 0 1px var(--navy); }
+      .btn-outline-ink { background: transparent; color: var(--ink); border-color: var(--pill-line); }
+      .btn-outline-ink:hover { background: rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 0 1px var(--ink-2); }
+      .btn-signin { padding: 9px 22px; min-height: 44px; }
+      .mobile-nav { display: none; }
+
+      /* ---------- First view ---------- */
+      .hero { background: var(--white); padding: 18px 0 30px; }
+      .hero-grid { display: grid; grid-template-columns: 1fr; }
+      .hero-copy { max-width: 660px; min-width: 0; }
+      @media (min-width: 961px) {
+        .hero { padding: 40px 0 56px; }
+        .hero-grid { grid-template-columns: minmax(0, 560px) minmax(0, 500px); gap: 56px; align-items: center; justify-content: space-between; }
+        .hero-copy { max-width: 560px; }
+        .hero-photo { margin: 0; justify-self: end; width: 100%; }
+      }
+      .hero h1 {
+        font-family: var(--font-display); font-weight: 300; color: var(--rust);
+        font-size: clamp(38px, 4.4vw, 52px); line-height: 1.16; letter-spacing: -0.5px;
+        margin: 4px 0 12px;
+      }
+      .answer-line {
+        font-size: clamp(21px, 2.4vw, 28px); line-height: 1.32; font-weight: 500;
+        margin: 0 0 10px; color: var(--ink); max-width: 600px;
+      }
+      .answer-line .brand-name { color: var(--navy); font-weight: 700; }
+      .answer-line .identity { font-weight: 800; letter-spacing: -0.2px; }
+      .hero-sub { font-size: 17px; line-height: 1.5; color: var(--ink-2); margin: 0 0 20px; max-width: 560px; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+
+      .search-block { position: relative; max-width: 600px; }
+      .search-pill {
+        display: flex; align-items: center; gap: 10px;
+        background: var(--white); border: 1.5px solid rgba(0, 0, 0, 0.35);
+        border-radius: var(--radius-pill); padding: 0 8px 0 20px; min-height: 56px;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .search-pill:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px var(--navy-tint); }
+      .search-pill svg { width: 22px; height: 22px; fill: var(--ink-2); flex: none; }
+      .search-pill input {
+        flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
+        font-family: inherit; font-size: 16.5px; color: var(--ink); min-height: 44px;
+      }
+      .search-pill input::placeholder { color: var(--ink-3); }
+      .search-go {
+        flex: none; border: 0; background: var(--navy); color: #fff; font-weight: 600; font-size: 15px;
+        border-radius: var(--radius-pill); padding: 10px 20px; min-height: 42px;
+      }
+      .search-go:hover { background: var(--navy-deep); }
+      .browse-note {
+        display: flex; align-items: center; gap: 7px;
+        font-size: 13.5px; color: var(--ink-2); margin: 10px 2px 0;
+      }
+      .browse-note svg { width: 16px; height: 16px; fill: var(--green); flex: none; }
+
+      .search-results {
+        position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 50;
+        background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+        box-shadow: var(--shadow-card); padding: 8px; display: none; max-height: 430px; overflow-y: auto;
+      }
+      .search-results.open { display: block; }
+      .sr-group { font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); padding: 10px 12px 4px; }
+      .sr-item {
+        display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+        background: none; border: 0; border-radius: 12px; padding: 8px 12px; min-height: 58px;
+      }
+      .sr-item:hover, .sr-item.active { background: var(--cream); }
+      .avatar {
+        width: 42px; height: 42px; border-radius: 50%; flex: none;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px; font-weight: 700; color: #fff; background: var(--navy);
+      }
+      .avatar.amber { background: var(--amber); color: var(--navy-deep); }
+      .avatar.rust { background: var(--rust); }
+      .avatar.green { background: var(--green); }
+      .avatar.sq { border-radius: 11px; }
+      .sr-main { flex: 1; min-width: 0; }
+      .sr-name { font-size: 15px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sr-meta { font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sr-tag {
+        flex: none; font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+        color: var(--navy); background: var(--navy-tint); border-radius: var(--radius-pill); padding: 4px 9px;
+      }
+      .sr-empty { padding: 16px 14px; font-size: 14.5px; color: var(--ink-2); }
+      .sr-foot { padding: 10px 12px 6px; font-size: 12.5px; color: var(--ink-3); border-top: 1px solid var(--line); margin-top: 6px; }
+
+      .hero-photo { margin: 20px 0 0; max-width: 500px; }
+      .hero-photo .mat {
+        background: var(--white); border: 1px solid #e7e2d6; border-radius: 20px; padding: 10px;
+        box-shadow: 0 14px 34px rgba(24, 40, 82, 0.1);
+      }
+      .hero-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+      .hero-photo figcaption { font-size: 13px; color: var(--ink-3); padding: 10px 6px 2px; }
+
+      /* ---------- Sections ---------- */
+      .section { padding: 64px 0; }
+      .section.cream { background: var(--cream); }
+      .section.white { background: var(--white); }
+      .split { display: grid; grid-template-columns: 5fr 7fr; gap: 40px 56px; align-items: start; }
+      .section h2 {
+        font-family: var(--font-display); font-weight: 300; color: var(--ink);
+        font-size: clamp(30px, 3.6vw, 46px); line-height: 1.22; letter-spacing: -0.4px; margin: 0;
+      }
+      .section .sub { font-size: 16.5px; line-height: 1.55; color: var(--ink-2); margin: 14px 0 0; max-width: 420px; }
+      .col-label {
+        font-size: 14px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--ink-3); margin: 6px 0 18px;
+      }
+      .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: transparent; border: 1.5px solid var(--pill-line); color: var(--ink);
+        border-radius: var(--radius-pill); padding: 11px 20px; min-height: 48px;
+        font-size: 16.5px; font-weight: 600; text-decoration: none;
+        transition: background 0.15s ease, box-shadow 0.15s ease;
+      }
+      .pill:hover { background: rgba(0, 0, 0, 0.06); box-shadow: inset 0 0 0 1px var(--ink-2); }
+      .pill.active { color: var(--navy); border-color: var(--navy); background: var(--navy-tint); }
+      .pill.active:hover { box-shadow: inset 0 0 0 1px var(--navy); }
+      .pill svg { width: 18px; height: 18px; fill: currentColor; }
+      .show-more-row { margin-top: 16px; }
+      .show-more {
+        display: inline-flex; align-items: center; gap: 6px; background: none; border: 0;
+        font-size: 16px; font-weight: 600; color: var(--ink-2); padding: 10px 8px; min-height: 44px; border-radius: 8px;
+      }
+      .show-more:hover { color: var(--ink); text-decoration: underline; }
+      .show-more svg { width: 18px; height: 18px; fill: currentColor; transition: transform 0.2s ease; }
+      .show-more[aria-expanded="true"] svg { transform: rotate(180deg); }
+      .more-pills { display: none; margin-top: 10px; }
+      .more-pills.open { display: flex; }
+
+      /* Post a job band */
+      .band { padding: 44px 0; }
+      .band-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+      .band h2 { font-size: clamp(26px, 3vw, 38px); flex: 1 1 480px; max-width: 740px; }
+      .band .btn { flex: none; }
+
+      /* Open to be a guest */
+      .open-guest { padding: 30px 0 76px; }
+      .open-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: center; }
+      .open-guest h2 { color: var(--rust); font-size: clamp(32px, 4vw, 52px); }
+      .open-guest .sub { max-width: 520px; font-size: 17.5px; }
+      .open-points { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+      .open-points li { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--ink); line-height: 1.45; }
+      .open-points svg { width: 20px; height: 20px; fill: var(--green); flex: none; margin-top: 1px; }
+      .circle-photo { position: relative; width: min(400px, 82vw); margin: 0 auto; }
+      .circle-photo .disc {
+        background: var(--navy); border-radius: 50%; padding: 16px;
+        box-shadow: 0 18px 40px rgba(24, 40, 82, 0.25);
+      }
+      .circle-photo img {
+        display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%;
+        border: 6px solid var(--cream);
+      }
+      .open-badge {
+        position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%);
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--amber); color: var(--navy-deep);
+        font-size: 13px; font-weight: 800; letter-spacing: 0.07em;
+        padding: 10px 18px; border-radius: var(--radius-pill); white-space: nowrap;
+        box-shadow: 0 8px 20px rgba(199, 127, 26, 0.4);
+      }
+      .open-badge .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(29, 122, 79, 0.25); }
+
+      /* Two columns */
+      .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+      .duo-card .art { border-radius: 20px; overflow: hidden; background: var(--cream); }
+      .duo-card .art img { display: block; width: 100%; height: auto; }
+      .duo-card h2 { font-size: clamp(28px, 3vw, 40px); margin-top: 28px; }
+      .duo-card p { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); margin: 14px 0 22px; max-width: 480px; }
+
+      /* Who is it for */
+      .who { padding-top: 8px; }
+      .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+      .who-item { border-top: 3px solid var(--navy); padding-top: 18px; }
+      .who-item.amber-line { border-top-color: var(--amber); }
+      .who-item.rust-line { border-top-color: var(--rust); }
+      .who-item h3 { font-size: 20px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.2px; }
+      .who-item p { font-size: 15.5px; line-height: 1.55; color: var(--ink-2); margin: 0; }
+      .who-item a { display: inline-flex; align-items: center; min-height: 40px; font-size: 15px; font-weight: 600; color: var(--navy); text-decoration: none; margin-top: 6px; }
+      .who-item a:hover { text-decoration: underline; }
+
+      /* Join band */
+      .join-band {
+        background: linear-gradient(180deg, #d7e7f5 0%, #e9f0e9 62%, #f4f1ea 100%);
+        padding: 72px 0 0; overflow: hidden;
+      }
+      .join-band h2 {
+        font-family: var(--font-display); font-weight: 300; color: var(--ink);
+        font-size: clamp(32px, 4.4vw, 54px); line-height: 1.2; letter-spacing: -0.4px; margin: 0 0 26px; max-width: 640px;
+      }
+      .join-band .panorama { display: block; width: 100%; height: auto; margin-top: 48px; }
+
+      /* Footer */
+      .site-footer { background: var(--cream); padding: 52px 0 0; }
+      .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 32px; }
+      .footer-brand img { height: 32px; width: auto; display: block; }
+      .footer-brand p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; margin: 14px 0 0; max-width: 220px; }
+      .footer-col h4 { font-size: 16px; font-weight: 700; margin: 2px 0 12px; }
+      .footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+      .footer-col a {
+        display: inline-flex; align-items: center; min-height: 32px;
+        font-size: 14px; font-weight: 600; color: var(--ink-2); text-decoration: none;
+      }
+      .footer-col a:hover { color: var(--navy); text-decoration: underline; }
+      .small-print {
+        border-top: 1px solid var(--line); margin-top: 44px; padding: 18px 0 26px;
+        display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px;
+      }
+      .small-print img { height: 20px; width: auto; }
+      .small-print span, .small-print a { font-size: 12.5px; color: var(--ink-2); text-decoration: none; }
+      .small-print a:hover { color: var(--navy); text-decoration: underline; }
+      .demo-note { width: 100%; font-size: 12.5px; color: var(--ink-3); margin-top: 8px; line-height: 1.5; }
+
+      /* ---------- Modal ---------- */
+      .modal-overlay {
+        position: fixed; inset: 0; z-index: 100; background: rgba(16, 28, 58, 0.55);
+        display: none; align-items: flex-end; justify-content: center; padding: 0;
+      }
+      .modal-overlay.open { display: flex; }
+      .modal {
+        background: var(--white); width: 100%; max-width: 600px; max-height: 88vh; overflow-y: auto;
+        border-radius: 22px 22px 0 0; padding: 26px 26px 30px; position: relative;
+        animation: rise 0.22s ease;
+      }
+      @keyframes rise { from { transform: translateY(16px); opacity: 0.4; } to { transform: translateY(0); opacity: 1; } }
+      .modal-close {
+        position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%;
+        border: 0; background: var(--cream); display: flex; align-items: center; justify-content: center;
+      }
+      .modal-close svg { width: 20px; height: 20px; fill: var(--ink); }
+      .modal-close:hover { background: var(--cream-deep); }
+      .modal .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-deep); margin: 0 0 8px; }
+      .modal h3 { font-family: var(--font-display); font-weight: 500; font-size: 28px; letter-spacing: -0.3px; margin: 0 30px 10px 0; line-height: 1.25; }
+      .modal .lede { font-size: 15.5px; line-height: 1.55; color: var(--ink-2); margin: 0 0 18px; }
+      .modal-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin: 0 -8px; }
+      .modal-item {
+        display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; text-align: left;
+        background: none; border: 0; border-radius: 14px; padding: 10px; min-height: 64px;
+      }
+      .modal-item:hover { background: var(--cream); }
+      .cred-chip {
+        display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700;
+        border-radius: var(--radius-pill); padding: 3px 9px; margin-top: 4px;
+      }
+      .cred-verified { background: #e2f2e8; color: var(--green); }
+      .cred-owner { background: var(--navy); color: #fff; }
+      .cred-peer { background: #fdf3e0; color: var(--amber-deep); border: 1.5px dashed var(--amber); }
+      .modal-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+      .field { display: grid; gap: 6px; margin-bottom: 14px; }
+      .field label { font-size: 14px; font-weight: 600; }
+      .field input {
+        border: 1.5px solid rgba(0, 0, 0, 0.35); border-radius: 10px; padding: 12px 14px;
+        font-family: inherit; font-size: 16px; min-height: 48px; width: 100%;
+      }
+      .field input:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px var(--navy-tint); }
+      .join-success { text-align: center; padding: 14px 0 4px; }
+      .join-success .tick {
+        width: 62px; height: 62px; border-radius: 50%; background: #e2f2e8; margin: 0 auto 14px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .join-success .tick svg { width: 32px; height: 32px; fill: var(--green); }
+      .detail-rows { display: grid; gap: 0; margin: 4px 0 6px; }
+      .detail-rows .row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+      .detail-rows .row dt { color: var(--ink-3); font-weight: 500; }
+      .detail-rows .row dd { margin: 0; font-weight: 600; text-align: right; }
+
+      @media (min-width: 720px) {
+        .modal-overlay { align-items: center; padding: 24px; }
+        .modal { border-radius: 22px; }
+      }
+
+      /* ---------- Hub pages ---------- */
+      .hub { background: var(--white); padding: 26px 0 72px; min-height: 60vh; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px; background: none; border: 0;
+        font-size: 15px; font-weight: 600; color: var(--navy); padding: 10px 4px; min-height: 44px; border-radius: 8px;
+      }
+      .back-link:hover { text-decoration: underline; }
+      .hub .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-deep); margin: 14px 0 8px; }
+      .hub h1, .detail-title {
+        font-family: var(--font-display); font-weight: 300; color: var(--ink);
+        font-size: clamp(32px, 4vw, 46px); line-height: 1.2; letter-spacing: -0.4px; margin: 0;
+      }
+      .detail-title { font-size: clamp(26px, 3.4vw, 38px); font-weight: 500; }
+      .hub-sub { font-size: 16.5px; line-height: 1.55; color: var(--ink-2); margin: 12px 0 0; max-width: 620px; }
+      .hub-search {
+        display: flex; align-items: center; gap: 10px; max-width: 560px; margin-top: 24px;
+        background: var(--white); border: 1.5px solid rgba(0, 0, 0, 0.35);
+        border-radius: var(--radius-pill); padding: 0 8px 0 20px; min-height: 56px;
+      }
+      .hub-search:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px var(--navy-tint); }
+      .hub-search svg { width: 22px; height: 22px; fill: var(--ink-2); flex: none; }
+      .hub-search input {
+        flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
+        font-family: inherit; font-size: 16.5px; color: var(--ink); min-height: 44px;
+      }
+      .hub-count { font-size: 13px; color: var(--ink-3); margin: 22px 0 0; }
+      .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-top: 14px; }
+      .hub-card {
+        display: flex; align-items: flex-start; gap: 14px; width: 100%; text-align: left;
+        background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+        padding: 18px; min-height: 84px; transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .hub-card:hover { border-color: var(--navy); background: var(--cream); }
+      .hub-card .avatar { margin-top: 2px; }
+      .hub-card-arrow { font-size: 24px; color: var(--ink-3); line-height: 1; flex: none; align-self: center; }
+      .hub-empty { font-size: 15.5px; color: var(--ink-2); padding: 22px 4px; }
+      .detail-head { display: flex; gap: 18px; align-items: center; margin: 10px 0 18px; flex-wrap: wrap; }
+      @media (max-width: 719px) { .hub-grid { grid-template-columns: 1fr; } }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 900px) {
+        .split { grid-template-columns: 1fr; gap: 26px; }
+        .open-grid { grid-template-columns: 1fr; gap: 54px; }
+        .duo { grid-template-columns: 1fr; gap: 48px; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+        .footer-brand { grid-column: 1 / -1; }
+      }
+      @media (max-width: 719px) {
+        .top-nav, .header-divider { display: none; }
+        .header-in { min-height: 58px; gap: 8px; padding: 0 16px; }
+        .brand img { height: 29px; }
+        .join-link { font-size: 15px; padding: 0 8px; }
+        .btn-signin { padding: 8px 18px; }
+        .mobile-nav {
+          display: flex; justify-content: space-between; gap: 4px;
+          max-width: 1128px; margin: 0 auto; padding: 0 16px 8px;
+        }
+        .mobile-nav a {
+          display: inline-flex; align-items: center; justify-content: center; min-height: 38px;
+          font-size: 14.5px; font-weight: 600; color: var(--ink-2); text-decoration: none; padding: 0 10px; border-radius: 8px;
+        }
+        .mobile-nav a:active { background: var(--cream); }
+        .hero { padding: 10px 0 24px; }
+        .hero h1 { font-size: 34px; margin: 2px 0 10px; }
+        .hero-photo figcaption { display: none; }
+        .answer-line { font-size: 21.5px; margin-bottom: 8px; }
+        .hero-sub { font-size: 15.5px; margin-bottom: 16px; }
+        .hero-actions { margin-bottom: 18px; }
+        .hero-actions .btn { flex: 1; padding: 12px 10px; font-size: 15px; }
+        .hero-photo { margin-top: 20px; }
+        .section { padding: 46px 0; }
+        .band { padding: 36px 0; }
+        .band-in .btn { width: 100%; }
+        .who-grid { grid-template-columns: 1fr; gap: 20px; }
+        .join-band { padding-top: 52px; }
+        .join-band .panorama { margin-top: 36px; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 26px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .modal { animation: none; }
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ================= Header ================= -->
+    <header class="site-header" id="siteHeader">
+      <div class="header-in">
+        <a class="brand" href="#top" aria-label="PodSubs home">
+          <img src="assets/podsubs-logo.png" alt="PodSubs" width="360" height="119" />
+        </a>
+        <div class="header-spacer"></div>
+        <nav class="top-nav" aria-label="Browse PodSubs">
+          <a href="#shows" data-browse="shows">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zm7 8a1 1 0 0 1 2 0 9 9 0 0 1-8 8.94V22h3a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h3v-2.06A9 9 0 0 1 3 11a1 1 0 1 1 2 0 7 7 0 0 0 14 0z"/></svg>
+            Shows
+          </a>
+          <a href="#people" data-browse="people">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 11a4.5 4.5 0 1 1-3.6-7.2A5.5 5.5 0 0 1 12 8.5c0 1 .34 1.9.9 2.62A4.48 4.48 0 0 1 16.5 11zM9 10.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zM22 20.4c-.5-3.2-2.7-5.1-5.5-5.4.34-.53.54-1.16.58-1.84C19.4 13.7 21.5 16 22 20.4zM12 12a5 5 0 0 1 5 5v3H2v-3a5 5 0 0 1 5-5h5zM7.08 13.16c.04.68.24 1.31.58 1.84C5.16 15.35 3.4 17.1 3 20H2v-3a5 5 0 0 1 4.44-4.95c.2.38.4.75.64 1.11z"/></svg>
+            People
+          </a>
+          <a href="#guests" data-browse="guests">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.2-2.6 5.6-.9.9-1.4 2.1-1.4 3.4H9c0-1.3-.5-2.5-1.4-3.4C6.2 13.2 5 11.4 5 9a7 7 0 0 1 7-7zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1z"/></svg>
+            Guests
+          </a>
+          <a href="#jobs" data-browse="jobs">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 6V5a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1H2v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6h-5zM9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H9V5zm13 9.5A4.94 4.94 0 0 1 19 15H5a4.94 4.94 0 0 1-3-.5V19a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4.5z"/></svg>
+            Jobs
+          </a>
+        </nav>
+        <div class="header-divider" aria-hidden="true"></div>
+        <a class="join-link" href="#join" data-join>Join now</a>
+        <a class="btn btn-outline btn-signin" href="#join" data-join>Sign in</a>
+      </div>
+      <nav class="mobile-nav" aria-label="Browse PodSubs">
+        <a href="#shows" data-browse="shows">Shows</a>
+        <a href="#people" data-browse="people">People</a>
+        <a href="#guests" data-browse="guests">Guests</a>
+        <a href="#jobs" data-browse="jobs">Jobs</a>
+      </nav>
+    </header>
+
+    <main id="top" class="landing-main">
+      <!-- ================= First view ================= -->
+      <section class="hero">
+        <div class="wrap">
+          <div class="hero-grid">
+            <div class="hero-copy">
+            <h1>Welcome to your professional community</h1>
+            <p class="answer-line">
+              Welcome to <span class="brand-name">PodSubs</span>,
+              <span class="identity">the professional network for podcasting</span>.
+            </p>
+            <p class="hero-sub">One home for shows, the people who work in podcasting, and the guests every show wants.</p>
+            <div class="hero-actions">
+              <a class="btn btn-navy" href="#join" data-join>Join the network</a>
+              <a class="btn btn-outline" href="#join" data-claim>Claim your show</a>
+            </div>
+
+            <div class="search-block">
+              <form class="search-pill" id="searchForm" role="search" autocomplete="off">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 20.3l-4.5-4.5a8 8 0 1 0-1.4 1.4l4.5 4.5a1 1 0 0 0 1.4-1.4zM4 10a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"/></svg>
+                <input id="searchInput" type="search" placeholder="Find your show, a person, or a guest"
+                  aria-label="Search shows, people, guests and jobs" aria-expanded="false" aria-controls="searchResults" />
+                <button class="search-go" type="submit">Search</button>
+              </form>
+              <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+              <p class="browse-note">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                One search across every show, every person, and every guest in podcasting.
+              </p>
+            </div>
+            </div>
+
+            <figure class="hero-photo">
+              <div class="mat">
+                <img src="assets/hero-main.jpg" alt="A podcast being recorded in a studio, with the host and guest on the monitor and the crew at work around them" width="1600" height="1067" />
+              </div>
+              <figcaption>Real shows, recorded by real teams, building real careers in podcasting.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Explore ================= -->
+      <section class="section cream" id="explore">
+        <div class="wrap">
+          <div class="split">
+            <div>
+              <h2>Explore top podcasting content</h2>
+              <p class="sub">Discover relevant posts and expert insights, curated by topic and in one place.</p>
+            </div>
+            <div>
+              <p class="col-label" id="topicsLabel">Content topics</p>
+              <div class="pills" role="group" aria-labelledby="topicsLabel">
+                <button class="pill active" type="button" data-topic="All Topics">See All Topics</button>
+                <button class="pill" type="button" data-topic="Podcast Growth">Podcast Growth</button>
+                <button class="pill" type="button" data-topic="Recording and Gear">Recording and Gear</button>
+                <button class="pill" type="button" data-topic="Editing and Production">Editing and Production</button>
+                <button class="pill" type="button" data-topic="Monetization">Monetization</button>
+                <button class="pill" type="button" data-topic="Interview Skills">Interview Skills</button>
+                <button class="pill" type="button" data-topic="Podcast News">Podcast News</button>
+                <button class="pill" type="button" data-topic="Live Events">Live Events</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Jobs ================= -->
+      <section class="section white" id="jobs">
+        <div class="wrap">
+          <div class="split">
+            <div>
+              <h2>Find the right podcasting job for you</h2>
+              <p class="sub">Real roles on real shows, posted by the people who run them. Read every listing free, apply when you are ready to join.</p>
+            </div>
+            <div>
+              <p class="col-label" id="jobSearchLabel">Suggested searches</p>
+              <div class="pills" role="group" aria-labelledby="jobSearchLabel">
+                <button class="pill" type="button" data-job="Producer">Producer</button>
+                <button class="pill" type="button" data-job="Editor">Editor</button>
+                <button class="pill" type="button" data-job="Host">Host</button>
+                <button class="pill" type="button" data-job="Sound Designer">Sound Designer</button>
+                <button class="pill" type="button" data-job="Guest Booker">Guest Booker</button>
+                <button class="pill" type="button" data-job="Showrunner">Showrunner</button>
+                <button class="pill" type="button" data-job="Marketing">Marketing</button>
+                <button class="pill" type="button" data-job="Video Editor">Video Editor</button>
+              </div>
+              <div class="pills more-pills" id="moreJobs">
+                <button class="pill" type="button" data-job="Writer">Writer</button>
+                <button class="pill" type="button" data-job="Audio Engineer">Audio Engineer</button>
+                <button class="pill" type="button" data-job="Social Media">Social Media</button>
+                <button class="pill" type="button" data-job="Operations">Operations</button>
+              </div>
+              <div class="show-more-row">
+                <button class="show-more" type="button" id="showMoreJobs" aria-expanded="false" aria-controls="moreJobs">
+                  Show more
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5L3.7 7.2 5.1 5.8 12 12.7l6.9-6.9 1.4 1.4z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Post a job + Open to be a guest (one cream block) ================= -->
+      <div class="cream-block" style="background: var(--cream);">
+        <section class="band">
+          <div class="wrap band-in">
+            <h2>Post your job for the people who make podcasts to see</h2>
+            <button class="btn btn-outline" type="button" data-postjob>Post a job</button>
+          </div>
+        </section>
+
+        <section class="open-guest" id="guests">
+          <div class="wrap">
+            <div class="open-grid">
+              <div>
+                <h2>Let the right people know you are open to be a guest</h2>
+                <p class="sub">Set your guest profile to open, and shows looking for a guest with your experience can find you and book you, with your credits already on your profile.</p>
+                <ul class="open-points">
+                  <li>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    Your past appearances sit on your profile, confirmed by the shows you were on.
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    Hosts pitch you in one shared booking record, from first message to published episode.
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    Turn the badge off any time. You choose which shows hear from you.
+                  </li>
+                </ul>
+              </div>
+              <div class="circle-photo">
+                <div class="disc">
+                  <img src="assets/open-guest-photo.jpg" alt="A podcast guest smiling at a studio microphone, wearing headphones" width="900" height="900" />
+                </div>
+                <span class="open-badge"><span class="dot" aria-hidden="true"></span>OPEN TO GUESTS</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= Two columns ================= -->
+      <section class="section white" id="people">
+        <div class="wrap">
+          <div class="duo">
+            <article class="duo-card">
+              <div class="art">
+                <img src="assets/connect-illustration.webp" alt="Illustration of two podcasters talking on a sofa with microphones, in front of a navy arch" width="1920" height="1280" />
+              </div>
+              <h2>Connect with people who can help</h2>
+              <p>Follow the people behind the shows you love, and let your credits speak for you. PodCred is the record of the work you have actually done, confirmed by the people who were there.</p>
+              <button class="btn btn-outline-ink" type="button" data-browse="people">Find podcasters you know</button>
+            </article>
+            <article class="duo-card">
+              <div class="art">
+                <img src="assets/guest-illustration.webp" alt="Illustration of a podcast host at a desk with a laptop and a microphone on a boom arm, in front of an amber arch" width="1920" height="1280" />
+              </div>
+              <h2>Find the guest you have been looking for</h2>
+              <p>Search guests by topic and hear their past appearances, then book them in one shared record, from the first pitch to the published episode.</p>
+              <button class="btn btn-outline-ink" type="button" data-browse="guests">Browse guests</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Who is PodSubs for ================= -->
+      <section class="section white who" id="shows" style="padding-top: 0;">
+        <div class="wrap">
+          <h2>Who is PodSubs for?</h2>
+          <div class="who-grid">
+            <div class="who-item">
+              <h3>Show owners</h3>
+              <p>Claim your show and run your bookings, your team, and your jobs in one place.</p>
+              <a href="#join" data-claim>Claim your show</a>
+            </div>
+            <div class="who-item amber-line">
+              <h3>The people who work in podcasting</h3>
+              <p>Producers, editors, hosts, and bookers build a profile on the credits they have earned.</p>
+              <a href="#people" data-browse="people">Meet the people</a>
+            </div>
+            <div class="who-item rust-line">
+              <h3>Guests</h3>
+              <p>Get found by the shows you want, and keep every appearance on one profile.</p>
+              <a href="#guests" data-browse="guests">Browse guests</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Join band ================= -->
+      <section class="join-band" id="join">
+        <div class="wrap">
+          <h2>Join your fellow podcasters on PodSubs.</h2>
+          <a class="btn btn-navy" href="#join" data-join>Get started</a>
+        </div>
+        <img class="panorama" src="assets/join-panorama.webp" alt="Illustration of podcast studios in a row, each with people recording, under a pale sky" width="2736" height="912" />
+      </section>
+    </main>
+
+    <!-- ================= Hub pages ================= -->
+    <main id="hubMain" hidden>
+      <section class="hub">
+        <div class="wrap">
+          <div id="hubListView">
+            <button class="back-link" type="button" id="hubBack">&larr; Back to home</button>
+            <p class="kicker" id="hubKicker"></p>
+            <h1 id="hubTitle"></h1>
+            <p class="hub-sub" id="hubSub"></p>
+            <div class="hub-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 20.3l-4.5-4.5a8 8 0 1 0-1.4 1.4l4.5 4.5a1 1 0 0 0 1.4-1.4zM4 10a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"/></svg>
+              <input id="hubSearch" type="search" placeholder="Search" aria-label="Search this page" />
+            </div>
+            <p class="hub-count" id="hubCount"></p>
+            <div class="hub-grid" id="hubGrid"></div>
+            <p class="hub-empty" id="hubEmpty" hidden>No matches in this directory yet. Try a different name, role, or topic.</p>
+          </div>
+          <div id="hubDetailView" hidden>
+            <button class="back-link" type="button" id="detailBack">&larr; Back to <span id="detailBackLabel">the list</span></button>
+            <div id="hubDetailBody"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= Footer ================= -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/podsubs-logo.png" alt="PodSubs" width="360" height="119" />
+            <p>The professional network for podcasting. Shows, people, guests, and jobs, in one place.</p>
+          </div>
+          <nav class="footer-col" aria-label="General">
+            <h4>General</h4>
+            <ul>
+              <li><a href="#join" data-join>Join</a></li>
+              <li><a href="#join" data-join>Sign In</a></li>
+              <li><a href="#top">About</a></li>
+              <li><a href="#top">Help Center</a></li>
+              <li><a href="#explore">Blog</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-col" aria-label="Browse PodSubs">
+            <h4>Browse PodSubs</h4>
+            <ul>
+              <li><a href="#shows" data-browse="shows">Shows</a></li>
+              <li><a href="#people" data-browse="people">People</a></li>
+              <li><a href="#guests" data-browse="guests">Guests</a></li>
+              <li><a href="#jobs" data-browse="jobs">Jobs</a></li>
+              <li><a href="#explore">News</a></li>
+              <li><a href="#explore">Events</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-col" aria-label="For shows">
+            <h4>For Shows</h4>
+            <ul>
+              <li><a href="#join" data-claim>Claim Your Show</a></li>
+              <li><a href="#jobs" data-postjob>Post a Job</a></li>
+              <li><a href="#guests" data-browse="guests">Bookings</a></li>
+              <li><a href="#people" data-browse="people">Team</a></li>
+              <li><a href="#shows" data-browse="shows">Networks</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-col" aria-label="Directories">
+            <h4>Directories</h4>
+            <ul>
+              <li><a href="#shows" data-browse="shows">Shows</a></li>
+              <li><a href="#people" data-browse="people">People</a></li>
+              <li><a href="#guests" data-browse="guests">Guests</a></li>
+              <li><a href="#jobs" data-browse="jobs">Jobs</a></li>
+              <li><a href="#shows" data-browse="shows">Networks</a></li>
+              <li><a href="#explore">Topics</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="small-print">
+          <img src="assets/podsubs-logo.png" alt="" aria-hidden="true" />
+          <span>PodSubs &copy; 2026</span>
+          <a href="#top">About</a>
+          <a href="#top">Accessibility</a>
+          <a href="#top">User Agreement</a>
+          <a href="#top">Privacy Policy</a>
+          <a href="#top">Cookie Policy</a>
+          <a href="#top">Copyright Policy</a>
+          <a href="#top">Community Guidelines</a>
+          <a href="#top">Language</a>
+          <p class="demo-note">Design demo. Search results, listings, and profiles shown on this page are sample data, shown so the page can be browsed and clicked through. Browsing is free; joining is asked only when you want to interact.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================= Modal ================= -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" type="button" id="modalClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.4 12l7.1-7.1-1.4-1.4L12 10.6 4.9 3.5 3.5 4.9 10.6 12l-7.1 7.1 1.4 1.4L12 13.4l7.1 7.1 1.4-1.4L13.4 12z"/></svg>
+        </button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ---------- Sample data (demo) ---------- */
+        var CATALOG = [
+          { type: "Show", name: "Mic Check Weekly", meta: "Business podcast · Weekly · 214 episodes", initials: "MC", tone: "", shape: "sq",
+            detail: [["Category", "Business"], ["Cadence", "Weekly"], ["Episodes", "214"], ["Status", "Claimed by its owner"]],
+            blurb: "A weekly business show recorded in Austin. Its team, bookings, and jobs all run from its PodSubs page." },
+          { type: "Show", name: "The Producer's Cut", meta: "Production craft · Biweekly · 96 episodes", initials: "PC", tone: "amber", shape: "sq",
+            detail: [["Category", "Production"], ["Cadence", "Biweekly"], ["Episodes", "96"], ["Status", "Claimed by its owner"]],
+            blurb: "Producers break down how real episodes get made, from first call to final mix." },
+          { type: "Show", name: "Story Signals", meta: "Storytelling · Weekly · 158 episodes", initials: "SS", tone: "rust", shape: "sq",
+            detail: [["Category", "Storytelling"], ["Cadence", "Weekly"], ["Episodes", "158"], ["Status", "Claimed by its owner"]],
+            blurb: "Narrative storytellers on the craft of holding a listener to the last second." },
+          { type: "Show", name: "Founders on Air", meta: "Startups · Twice weekly · 301 episodes", initials: "FA", tone: "green", shape: "sq",
+            detail: [["Category", "Startups"], ["Cadence", "Twice weekly"], ["Episodes", "301"], ["Status", "Claimed by its owner"]],
+            blurb: "Founders tell the unpolished version of building a company, one interview at a time." },
+          { type: "Show", name: "The Guest List", meta: "Interview show · Weekly · 87 episodes", initials: "GL", tone: "amber", shape: "sq",
+            detail: [["Category", "Interviews"], ["Cadence", "Weekly"], ["Episodes", "87"], ["Status", "Open to guests"]],
+            blurb: "An interview show that books every guest through PodSubs, so each appearance lands on the guest's profile." },
+          { type: "Person", name: "Maya Chen", meta: "Producer · The Producer's Cut", initials: "MC", tone: "", shape: "",
+            cred: ["Verified", "cred-verified"],
+            detail: [["Role", "Producer"], ["Credits", "41 confirmed"], ["Based in", "Chicago"], ["PodCred", "Verified"]],
+            blurb: "Producer on The Producer's Cut. Her credits are confirmed by the shows she works on, so hosts can book with confidence." },
+          { type: "Person", name: "Jordan Blake", meta: "Audio Editor · 24 credits", initials: "JB", tone: "amber", shape: "",
+            cred: ["Added by show owner", "cred-owner"],
+            detail: [["Role", "Audio Editor"], ["Credits", "24 confirmed"], ["Based in", "Remote"], ["PodCred", "Added by show owner"]],
+            blurb: "Editor for hire with credits across business and storytelling shows, added by the owners of the shows he cuts." },
+          { type: "Person", name: "Priya Nair", meta: "Host · Story Signals", initials: "PN", tone: "rust", shape: "",
+            cred: ["Verified", "cred-verified"],
+            detail: [["Role", "Host"], ["Credits", "158 episodes hosted"], ["Based in", "New York"], ["PodCred", "Verified"]],
+            blurb: "Host of Story Signals and a frequent guest on craft shows. Every hosting credit is feed-stated and confirmed." },
+          { type: "Person", name: "Sam Ortiz", meta: "Guest Booker · Founders on Air", initials: "SO", tone: "green", shape: "",
+            cred: ["Added by a fellow podcaster", "cred-peer"],
+            detail: [["Role", "Guest Booker"], ["Credits", "19 confirmed"], ["Based in", "Denver"], ["PodCred", "Added by a fellow podcaster"]],
+            blurb: "Books the guests for Founders on Air. Added by a fellow podcaster and confirmed under the two keys rule." },
+          { type: "Guest", name: "Dr. Lena Brooks", meta: "Talks about audience growth · 18 appearances", initials: "LB", tone: "rust", shape: "",
+            cred: ["Open to guests", "cred-verified"],
+            detail: [["Topics", "Audience growth, retention"], ["Appearances", "18"], ["Guest status", "Open to guests"], ["Books in", "One shared record"]],
+            blurb: "Audience researcher who guests on growth shows. Her 18 past appearances are on her profile, confirmed by the hosts." },
+          { type: "Guest", name: "Marcus Webb", meta: "Talks about monetization · 11 appearances", initials: "MW", tone: "", shape: "",
+            cred: ["Open to guests", "cred-verified"],
+            detail: [["Topics", "Monetization, sponsorships"], ["Appearances", "11"], ["Guest status", "Open to guests"], ["Books in", "One shared record"]],
+            blurb: "Sponsorship coach who helps independent shows price and sell ads. Open to guest spots this quarter." },
+          { type: "Guest", name: "Aisha Rahman", meta: "Talks about storytelling · 9 appearances", initials: "AR", tone: "amber", shape: "",
+            cred: ["Open to guests", "cred-verified"],
+            detail: [["Topics", "Storytelling, narrative craft"], ["Appearances", "9"], ["Guest status", "Open to guests"], ["Books in", "One shared record"]],
+            blurb: "Documentary maker who guests on storytelling shows and brings tape from her own productions." },
+          { type: "Job", name: "Producer, Mic Check Weekly", meta: "Full-time · Remote · Posted 2 days ago", initials: "MC", tone: "", shape: "sq",
+            detail: [["Role", "Producer"], ["Type", "Full-time"], ["Location", "Remote"], ["Posted", "2 days ago"]],
+            blurb: "Run the weekly pipeline for Mic Check Weekly: booking, recording sessions, and the episode checklist." },
+          { type: "Job", name: "Audio Editor, Studio Notes Daily", meta: "Contract · Remote · Posted 4 days ago", initials: "SN", tone: "amber", shape: "sq",
+            detail: [["Role", "Audio Editor"], ["Type", "Contract"], ["Location", "Remote"], ["Posted", "4 days ago"]],
+            blurb: "Edit a daily show on a same-day turnaround, with the show's team calendar and checklist inside PodSubs." },
+          { type: "Job", name: "Guest Booker, Founders on Air", meta: "Part-time · Hybrid · Posted 1 week ago", initials: "FA", tone: "green", shape: "sq",
+            detail: [["Role", "Guest Booker"], ["Type", "Part-time"], ["Location", "Hybrid"], ["Posted", "1 week ago"]],
+            blurb: "Find and book founders for a twice-weekly interview show, working from the guest directory." }
+        ];
+
+        var TOPIC_POSTS = {
+          "All Topics": [
+            ["How Mic Check Weekly doubled its downloads in six months", "Podcast Growth · Post by Maya Chen"],
+            ["The microphone chain behind three top interview shows", "Recording and Gear · Post by Jordan Blake"],
+            ["What a producer actually does all week", "Editing and Production · Post by Priya Nair"]
+          ],
+          "Podcast Growth": [
+            ["How Mic Check Weekly doubled its downloads in six months", "Post by Maya Chen · 214 comments"],
+            ["Guest swaps that actually move downloads", "Post by Dr. Lena Brooks · 96 comments"]
+          ],
+          "Recording and Gear": [
+            ["The microphone chain behind three top interview shows", "Post by Jordan Blake · 88 comments"],
+            ["Treating a small room without building a studio", "Post by Sam Ortiz · 41 comments"]
+          ],
+          "Editing and Production": [
+            ["What a producer actually does all week", "Post by Priya Nair · 132 comments"],
+            ["The seven stage episode checklist our team runs on", "Post by Maya Chen · 64 comments"]
+          ],
+          "Monetization": [
+            ["Pricing a first sponsor without a media kit", "Post by Marcus Webb · 77 comments"],
+            ["When a show is ready for ads, and when it is not", "Post by Dr. Lena Brooks · 52 comments"]
+          ],
+          "Interview Skills": [
+            ["Questions that get a guest to tell the real story", "Post by Priya Nair · 148 comments"],
+            ["The pre-interview call, done in fifteen minutes", "Post by Sam Ortiz · 39 comments"]
+          ],
+          "Podcast News": [
+            ["This week in podcasting: the shows, deals, and moves", "PodSubs News · Updated today"],
+            ["Three networks opened their rosters this week", "PodSubs News · Updated yesterday"]
+          ],
+          "Live Events": [
+            ["Podcast meetups and conferences worth the trip", "Events directory · 12 upcoming"],
+            ["Recording live in front of an audience, a field guide", "Post by Jordan Blake · 28 comments"]
+          ]
+        };
+
+        var JOB_LISTINGS = {
+          "Producer": [["Producer, Mic Check Weekly", "Full-time · Remote · Posted 2 days ago"], ["Producer, Story Signals", "Part-time · New York · Posted 3 days ago"]],
+          "Editor": [["Editor, The Producer's Cut", "Full-time · Remote · Posted 1 day ago"], ["Editor, The Guest List", "Contract · Remote · Posted 5 days ago"]],
+          "Host": [["Co-host, Founders on Air", "Part-time · Hybrid · Posted 2 days ago"], ["Host, Studio Notes Daily", "Full-time · Chicago · Posted 1 week ago"]],
+          "Sound Designer": [["Sound Designer, Story Signals", "Contract · Remote · Posted 4 days ago"]],
+          "Guest Booker": [["Guest Booker, Founders on Air", "Part-time · Hybrid · Posted 1 week ago"], ["Guest Booker, Mic Check Weekly", "Full-time · Remote · Posted 3 days ago"]],
+          "Showrunner": [["Showrunner, The Guest List", "Full-time · Los Angeles · Posted 6 days ago"]],
+          "Marketing": [["Growth Marketer, Mic Check Weekly", "Full-time · Remote · Posted 2 days ago"]],
+          "Video Editor": [["Video Editor, Founders on Air", "Contract · Remote · Posted 1 day ago"]],
+          "Writer": [["Writer, Story Signals", "Contract · Remote · Posted 4 days ago"]],
+          "Audio Engineer": [["Audio Engineer, Studio Notes Daily", "Full-time · Nashville · Posted 3 days ago"]],
+          "Social Media": [["Social Media Producer, The Guest List", "Part-time · Remote · Posted 2 days ago"]],
+          "Operations": [["Operations Lead, Mic Check Weekly", "Full-time · Austin · Posted 1 week ago"]]
+        };
+
+        /* ---------- Modal ---------- */
+        var overlay = document.getElementById("modalOverlay");
+        var modalBody = document.getElementById("modalBody");
+        var lastFocus = null;
+
+        function avatarHtml(item, size) {
+          return '<span class="avatar ' + item.tone + " " + item.shape + '"' +
+            (size ? ' style="width:' + size + "px;height:" + size + "px;" : "") + '">' + item.initials + "</span>";
+        }
+        function credChip(item) {
+          if (!item.cred) return "";
+          return '<span class="cred-chip ' + item.cred[1] + '">' + item.cred[0] + "</span>";
+        }
+        function openModal(html) {
+          lastFocus = document.activeElement;
+          modalBody.innerHTML = html;
+          overlay.classList.add("open");
+          document.body.style.overflow = "hidden";
+          var closeBtn = document.getElementById("modalClose");
+          if (closeBtn) closeBtn.focus();
+          wireModal();
+        }
+        function closeModal() {
+          overlay.classList.remove("open");
+          document.body.style.overflow = "";
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+        document.getElementById("modalClose").addEventListener("click", closeModal);
+        overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModal(); hideResults(); } });
+
+        function itemDetail(item) {
+          var rows = item.detail.map(function (d) {
+            return '<div class="row"><dt>' + d[0] + "</dt><dd>" + d[1] + "</dd></div>";
+          }).join("");
+          var action = item.type === "Job" ? "Apply for this job"
+            : item.type === "Guest" ? "Book this guest"
+            : item.type === "Person" ? "Follow " + item.name.split(" ")[0]
+            : "Follow this show";
+          openModal(
+            '<p class="kicker">' + item.type + "</p>" +
+            '<h3 id="modalTitle">' + item.name + "</h3>" +
+            '<p class="lede">' + item.meta + "</p>" +
+            '<p class="lede">' + item.blurb + "</p>" +
+            (credChip(item) ? "<p>" + credChip(item) + "</p>" : "") +
+            '<dl class="detail-rows">' + rows + "</dl>" +
+            '<p class="lede" style="margin-top:14px;">You are browsing free, no account needed. Join only when you want to interact.</p>' +
+            '<div class="modal-actions">' +
+              '<button class="btn btn-navy" type="button" data-join>' + action + "</button>" +
+              '<button class="btn btn-outline" type="button" data-close>Keep browsing</button>' +
+            "</div>"
+          );
+        }
+
+        /* ---------- Hub pages ---------- */
+        var landingMain = document.querySelector(".landing-main");
+        var hubMain = document.getElementById("hubMain");
+        var hubListView = document.getElementById("hubListView");
+        var hubDetailView = document.getElementById("hubDetailView");
+        var hubTitle = document.getElementById("hubTitle");
+        var hubKicker = document.getElementById("hubKicker");
+        var hubSub = document.getElementById("hubSub");
+        var hubSearch = document.getElementById("hubSearch");
+        var hubGrid = document.getElementById("hubGrid");
+        var hubCount = document.getElementById("hubCount");
+        var hubEmpty = document.getElementById("hubEmpty");
+        var hubDetailBody = document.getElementById("hubDetailBody");
+        var detailBackLabel = document.getElementById("detailBackLabel");
+        var currentList = { label: "Home", items: [] };
+
+        var HUBS = {
+          shows: { label: "Shows", kicker: "Browse PodSubs", title: "Shows", sub: "Every show page is open to read: the show, its people, and what it is about. Follow a show once you join.", placeholder: "Search shows by name or topic", type: "Show" },
+          people: { label: "People", kicker: "Browse PodSubs", title: "People in podcasting", sub: "Producers, editors, hosts, and bookers, with the credits they have earned, confirmed by the shows they work on.", placeholder: "Search people by name or role", type: "Person" },
+          guests: { label: "Guests", kicker: "Browse PodSubs", title: "Guests shows can book", sub: "Search by topic, read past appearances, and see who is open to be a guest right now.", placeholder: "Search guests by name or topic", type: "Guest" },
+          jobs: { label: "Jobs", kicker: "Browse PodSubs", title: "Podcasting jobs", sub: "Real roles on real shows, posted by the people who run them. Read every listing in full.", placeholder: "Search jobs by role, show, or place", type: "Job" }
+        };
+
+        function jobItems() {
+          var tones = ["", "amber", "rust", "green"];
+          var items = [];
+          var n = 0;
+          Object.keys(JOB_LISTINGS).forEach(function (role) {
+            JOB_LISTINGS[role].forEach(function (j) {
+              var parts = j[1].split("·").map(function (s) { return s.trim(); });
+              var showPart = j[0].split(", ")[1] || role;
+              var initials = showPart.split(" ").map(function (w) { return w.charAt(0); }).slice(0, 2).join("");
+              var match = null;
+              CATALOG.forEach(function (c) { if (c.type === "Job" && c.name === j[0]) match = c; });
+              items.push({
+                type: "Job", name: j[0], meta: j[1],
+                initials: initials, tone: tones[n % tones.length], shape: "sq",
+                detail: [["Role", role], ["Type", parts[0] || ""], ["Location", parts[1] || ""], ["Posted", (parts[2] || "").replace(/^Posted /, "")]],
+                blurb: match ? match.blurb : "An open role on a PodSubs show. The full listing is free to read; joining is how you apply."
+              });
+              n++;
+            });
+          });
+          return items;
+        }
+
+        function hubItems(kind) {
+          if (kind === "jobs") return jobItems();
+          var type = HUBS[kind].type;
+          return CATALOG.filter(function (i) { return i.type === type; });
+        }
+
+        function renderList() {
+          var q = hubSearch.value.trim().toLowerCase();
+          var shown = currentList.items.filter(function (i) {
+            return !q || (i.name + " " + i.meta + " " + (i.type || "")).toLowerCase().indexOf(q) !== -1;
+          });
+          hubCount.textContent = shown.length + (shown.length === 1 ? " result" : " results") + " · Sample data from the demo directory";
+          hubEmpty.hidden = shown.length > 0;
+          hubGrid.innerHTML = shown.map(function (item) {
+            var idx = currentList.items.indexOf(item);
+            return '<button class="hub-card" type="button" data-hub-item="' + idx + '">' +
+              avatarHtml(item, 52) +
+              '<span class="sr-main"><span class="sr-name">' + item.name + '</span><br><span class="sr-meta">' + item.meta + "</span>" +
+              (item.cred ? "<br>" + credChip(item) : "") + "</span>" +
+              '<span class="hub-card-arrow" aria-hidden="true">&rsaquo;</span></button>';
+          }).join("");
+          hubGrid.querySelectorAll("[data-hub-item]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              showDetailPage(currentList.items[parseInt(b.getAttribute("data-hub-item"), 10)]);
+            });
+          });
+        }
+
+        function showListPage(cfg) {
+          currentList = cfg;
+          hubKicker.textContent = cfg.kicker;
+          hubTitle.textContent = cfg.title;
+          hubSub.textContent = cfg.sub;
+          hubSearch.placeholder = cfg.placeholder;
+          hubSearch.value = cfg.filter || "";
+          hubSearch.setAttribute("aria-label", cfg.placeholder);
+          detailBackLabel.textContent = cfg.label.toLowerCase();
+          hubDetailView.hidden = true;
+          hubListView.hidden = false;
+          landingMain.style.display = "none";
+          hubMain.hidden = false;
+          renderList();
+          window.scrollTo(0, 0);
+        }
+
+        function showHub(kind, filter, skipPush) {
+          var hub = HUBS[kind];
+          if (!hub) return;
+          showListPage({ label: hub.label, kicker: hub.kicker, title: hub.title, sub: hub.sub, placeholder: hub.placeholder, items: hubItems(kind), filter: filter || "" });
+          if (!skipPush) { try { history.pushState({ hub: kind }, "", "#" + kind); } catch (e) {} }
+        }
+
+        function showTopicPage(topic) {
+          var posts = TOPIC_POSTS[topic] || TOPIC_POSTS["All Topics"];
+          var items = posts.map(function (p) {
+            return { type: "Post", name: p[0], meta: p[1], initials: "P", tone: "rust", shape: "sq",
+              detail: [["Topic", topic === "All Topics" ? "All topics" : topic], ["Format", "Post"]],
+              blurb: "A sample post from the demo directory, free to read in full. Join to post and comment." };
+          });
+          showListPage({ label: "Content topics", kicker: "Content topics", title: topic === "All Topics" ? "Top podcasting content" : topic, sub: "Posts and expert insights, curated by topic and in one place. Read free; join to post and comment.", placeholder: "Search posts", items: items });
+          try { history.pushState({ topic: topic }, "", "#explore"); } catch (e) {}
+        }
+
+        function showDetailPage(item) {
+          var rows = item.detail.map(function (d) {
+            return '<div class="row"><dt>' + d[0] + "</dt><dd>" + d[1] + "</dd></div>";
+          }).join("");
+          var action = item.type === "Job" ? "Apply for this job"
+            : item.type === "Guest" ? "Book this guest"
+            : item.type === "Person" ? "Follow " + item.name.split(" ")[0]
+            : item.type === "Post" ? "Join to comment"
+            : "Follow this show";
+          hubDetailBody.innerHTML =
+            '<p class="kicker">' + item.type + "</p>" +
+            '<div class="detail-head">' + avatarHtml(item, 64) +
+              '<div><h2 class="detail-title">' + item.name + '</h2><p class="hub-sub" style="margin:4px 0 0;">' + item.meta + "</p>" +
+              (item.cred ? '<p style="margin:8px 0 0;">' + credChip(item) + "</p>" : "") + "</div></div>" +
+            '<p style="font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:640px;margin:0 0 18px;">' + item.blurb + "</p>" +
+            '<dl class="detail-rows" style="max-width:640px;">' + rows + "</dl>" +
+            '<div class="modal-actions">' +
+              '<button class="btn btn-navy" type="button" id="detailAction">' + action + "</button>" +
+              '<button class="btn btn-outline" type="button" id="detailBackBtn">Back to ' + currentList.label.toLowerCase() + "</button>" +
+            "</div>";
+          hubListView.hidden = true;
+          hubDetailView.hidden = false;
+          window.scrollTo(0, 0);
+          document.getElementById("detailAction").addEventListener("click", function () { joinPanel("join"); });
+          document.getElementById("detailBackBtn").addEventListener("click", backToList);
+        }
+
+        function backToList() {
+          hubDetailView.hidden = true;
+          hubListView.hidden = false;
+          window.scrollTo(0, 0);
+        }
+
+        function showLanding(skipPush) {
+          hubMain.hidden = true;
+          landingMain.style.display = "";
+          if (!skipPush) { try { history.pushState({}, "", "#top"); } catch (e) {} }
+          window.scrollTo(0, 0);
+        }
+
+        hubSearch.addEventListener("input", renderList);
+        document.getElementById("hubBack").addEventListener("click", function () { showLanding(false); });
+        document.getElementById("detailBack").addEventListener("click", backToList);
+        window.addEventListener("popstate", function () {
+          var h = location.hash.replace("#", "");
+          if (HUBS[h]) showHub(h, "", true);
+          else if (!hubMain.hidden) showLanding(true);
+        });
+        document.querySelectorAll('a[href="#top"], a[href="#explore"]').forEach(function (el) {
+          el.addEventListener("click", function (e) {
+            if (hubMain.hidden) return;
+            e.preventDefault();
+            var targetId = el.getAttribute("href").slice(1);
+            showLanding(true);
+            try { history.pushState({}, "", "#" + targetId); } catch (err) {}
+            var t = document.getElementById(targetId);
+            if (t) t.scrollIntoView();
+          });
+        });
+        (function () {
+          var h = location.hash.replace("#", "");
+          if (HUBS[h]) showHub(h, "", true);
+        })();
+
+        function joinPanel(mode) {
+          var isClaim = mode === "claim";
+          var isPost = mode === "postjob";
+          var title = isClaim ? "Claim your show" : isPost ? "Post a job" : "Join PodSubs";
+          var lede = isClaim
+            ? "Claiming is how a show gets verified. Once you claim, you can add your people, send them join links, and run bookings, your team, and jobs from one place."
+            : isPost
+            ? "Posting a job takes a PodSubs account, so the show behind the listing is a real, claimed show. Join free and your listing reaches the people who make podcasts."
+            : "Join the professional network for podcasting. Browsing stays free forever; your account is for following, booking, posting, and building your credits.";
+          var fieldLabel = isClaim ? "Your show's name" : "Email address";
+          var fieldType = isClaim ? "text" : "email";
+          var fieldPlaceholder = isClaim ? "e.g. Mic Check Weekly" : "you@example.com";
+          var cta = isClaim ? "Start your claim" : isPost ? "Join and post a job" : "Join the network";
+          openModal(
+            '<p class="kicker">' + (isClaim ? "For show owners" : "Free to join") + "</p>" +
+            '<h3 id="modalTitle">' + title + "</h3>" +
+            '<p class="lede">' + lede + "</p>" +
+            '<form id="joinForm">' +
+              '<div class="field"><label for="joinName">Your name</label>' +
+              '<input id="joinName" type="text" placeholder="Your full name" required /></div>' +
+              '<div class="field"><label for="joinField">' + fieldLabel + "</label>" +
+              '<input id="joinField" type="' + fieldType + '" placeholder="' + fieldPlaceholder + '" required /></div>' +
+              '<div class="modal-actions" style="margin-top:6px;">' +
+                '<button class="btn btn-navy" type="submit">' + cta + "</button>" +
+                '<button class="btn btn-outline" type="button" data-close>Not now</button>' +
+              "</div>" +
+              '<p class="lede" style="font-size:13px;margin-top:14px;">This is a design demo, so the form shows the flow and does not send anything.</p>' +
+            "</form>"
+          );
+          var form = document.getElementById("joinForm");
+          if (form) {
+            form.addEventListener("submit", function (e) {
+              e.preventDefault();
+              openModal(
+                '<div class="join-success">' +
+                  '<span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L5.3 12l-1.4 1.4 5.6 5.6 11-11L19.1 6.6z"/></svg></span>' +
+                  '<h3 id="modalTitle" style="margin:0 0 10px;">You are on your way</h3>' +
+                  '<p class="lede">In the live app this is where your account begins: your profile, your credits, and your shows, all in one place.</p>' +
+                  '<div class="modal-actions" style="justify-content:center;"><button class="btn btn-navy" type="button" data-close>Back to the page</button></div>' +
+                "</div>"
+              );
+            });
+          }
+        }
+
+        function wireModal() {
+          modalBody.querySelectorAll("[data-close]").forEach(function (b) {
+            b.addEventListener("click", closeModal);
+          });
+          modalBody.querySelectorAll("[data-join]").forEach(function (b) {
+            b.addEventListener("click", function () { joinPanel("join"); });
+          });
+          modalBody.querySelectorAll("[data-item]").forEach(function (b) {
+            b.addEventListener("click", function () { itemDetail(CATALOG[parseInt(b.getAttribute("data-item"), 10)]); });
+          });
+        }
+
+        /* ---------- Page-level wiring ---------- */
+        document.querySelectorAll("[data-browse]").forEach(function (el) {
+          el.addEventListener("click", function (e) {
+            e.preventDefault();
+            showHub(el.getAttribute("data-browse"));
+          });
+        });
+        document.querySelectorAll("[data-join]").forEach(function (el) {
+          if (el.closest(".modal")) return;
+          el.addEventListener("click", function (e) { e.preventDefault(); joinPanel("join"); });
+        });
+        document.querySelectorAll("[data-claim]").forEach(function (el) {
+          el.addEventListener("click", function (e) { e.preventDefault(); joinPanel("claim"); });
+        });
+        document.querySelectorAll("[data-postjob]").forEach(function (el) {
+          el.addEventListener("click", function (e) { e.preventDefault(); joinPanel("postjob"); });
+        });
+        document.querySelectorAll("[data-topic]").forEach(function (el) {
+          el.addEventListener("click", function () {
+            document.querySelectorAll("[data-topic]").forEach(function (p) { p.classList.remove("active"); });
+            el.classList.add("active");
+            showTopicPage(el.getAttribute("data-topic"));
+          });
+        });
+        document.querySelectorAll("[data-job]").forEach(function (el) {
+          el.addEventListener("click", function () { showHub("jobs", el.getAttribute("data-job")); });
+        });
+
+        var showMoreBtn = document.getElementById("showMoreJobs");
+        var moreJobs = document.getElementById("moreJobs");
+        showMoreBtn.addEventListener("click", function () {
+          var open = moreJobs.classList.toggle("open");
+          showMoreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+          showMoreBtn.childNodes[0].textContent = open ? "Show less " : "Show more ";
+        });
+
+        /* ---------- Header shadow ---------- */
+        var header = document.getElementById("siteHeader");
+        window.addEventListener("scroll", function () {
+          header.classList.toggle("scrolled", window.scrollY > 4);
+        }, { passive: true });
+
+        /* ---------- Search ---------- */
+        var input = document.getElementById("searchInput");
+        var results = document.getElementById("searchResults");
+        var form = document.getElementById("searchForm");
+        var activeIdx = -1;
+
+        function matches(q) {
+          q = q.trim().toLowerCase();
+          if (!q) return CATALOG.slice(0, 8);
+          return CATALOG.filter(function (i) {
+            return (i.name + " " + i.meta + " " + i.type).toLowerCase().indexOf(q) !== -1;
+          });
+        }
+        function renderResults(q) {
+          var found = matches(q);
+          activeIdx = -1;
+          if (!found.length) {
+            results.innerHTML = '<div class="sr-empty">No matches for &ldquo;' + q.replace(/</g, "&lt;") + '&rdquo; yet. Try a show name, a role like editor, or a topic like growth.</div>' +
+              '<div class="sr-foot">Sample results from the demo directory. Browsing is free.</div>';
+          } else {
+            var lastType = "";
+            var html = "";
+            found.forEach(function (item) {
+              if (item.type !== lastType) {
+                html += '<div class="sr-group">' + item.type + "s</div>";
+                lastType = item.type;
+              }
+              html += '<button class="sr-item" type="button" role="option" data-item="' + CATALOG.indexOf(item) + '">' +
+                avatarHtml(item) +
+                '<span class="sr-main"><span class="sr-name">' + item.name + '</span><br><span class="sr-meta">' + item.meta + "</span></span>" +
+                '<span class="sr-tag">' + item.type + "</span></button>";
+            });
+            html += '<div class="sr-foot">Sample results from the demo directory. Browsing is free.</div>';
+            results.innerHTML = html;
+          }
+          results.querySelectorAll("[data-item]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              hideResults();
+              itemDetail(CATALOG[parseInt(b.getAttribute("data-item"), 10)]);
+            });
+          });
+          results.classList.add("open");
+          input.setAttribute("aria-expanded", "true");
+        }
+        function hideResults() {
+          results.classList.remove("open");
+          input.setAttribute("aria-expanded", "false");
+        }
+        input.addEventListener("focus", function () { renderResults(input.value); });
+        input.addEventListener("input", function () { renderResults(input.value); });
+        input.addEventListener("keydown", function (e) {
+          var items = results.querySelectorAll(".sr-item");
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            if (!items.length) return;
+            activeIdx = e.key === "ArrowDown"
+              ? Math.min(activeIdx + 1, items.length - 1)
+              : Math.max(activeIdx - 1, 0);
+            items.forEach(function (it, i) { it.classList.toggle("active", i === activeIdx); });
+            items[activeIdx].scrollIntoView({ block: "nearest" });
+          } else if (e.key === "Enter" && activeIdx >= 0 && items[activeIdx]) {
+            e.preventDefault();
+            items[activeIdx].click();
+          }
+        });
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          renderResults(input.value);
+          var first = results.querySelector(".sr-item");
+          if (first) first.focus();
+        });
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".search-block")) hideResults();
+        });
+      })();
+    </script>
+  </body>
+</html>
